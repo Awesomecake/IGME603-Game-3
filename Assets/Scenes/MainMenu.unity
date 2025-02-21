@@ -3433,7 +3433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <wave a=0.1 f=1 w=1>Game #3</wave>
+  m_text: Game #3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
   m_sharedMaterial: {fileID: -5759785099892792785, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
@@ -3525,7 +3525,7 @@ MonoBehaviour:
   typewriterStartsAutomatically: 0
   animationLoop: 0
   timeScale: 0
-  _text: <wave a=0.1 f=1 w=1>Game #3</wave>
+  _text: Game #3
   useDynamicScaling: 1
   referenceFontSize: 10
   isResettingTimeOnNewText: 1
@@ -3535,11 +3535,11 @@ MonoBehaviour:
   useDefaultStyleSheet: 1
   styleSheet: {fileID: 0}
   databaseActions: {fileID: 11400000, guid: d537f3ab6c2158f4f9d55f9a8ae462e8, type: 2}
-  defaultAppearancesTags:
-  - size
+  defaultAppearancesTags: []
   defaultDisappearancesTags:
   - fade
-  defaultBehaviorsTags: []
+  defaultBehaviorsTags:
+  - wave a=0.1 f=1 w=1
   defaultTagsMode: 0
 --- !u!1 &1222522941
 GameObject:
