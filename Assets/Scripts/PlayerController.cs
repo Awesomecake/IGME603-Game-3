@@ -7,9 +7,11 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     bool isMoving;
-    Vector2 moveDirection;
+    Vector2 lastMoveDirection;
 
     private Rigidbody2D rigidbody;
+
+    public GameObject item1;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +24,31 @@ public class PlayerController : MonoBehaviour
     {
         if (isMoving)
         {
-            rigidbody.AddForce(moveDirection * (Time.deltaTime * 500f));
+            rigidbody.AddForce(lastMoveDirection * (Time.deltaTime * 500f));
         }
     }
 
     public void InputActionMove(InputAction.CallbackContext context)
     {
-        moveDirection = context.ReadValue<Vector2>().normalized;
+        Vector2 moveDirection = context.ReadValue<Vector2>().normalized;
 
         isMoving = (moveDirection != Vector2.zero);
+
+        if (isMoving)
+        {
+            lastMoveDirection = moveDirection;
+        }
+    }
+
+    public void InputActionThrow(InputAction.CallbackContext context)
+    {
+        GameObject item = Instantiate(item1, transform);
+
+        Throwable throwable = item.GetComponent<Throwable>();
+
+        if (throwable != null)
+        {
+            throwable.ThrowItem(500f, lastMoveDirection);
+        }
     }
 }
