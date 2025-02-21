@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class UISway : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField]private float amount;
+	[SerializeField] private float speed;
 
-    // Update is called once per frame
-    void Update()
+	private RectTransform rect; 
+
+    private void Start()
     {
-        
+		rect = GetComponent<RectTransform>();
+	}
+
+    private void Update()
+	{
+		if (Mouse.current == null) return;
+
+		rect.localPosition = Vector3.Lerp(rect.localPosition, (-Mouse.current.position.ReadValue() + new Vector2(Screen.width / 2, Screen.height / 2)) * amount / 100, Time.unscaledDeltaTime * speed);
     }
 }
