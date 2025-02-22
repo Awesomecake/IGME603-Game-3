@@ -19,6 +19,10 @@ public class GrappleHook : Throwable
 
     public override void ThrownItemCollided(Collider2D collision)
     {
+        //trying to catch potential retriggers on the collision detection
+        if (hasCollidedToDynamic)
+            return;
+
         //Stops projectile from moving anymore
         projectileRigidBody.velocity= Vector3.zero;
         projectileRigidBody.isKinematic = true;
