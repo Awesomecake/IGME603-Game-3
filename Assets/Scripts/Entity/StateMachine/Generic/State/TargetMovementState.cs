@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class SimpleTargetMovementState : State
+public class TargetMovementState : State
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private float movementSpeed = 3f;
@@ -12,13 +11,12 @@ public class SimpleTargetMovementState : State
         var target = simpleTargetContainer.GetCurrentTarget();
         if (!target) return;
 
-        var trueSpeed = movementSpeed * Time.fixedTime;
         var vectorToTarget = target.position - body.transform.position;
         var directionToTarget = vectorToTarget.normalized;
         var facingAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         
         body.rotation = facingAngle;
-        body.velocity = trueSpeed * directionToTarget;
+        body.velocity = movementSpeed * directionToTarget;
     }
 
     public override void Exit()
