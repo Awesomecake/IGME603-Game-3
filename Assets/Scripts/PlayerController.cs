@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Get movement input from InputActions, update movement logic
     public void InputActionMove(InputAction.CallbackContext context)
     {
         Vector2 moveDirection = context.ReadValue<Vector2>().normalized;
@@ -40,15 +41,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Trigger throw effect, spawn thrown object
     public void InputActionThrow(InputAction.CallbackContext context)
     {
-        GameObject item = Instantiate(item1, transform);
-
-        Throwable throwable = item.GetComponent<Throwable>();
-
-        if (throwable != null)
+        if (context.started)
         {
-            throwable.ThrowItem(500f, lastMoveDirection);
+            GameObject item = Instantiate(item1, transform);
+
+            Throwable throwable = item.GetComponent<Throwable>();
+
+            if (throwable != null)
+            {
+                throwable.ThrowItem(500f, lastMoveDirection);
+            }
         }
     }
 }
