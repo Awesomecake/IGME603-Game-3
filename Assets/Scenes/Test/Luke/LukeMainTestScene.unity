@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 783419485}
-  runOnStart: 1
+  isRunning: 1
   resumeBehavior: 0
   lastTransition: 0
 --- !u!114 &2089446302
