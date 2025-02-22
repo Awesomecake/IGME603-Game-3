@@ -1,7 +1,12 @@
 ﻿title: Tester1
 tags:
 ---
+...
+<<ActivateCharacterChildByIndex 0 true>>
 Bobby: Yeah I sure do be testing
 Bobby: Testing to see if this works.
+<<ActivateCharacterChildByIndex 1 true>>
 John: I'm pretty sure it's work <shake a=0.4 d=1>HECK YEAH!</shake>
+<<ActivateCharacterChildByIndex 0 false>>
+<<ActivateCharacterChildByIndex 1 false>>
 ===
