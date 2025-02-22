@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Throwable : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] protected Rigidbody2D projectileRigidBody;
 
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        rb.AddForce(direction*strength);
+        projectileRigidBody.AddForce(direction*strength);
     }
 
     //Detecting when item overlaps a rigidbody

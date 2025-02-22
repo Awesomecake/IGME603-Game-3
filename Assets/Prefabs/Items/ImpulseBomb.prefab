@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a85577f7af73c345bad39934c374048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 3011738169616895343}
+  projectileRigidBody: {fileID: 3011738169616895343}
   knockbackForce: 300
   explosionPrefab: {fileID: 4395655004753618120, guid: 924a4679be59bd14e9848b189bdc80a2, type: 3}
 --- !u!50 &3011738169616895343

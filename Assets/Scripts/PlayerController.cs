@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector2 lastMoveDirection;
 
     private Rigidbody2D rigidbody;
+    public Rigidbody2D Rigidbody { get { return rigidbody; } }
 
     public GameObject item1;
 
