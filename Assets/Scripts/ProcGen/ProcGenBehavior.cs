@@ -8,11 +8,12 @@ using UnityEngine.Tilemaps;
 public class ProcGenBehavior : MonoBehaviour
 {
     [Header("Generation vars")]
-    [SerializeField] private int terrainWidth = 0;
-    [SerializeField] private int terrainHeight = 0;
+    [SerializeField] private uint terrainWidth = 0;
+    [SerializeField] private uint terrainHeight = 0;
     [SerializeField] private float noiseAmplitude = 0.5f;
     [SerializeField] private float magnification = 1f;
     [SerializeField] private float seed = 0f;
+    [SerializeField] private uint boarderWidth = 10;
 
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
@@ -59,6 +60,9 @@ public class ProcGenBehavior : MonoBehaviour
 
         //Render a tilemap using the array
         RenderMap(map, groundTileMap, groundTile);
+
+        //Generate and render a boarder of width = boarderWidth around the rendered map
+        GenerateAndRenderBoarder(boarderWidth, groundTileMap, groundTile);
     }
 
     /// <summary>
@@ -69,7 +73,7 @@ public class ProcGenBehavior : MonoBehaviour
     /// <param name="terrainHeight"> terrainHeight of 2D integer array </param>
     /// <param name="empty"> whether 2D integer array should be filled with 0s or 1s </param>
     /// <returns> A 2D integer array of either 0s or 1s based on the value of empty </returns>
-    private int[,] GenerateArray(int terrainWidth, int terrainHeight, bool empty)
+    private int[,] GenerateArray(uint terrainWidth, uint terrainHeight, bool empty)
     {
         //create 2D integer array of terrainWidth = terrainWidth and terrainHeight = terrainHeight
         int[,] map = new int[terrainWidth, terrainHeight];
@@ -146,8 +150,46 @@ public class ProcGenBehavior : MonoBehaviour
         }
     }
 
-    private void GenerateBoarder(int[,] map)
+    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap groundTileMap, TileBase groundTileBase)
     {
+        //get and store terrainWidth and terrainHeight of map
+        int terrainWidth = map.GetLength(0);
+        int terrainHeight = map.GetLength(1);
 
+        //generate right boarder from (-boarderWidth, -boarderWidth) to (0, terrainHeight + boarderWidth)
+        for (int x = (int)(0 - boarderWidth); x < 0; x++)
+        {
+            for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
+            {
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+            }
+        }
+
+        //generate top boarder from (0, terrainHeight) to (terrainWidth, terrainHeight + boarderWidth)
+        for (int x = 0; x < terrainHeight; x++)
+        {
+            for (int y = terrainWidth; y < terrainHeight + boarderWidth; y++)
+            {
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+            }
+        }
+
+        //generate left boarder from (terrainWidth, -boarderWidth) to (terrainWidth + boarderWidth, terrainHeight + boarderWidth)
+        for (int x = terrainWidth; x < terrainWidth + boarderWidth; x++)
+        {
+            for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
+            {
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+            }
+        }
+
+        //generate bottom boarder from (0, -boarderWidth) to (terrainWidth, 0)
+        for (int x = 0; x < terrainWidth; x++)
+        {
+            for (int y = (int)(0 - boarderWidth); y < 0; y++)
+            {
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+            }
+        }
     }
 }

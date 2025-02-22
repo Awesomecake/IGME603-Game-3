@@ -436,6 +436,7 @@ MonoBehaviour:
   noiseAmplitude: 0.5
   magnification: 7
   seed: 0
+  boarderWidth: 10
   groundTile: {fileID: 11400000, guid: 3820b1e236877a041b43920b104adc1e, type: 2}
   groundTileMap: {fileID: 1750480631}
 --- !u!4 &736217605
