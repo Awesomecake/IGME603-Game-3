@@ -126,6 +126,7 @@ public class HierarchicalStateMachine : State
         {
             if (!transition.NeedsTransition()) continue;
             ChangeState(transition.toState);
+            transition.onTransitionSideEffect?.Invoke();
             break;
         }
     }

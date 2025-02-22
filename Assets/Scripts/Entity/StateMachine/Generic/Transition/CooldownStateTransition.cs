@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CooldownTransition : StateTransition
+public class CooldownStateTransition : StateTransition
 {
     [SerializeField] private float durationSeconds;
     
