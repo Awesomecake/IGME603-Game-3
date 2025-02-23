@@ -585,6 +585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item1: {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
+  item2: {fileID: 0}
+  item3: {fileID: 0}
 --- !u!212 &687500392
 SpriteRenderer:
   m_ObjectHideFlags: 0
