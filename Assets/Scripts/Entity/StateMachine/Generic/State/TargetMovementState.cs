@@ -4,13 +4,13 @@ public class TargetMovementState : State
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private float movementSpeed = 3f;
-    [SerializeField] private TargetContainer simpleTargetContainer;
+    [SerializeField] private AbstractTargetContainer simpleTargetContainer;
     
     public override void PhysicsUpdate()
     {
         var target = simpleTargetContainer.GetCurrentTarget();
         if (!target) return;
-
+        
         var vectorToTarget = target.position - body.transform.position;
         var directionToTarget = vectorToTarget.normalized;
         var facingAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;

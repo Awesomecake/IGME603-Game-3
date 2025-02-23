@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TargetContainer : MonoBehaviour
+public class TargetContainer : AbstractTargetContainer
 {
     [SerializeField] private Transform target;
 
@@ -9,7 +9,7 @@ public class TargetContainer : MonoBehaviour
         target = newTarget;
     }
 
-    public virtual Transform GetCurrentTarget()
+    public override Transform GetCurrentTarget()
     {
         return target;
     }

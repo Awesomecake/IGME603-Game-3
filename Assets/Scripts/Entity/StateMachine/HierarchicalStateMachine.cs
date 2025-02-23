@@ -16,8 +16,9 @@ public class HierarchicalStateMachine : State
     }
     
     [SerializeField] private State initialState;
-    [SerializeField] private bool isRunning = false; // only applicable to root state machine
+    [SerializeField] private bool autoStart = false; // only applicable to root state machine
     [SerializeField] private ResumeBehavior resumeBehavior = ResumeBehavior.Continue;
+    private bool _isRunning = false; 
 
     [HideInInspector] public float lastTransition = 0f;
 
@@ -28,13 +29,13 @@ public class HierarchicalStateMachine : State
     public void Begin()
     {
         Enter();
-        isRunning = true;
+        _isRunning = true;
     }
 
     // Manually stop the state machine. Only call on the root state machine.
     public void End()
     {
-        isRunning = false;
+        _isRunning = false;
         Exit();
     }
 
@@ -46,18 +47,17 @@ public class HierarchicalStateMachine : State
         SetupTransitions();
         
         // TODO add debug message warning about unreachable states
-
-        if (isRunning) Begin();
+        if (autoStart) StartCoroutine(Util.AfterDelay(0.1f, Begin));
     }
 
     private void Update()
     {
-        if (isRunning) FrameUpdate();
+        if (_isRunning) FrameUpdate();
     }
 
     private void FixedUpdate()
     {
-        if (isRunning) PhysicsUpdate();
+        if (_isRunning) PhysicsUpdate();
     }
 
     private void FindInitialState()
@@ -141,8 +141,13 @@ public class HierarchicalStateMachine : State
         lastTransition = Time.time;
     }
 
-    public override State GetCurrentState()
+    public State GetCurrentState()
     {
         return _currentState;
+    }
+    
+    public override State GetRunningState()
+    {
+        return _currentState.GetRunningState();
     }
 }
