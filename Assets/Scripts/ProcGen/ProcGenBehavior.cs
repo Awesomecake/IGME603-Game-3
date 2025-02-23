@@ -56,6 +56,16 @@ public class ProcGenBehavior : MonoBehaviour
         }
     }
 
+    public void ChangeMagnitude(float newMag)
+    {
+        magnification = newMag;
+    }
+
+    public void ChangeSeed(float newSeed)
+    {
+        seed = newSeed;
+    }
+
     /// <summary>
     /// Generate 2D procedural terrain
     /// </summary>
