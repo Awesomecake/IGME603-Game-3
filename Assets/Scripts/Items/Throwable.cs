@@ -15,7 +15,7 @@ public class Throwable : MonoBehaviour
     //Detecting when item overlaps a rigidbody
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.tag.Equals("Player"))
+        if (!collision.tag.Equals("Player") && !collision.tag.Equals("Projectile"))
         {
             ThrownItemCollided(collision);
         }

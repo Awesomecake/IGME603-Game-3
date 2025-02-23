@@ -21,7 +21,7 @@ public class ImpulseBomb : Throwable
             Rigidbody2D colRB = col.GetComponent<Rigidbody2D>();
 
             //check if they have rigidbody
-            if (colRB != null)
+            if (colRB != null && !col.gameObject.tag.Equals("Projectile"))
             {
                 //Calc distance between entity and explosion center
                 float distance = Vector2.Distance(colRB.position, transform.position);

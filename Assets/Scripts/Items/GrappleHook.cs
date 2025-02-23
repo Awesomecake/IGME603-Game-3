@@ -60,7 +60,7 @@ public class GrappleHook : Throwable
 
     private void Update()
     {
-        if (hasCollidedToDynamic)
+        if (hasCollidedToDynamic && newAttachedTarget != null)
         {
             projectileRigidBody.gameObject.transform.position = newAttachedTarget.transform.position;
         }
