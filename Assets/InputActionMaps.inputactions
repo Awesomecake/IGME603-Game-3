@@ -15,9 +15,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "UseItem",
+                    "name": "UseItemOne",
                     "type": "Button",
                     "id": "c87be05b-ea1c-4c55-816c-88346385e56c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseItemTwo",
+                    "type": "Button",
+                    "id": "38d69009-4c34-4faa-884c-c4141c2f36b2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseItemThree",
+                    "type": "Button",
+                    "id": "2f9a539d-48d4-4814-909c-dded8a99caa1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -138,22 +156,66 @@
                 {
                     "name": "",
                     "id": "1ba118d3-4a17-4389-886e-8e07820a42cb",
-                    "path": "<Keyboard>/#(E)",
+                    "path": "<Keyboard>/#(1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItem",
+                    "action": "UseItemOne",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "7f4cb74f-87f6-44e9-bdac-0c3f800b7f9c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItemOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c9b8d9e-4e4e-422a-a888-19bb3209b597",
+                    "path": "<Keyboard>/#(2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItemTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01e8c1fb-5ab1-4f20-99dd-ba77d2d9204a",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItem",
+                    "action": "UseItemTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "085cba0c-4293-469d-b1f5-f4f1a1d54ff2",
+                    "path": "<Keyboard>/#(3)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItemThree",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88d52fa3-225d-4398-8e08-0859f758e088",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItemThree",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
