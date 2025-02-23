@@ -2,18 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class ProcGenBehavior : MonoBehaviour
 {
-    [Header("Generation vars")]
+    [Header("Generation Vars")]
     [SerializeField] private uint terrainWidth = 0;
     [SerializeField] private uint terrainHeight = 0;
     [SerializeField] private float noiseAmplitude = 0.5f;
     [SerializeField] private float magnification = 1f;
     [SerializeField] private float seed = 0f;
     [SerializeField] private uint boarderWidth = 10;
+
+    //[Header("Random Walker Vars")]
+    //[SerializeField] private uint maxWalkStraightDistance = 5;
+    //private uint currentWalkStraightDistance = 0;
+    //[SerializeField] private float turnChancePerStep;
+    //private Direction currentDirection = Direction.RIGHT;
+
+    private enum Direction
+    {
+        RIGHT, DOWN, UP
+    };
 
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
@@ -57,6 +69,9 @@ public class ProcGenBehavior : MonoBehaviour
 
         //Generate Terrain by directly applying perlin noise
         map = GenerateTerrain(map);
+
+        //Chisel through the map from the left side to the right side using a random walker
+        map = GenerateChiselWalker(map);
 
         //Render a tilemap using the array
         RenderMap(map, groundTileMap, groundTile);
@@ -127,6 +142,94 @@ public class ProcGenBehavior : MonoBehaviour
         }
 
         //return map with perlin noise generated terrain
+        return map;
+    }
+
+    /// <summary>
+    /// Chisel through map using a random walker
+    /// </summary>
+    /// <param name="map"> Map to chisel through </param>
+    /// <returns> Map that has been chiselled through by a random walker </returns>
+    private int[,] GenerateChiselWalker(int[,] map)
+    {
+        //get and store terrainWidth and terrainHeight of map
+        int terrainWidth = map.GetLength(0);
+        int terrainHeight = map.GetLength(1);
+
+        //start at a random point on the leftmost side of the map
+        Vector2 currentTilePos = new Vector2(0, Random.Range(0, terrainHeight - 1));
+        Direction currentDirection = Direction.RIGHT;
+        Debug.Log("Starting tile point of walker = " + currentTilePos);
+
+        //initalize stepNum
+        uint stepNum = 0;
+
+        //clear the starting tile
+        map[(int)currentTilePos.x, (int)currentTilePos.y] = 0;
+
+        //iterate through terrainWidth
+        //for (int x = 0; x < terrainWidth; x++)
+        while (currentTilePos.x != terrainWidth - 1 && stepNum <= 200)
+        {
+            //***** Check all possible positions to go to *****
+            List<Direction> possibleDirections = new List<Direction>();
+            switch (currentDirection)
+            {
+                case Direction.RIGHT:
+                    possibleDirections.Add(Direction.RIGHT);
+                    possibleDirections.Add(Direction.UP);
+                    possibleDirections.Add(Direction.DOWN);
+                    break;
+                case Direction.UP:
+                    possibleDirections.Add(Direction.RIGHT);
+                    possibleDirections.Add(Direction.UP);
+                    break;
+                case Direction.DOWN:
+                    possibleDirections.Add(Direction.RIGHT);
+                    possibleDirections.Add(Direction.DOWN);
+                    break;
+            }
+
+            //if currentTilePos is at the upper or lower bounds of the map, then remove the posisbilty to pass the bounds
+            if (currentTilePos.y >= terrainHeight - 1f)
+                possibleDirections.Remove(Direction.UP);
+            else if (currentTilePos.y <= 0f)
+                possibleDirections.Remove(Direction.DOWN);
+
+            //***** From those possible directions, choose a random one to go in *****
+            Direction chosenDirection = possibleDirections[Random.Range(0, possibleDirections.Count)];
+            Debug.Log(chosenDirection.ToString());
+
+            //***** Move to the chosen position *****
+            switch (chosenDirection)
+            {
+                case Direction.RIGHT:
+                    currentTilePos.x++;
+                    break;
+                case Direction.UP:
+                    currentTilePos.y++;
+                    break;
+                case Direction.DOWN:
+                    currentTilePos.y--;
+                    break;
+            }
+
+            //clear the moved to tile
+            map[(int)currentTilePos.x, (int)currentTilePos.y] = 0;
+
+            //update currentDirection with chosenDirection
+            currentDirection = chosenDirection;
+
+            //increment stepNum
+            stepNum++;
+            Debug.Log("Current stepNum = " + stepNum + ". And position is = " + currentTilePos);
+        }
+
+        //clear the last tile
+        map[(int)currentTilePos.x, (int)currentTilePos.y] = 0;
+
+        Debug.Log("Ending tile point of walker = " + currentTilePos + ". With a total length = " + stepNum);
+        //return map
         return map;
     }
 
