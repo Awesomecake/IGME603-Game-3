@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4406843953190928275}
   - component: {fileID: 5931486908443150735}
-  - component: {fileID: 5259342145750362171}
+  - component: {fileID: 3641015656633784722}
   - component: {fileID: 3011738169616895343}
   - component: {fileID: 9198023417175416799}
   m_Layer: 0
   m_Name: ImpulseBomb
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5259342145750362171
+--- !u!114 &3641015656633784722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,10 +96,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 47576519631612836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 259b27dc528c81f4d86e63afe6f09536, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a85577f7af73c345bad39934c374048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 3011738169616895343}
+  projectileRigidBody: {fileID: 3011738169616895343}
+  knockbackForce: 300
+  explosionPrefab: {fileID: 4395655004753618120, guid: 924a4679be59bd14e9848b189bdc80a2, type: 3}
 --- !u!50 &3011738169616895343
 Rigidbody2D:
   serializedVersion: 4

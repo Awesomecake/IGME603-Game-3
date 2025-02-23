@@ -21,7 +21,7 @@ public class PauseManager : MonoBehaviour
 
     private void HandlePauseButtonPressed()
     {
-        var pressedPause = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7);
+        var pressedPause = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.JoystickButton7);
         if (!pressedPause) return;
         if (!pauseMenu.activeSelf) Pause();
         else Unpause();

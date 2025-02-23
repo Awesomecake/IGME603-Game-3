@@ -655,8 +655,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -480, y: 0.0546875}
-  m_SizeDelta: {x: 960, y: -0.39990234}
+  m_AnchoredPosition: {x: -446.4436, y: 0.0546875}
+  m_SizeDelta: {x: 1027.1128, y: -0.3999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288464045
 MonoBehaviour:
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.19215688, b: 0.2901961, a: 1}
+  m_Color: {r: 0.05206479, g: 0.11427053, b: 0.16981131, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3386,6 +3386,7 @@ GameObject:
   - component: {fileID: 1217205844}
   - component: {fileID: 1217205846}
   - component: {fileID: 1217205845}
+  - component: {fileID: 1217205847}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -3410,7 +3411,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 565.402, y: 121.72}
+  m_SizeDelta: {x: 817.542, y: 121.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217205845
 MonoBehaviour:
@@ -3432,7 +3433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game #3
+  m_text: <wave a=0.1 f=1 w=1><rainb w=0.5 f=1>RNG</rainb> Robbery</wave>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
   m_sharedMaterial: {fileID: -5759785099892792785, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
@@ -3509,6 +3510,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217205843}
   m_CullTransparentMesh: 1
+--- !u!114 &1217205847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217205843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 0
+  _text: <wave a=0.1 f=1 w=1><rainb w=0.5 f=1>RNG</rainb> Robbery</wave>
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 072ca05147b66a441b97b510614f9324, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 77bcb572c8ba3bb43b2cc0f2a077781b, type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: d537f3ab6c2158f4f9d55f9a8ae462e8, type: 2}
+  defaultAppearancesTags: []
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags:
+  - wave a=0.1 f=1 w=1
+  defaultTagsMode: 0
 --- !u!1 &1222522941
 GameObject:
   m_ObjectHideFlags: 0
@@ -4179,7 +4211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitToLerp: 1
-  menuAlphaThreshold: 0.2
+  menuAlphaThreshold: 0.4
   fadeSpeed: 1.4
 --- !u!1 &1893517747
 GameObject:

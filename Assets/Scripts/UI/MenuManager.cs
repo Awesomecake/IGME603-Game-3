@@ -24,16 +24,20 @@ public class MenuManager : MonoBehaviour
         // Fading Menus
         if (canLerp)
         {
-            from.alpha -= Time.deltaTime * fadeSpeed;
+            from.alpha -= Time.unscaledDeltaTime * fadeSpeed;
             if(from.alpha <= menuAlphaThreshold && waitToLerp || !waitToLerp)
             {
                 to.gameObject.SetActive(true);
-                to.alpha += Time.deltaTime * fadeSpeed;
+                to.alpha += Time.unscaledDeltaTime  * fadeSpeed;
             }
 
             if (from.alpha == 0)
             {
                 from.gameObject.SetActive(false);
+            }
+            if (to.alpha == 1)
+            {
+                canLerp = false;
             }
         };
     }
