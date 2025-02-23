@@ -34,7 +34,8 @@ public class GrappleHook : Throwable
             if (colRB.isKinematic)
             {
                 Vector2 direction = (projectileRigidBody.position - playerController.Rigidbody.position).normalized;
-                playerController.Rigidbody.AddForce(direction * 500);
+                float strength = Vector2.Distance(projectileRigidBody.position, playerController.Rigidbody.position);
+                playerController.Rigidbody.AddForce(direction * strength * 100);
             }
             //if hit object is not static, pull object
             else
@@ -43,7 +44,8 @@ public class GrappleHook : Throwable
                 hasCollidedToDynamic = true;
 
                 Vector2 direction = (playerController.Rigidbody.position - colRB.position).normalized;
-                colRB.AddForce(direction * 250);
+                float strength = Vector2.Distance(playerController.Rigidbody.position, colRB.position);
+                colRB.AddForce(direction * strength * 50);
             }
         }
 
@@ -58,7 +60,7 @@ public class GrappleHook : Throwable
 
     private void Update()
     {
-        if (hasCollidedToDynamic)
+        if (hasCollidedToDynamic && newAttachedTarget != null)
         {
             projectileRigidBody.gameObject.transform.position = newAttachedTarget.transform.position;
         }
