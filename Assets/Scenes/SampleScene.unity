@@ -1794,17 +1794,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2014780752 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6500005026295903430, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-  m_PrefabInstance: {fileID: 3356971453717489404}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eceddd38c3f03ee44abbe416575fda27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2089353541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,90 +1837,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
-      value: 38d69009-4c34-4faa-884c-c4141c2f36b2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: 2f9a539d-48d4-4814-909c-dded8a99caa1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
-      value: Player/UseItemTwo[/Keyboard/2]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: Player/UseItemThree[/Keyboard/3]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2014780752}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2014780752}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InputActionUseItemOne
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InputActionUseItemTwo
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InputActionUseItemThree
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6351137390402409544, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6500005026295903430, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
-      propertyPath: item2
-      value: 
-      objectReference: {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
     - target: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
       propertyPath: m_Name
       value: Player
