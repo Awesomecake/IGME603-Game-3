@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CooldownStateTransition : StateTransition
 {
-    [SerializeField] private float durationSeconds;
+    [SerializeField] private float durationSeconds = 5f;
     
     private HierarchicalStateMachine _stateMachine;
 

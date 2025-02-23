@@ -655,8 +655,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -480, y: 0.0546875}
-  m_SizeDelta: {x: 960, y: -0.39990234}
+  m_AnchoredPosition: {x: -446.4436, y: 0.0546875}
+  m_SizeDelta: {x: 1027.1128, y: -0.3999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288464045
 MonoBehaviour:
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.19215688, b: 0.2901961, a: 1}
+  m_Color: {r: 0.05206479, g: 0.11427053, b: 0.16981131, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3411,7 +3411,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 565.402, y: 121.72}
+  m_SizeDelta: {x: 817.542, y: 121.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217205845
 MonoBehaviour:
@@ -3433,7 +3433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game #3
+  m_text: <wave a=0.1 f=1 w=1><rainb w=0.5 f=1>RNG</rainb> Robbery</wave>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
   m_sharedMaterial: {fileID: -5759785099892792785, guid: 88916c46b20a7f6468c2dbf7c0217803, type: 2}
@@ -3525,7 +3525,7 @@ MonoBehaviour:
   typewriterStartsAutomatically: 0
   animationLoop: 0
   timeScale: 0
-  _text: Game #3
+  _text: <wave a=0.1 f=1 w=1><rainb w=0.5 f=1>RNG</rainb> Robbery</wave>
   useDynamicScaling: 1
   referenceFontSize: 10
   isResettingTimeOnNewText: 1

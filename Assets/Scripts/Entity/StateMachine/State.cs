@@ -24,8 +24,8 @@ public abstract class State: MonoBehaviour
     public virtual void PhysicsUpdate()
     {
     }
-
-    public virtual State GetCurrentState()
+    
+    public virtual State GetRunningState()
     {
         return this;
     }
