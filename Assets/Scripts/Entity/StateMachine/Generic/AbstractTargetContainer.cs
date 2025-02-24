@@ -2,5 +2,5 @@ using UnityEngine;
 
 public abstract class AbstractTargetContainer : MonoBehaviour
 {
-    public abstract Transform GetCurrentTarget();
+    public abstract Vector3 GetCurrentTarget();
 }

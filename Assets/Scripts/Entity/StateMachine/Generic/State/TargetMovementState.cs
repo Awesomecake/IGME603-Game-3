@@ -9,9 +9,7 @@ public class TargetMovementState : State
     public override void PhysicsUpdate()
     {
         var target = simpleTargetContainer.GetCurrentTarget();
-        if (!target) return;
-        
-        var vectorToTarget = target.position - body.transform.position;
+        var vectorToTarget = target - body.transform.position;
         var directionToTarget = vectorToTarget.normalized;
         var facingAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         

@@ -9,10 +9,8 @@ public class DistanceStateTransition : StateTransition
     public override bool NeedsTransition()
     {
         var target = targetContainer.GetCurrentTarget();
-        if (!target) return true;
-
         var squaredDistanceThreshold = distanceThreshold * distanceThreshold;
-        var currentSquaredDistance = body.position.DistanceTo2DSquared(target.position);
+        var currentSquaredDistance = body.position.DistanceTo2DSquared(target);
 
         return currentSquaredDistance <= squaredDistanceThreshold;
     }

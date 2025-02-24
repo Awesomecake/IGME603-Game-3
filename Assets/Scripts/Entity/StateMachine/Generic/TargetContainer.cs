@@ -9,8 +9,8 @@ public class TargetContainer : AbstractTargetContainer
         target = newTarget;
     }
 
-    public override Transform GetCurrentTarget()
+    public override Vector3 GetCurrentTarget()
     {
-        return target;
+        return target.position;
     }
 }

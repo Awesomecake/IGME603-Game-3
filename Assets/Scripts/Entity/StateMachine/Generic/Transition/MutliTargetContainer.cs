@@ -14,6 +14,7 @@ public class MutliTargetContainer : AbstractTargetContainer
     [SerializeField] private Mode mode = Mode.Newest;
 
     private readonly HashSet<Transform> _targets = new();
+    private Vector3 _lastKnownPosition = new Vector3();
 
     public bool HasTarget()
     {
@@ -35,7 +36,17 @@ public class MutliTargetContainer : AbstractTargetContainer
         _targets.Clear();
     }
 
-    public override Transform GetCurrentTarget()
+    public override Vector3 GetCurrentTarget()
+    {
+        var target = GetTransform();
+        if (target)
+        {
+            _lastKnownPosition = target.position;
+        }
+        return _lastKnownPosition;
+    }
+
+    private Transform GetTransform()
     {
         switch (mode)
         {

@@ -13,6 +13,11 @@ public class PatrolHandler : MonoBehaviour
         UpdateTarget();
     }
 
+    public void SetPath(Path newPath)
+    {
+        path = newPath;
+    }
+
     public void NextNode()
     {
         _iterator = path.GetNextIterator(_iterator);

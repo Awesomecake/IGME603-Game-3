@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D body;
-    
-    private void Start()
-    {
-        if (!body) body = GetComponent<Rigidbody2D>();
-        if (!body) Debug.LogWarning("No rigidbody found");
-    }
+    private PatrolHandler _patrolHandler;
 
-    private void Update()
+    #region Variables to be set on spawn
+    
+    public Path patrolPath;
+    
+    #endregion
+    
+    private void Awake()
     {
+        _patrolHandler = GetComponentInChildren<PatrolHandler>();
+        if (!_patrolHandler) Debug.LogWarning("No patrol handler found");
+        if (patrolPath && _patrolHandler) _patrolHandler.SetPath(patrolPath);
     }
 }
