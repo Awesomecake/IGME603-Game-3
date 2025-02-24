@@ -28,7 +28,7 @@ public class HierarchicalStateMachine : State
     // Manually start the state machine. Only call on the root state machine.
     public void Begin()
     {
-        Enter();
+        EnterState();
         _isRunning = true;
     }
 
@@ -36,7 +36,7 @@ public class HierarchicalStateMachine : State
     public void End()
     {
         _isRunning = false;
-        Exit();
+        ExitState();
     }
 
     private void Start()
@@ -52,12 +52,12 @@ public class HierarchicalStateMachine : State
 
     private void Update()
     {
-        if (_isRunning) FrameUpdate();
+        if (_isRunning) StateUpdate();
     }
 
     private void FixedUpdate()
     {
-        if (_isRunning) PhysicsUpdate();
+        if (_isRunning) StateFixedUpdate();
     }
 
     private void FindInitialState()
@@ -90,31 +90,31 @@ public class HierarchicalStateMachine : State
         Debug.Log(_transitions.Keys.ToSeparatedString(", "));
     }
 
-    public override void Enter()
+    public override void EnterState()
     {
         if (resumeBehavior == ResumeBehavior.Reset)
         {
             _currentState = initialState;
         }
 
-        _currentState.Enter();
+        _currentState.EnterState();
         lastTransition = Time.time;
     }
 
-    public override void Exit()
+    public override void ExitState()
     {
-        _currentState.Exit();
+        _currentState.ExitState();
     }
 
-    public override void FrameUpdate()
+    public override void StateUpdate()
     {
-        _currentState.FrameUpdate();
+        _currentState.StateUpdate();
         CheckChangeState();
     }
 
-    public override void PhysicsUpdate()
+    public override void StateFixedUpdate()
     {
-        _currentState.PhysicsUpdate();
+        _currentState.StateFixedUpdate();
         CheckChangeState();
     }
 
@@ -135,9 +135,9 @@ public class HierarchicalStateMachine : State
     private void ChangeState(State toState)
     {
         Debug.Log($"Changing state from {_currentState.gameObject.name} to {toState.gameObject.name}");
-        _currentState.Exit();
+        _currentState.ExitState();
         _currentState = toState;
-        _currentState.Enter();
+        _currentState.EnterState();
         lastTransition = Time.time;
     }
 

@@ -12,15 +12,15 @@ public class ChaseState : EnemyMovementState
         _originalVisionColor = visionCone.color;
     }
 
-    public override void Enter()
+    public override void EnterState()
     {
         SetVisionColor(spottedVisionColor);
     }
 
-    public override void Exit()
+    public override void ExitState()
     {
         SetVisionColor(_originalVisionColor);
-        base.Exit();
+        base.ExitState();
     }
 
     private void SetVisionColor(Color color)

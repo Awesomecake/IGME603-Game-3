@@ -5,23 +5,23 @@ using UnityEngine;
 public abstract class State: MonoBehaviour
 {
     // Triggered once when the state begins
-    public virtual void Enter()
+    public virtual void EnterState()
     {
     }
 
     // Triggered once when the state ends
-    public virtual void Exit()
+    public virtual void ExitState()
     {
         
     }
 
     // Triggered every frame while the state is active. Update()
-    public virtual void FrameUpdate()
+    public virtual void StateUpdate()
     {
     }
 
     // Triggered every physics update while the state is active. FixedUpdate()
-    public virtual void PhysicsUpdate()
+    public virtual void StateFixedUpdate()
     {
     }
     

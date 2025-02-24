@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4480447231235447154}
   - component: {fileID: 2271137548080186112}
   m_Layer: 0
-  m_Name: ConfusedIndicator
+  m_Name: StunnedIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

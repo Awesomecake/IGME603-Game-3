@@ -7,13 +7,13 @@ public class ColorState: State
 
     private Color _initialColor;
     
-    public override void Enter()
+    public override void EnterState()
     {
         _initialColor = spriteRenderer.color;
         spriteRenderer.color = color;
     }
 
-    public override void Exit()
+    public override void ExitState()
     {
         spriteRenderer.color = _initialColor;
     }

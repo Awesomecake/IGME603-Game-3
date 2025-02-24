@@ -6,7 +6,7 @@ public class TargetMovementState : State
     [SerializeField] private float movementSpeed = 3f;
     [SerializeField] private AbstractTargetContainer simpleTargetContainer;
     
-    public override void PhysicsUpdate()
+    public override void StateFixedUpdate()
     {
         var target = simpleTargetContainer.GetCurrentTarget();
         var vectorToTarget = target - body.transform.position;
@@ -17,7 +17,7 @@ public class TargetMovementState : State
         body.velocity = movementSpeed * directionToTarget;
     }
 
-    public override void Exit()
+    public override void ExitState()
     {
         body.velocity = Vector2.zero;
     }

@@ -445,6 +445,7 @@ Transform:
   - {fileID: 4050055484374888583}
   - {fileID: 4363309160550987923}
   - {fileID: 3602993273214046747}
+  - {fileID: 723834505967621130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8762207145965704484
@@ -459,7 +460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f896c75cca9734e85ab54ead5c49e264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 293088714792967029}
+  patrolPath: {fileID: 0}
+  stunEventTrigger: {fileID: 0}
 --- !u!212 &8870791972918118780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1116,6 +1118,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetector: {fileID: 2772459025072943558}
+--- !u!1 &3976528381527347369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723834505967621130}
+  - component: {fileID: 2307772068654445001}
+  m_Layer: 0
+  m_Name: StunTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &723834505967621130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976528381527347369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7651824281218780589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2307772068654445001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976528381527347369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6e3dfe07f2446e880ce4bb03d19929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4666495289949573324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1177,9 @@ GameObject:
   - component: {fileID: 4443477674843941934}
   - component: {fileID: 5644100487724582711}
   - component: {fileID: 689338688534399522}
+  - component: {fileID: 5069456815159268378}
+  - component: {fileID: 4015000096324770028}
+  - component: {fileID: 2771552285726832718}
   m_Layer: 0
   m_Name: EnemyStateMachine
   m_TagString: Untagged
@@ -1150,6 +1202,7 @@ Transform:
   m_Children:
   - {fileID: 5478564622966083847}
   - {fileID: 2289311476903266018}
+  - {fileID: 846953159609355095}
   m_Father: {fileID: 7651824281218780589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4443477674843941934
@@ -1204,6 +1257,60 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 3766498717028804488}
+--- !u!114 &5069456815159268378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666495289949573324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 6349233482066167557}
+  toState: {fileID: 6653935788104775647}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  trigger: {fileID: 2307772068654445001}
+--- !u!114 &4015000096324770028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666495289949573324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 2566211922637911623}
+  toState: {fileID: 6653935788104775647}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  trigger: {fileID: 2307772068654445001}
+--- !u!114 &2771552285726832718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666495289949573324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7989d042bf4140cabcbfe077c86ce419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 6653935788104775647}
+  toState: {fileID: 6349233482066167557}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  durationSeconds: 2
 --- !u!1 &5437503059663331643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1736,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetector: {fileID: 2772459025072943558}
+--- !u!1 &7830021436715159155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086767803149051709}
+  - component: {fileID: 4509253851418672523}
+  m_Layer: 0
+  m_Name: StunnedState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1086767803149051709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830021436715159155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846953159609355095}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4509253851418672523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830021436715159155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8010d3b23c8a4014b9c773b5f7829867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 7651824281218780589}
+  stunnedIndicatorPrefab: {fileID: 4263168227368164486, guid: 5acdc5da3b5ca4943aaa87c52dc6ca8a, type: 3}
+  offset: {x: 0, y: 1, z: 0}
 --- !u!1 &7842755032711370827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,6 +1832,55 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+--- !u!1 &7912645181447644723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846953159609355095}
+  - component: {fileID: 6653935788104775647}
+  m_Layer: 0
+  m_Name: StunnedStateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &846953159609355095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7912645181447644723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1086767803149051709}
+  m_Father: {fileID: 8107849715497315717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6653935788104775647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7912645181447644723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153799739d4f4d68b8d2c6fa065cb80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialState: {fileID: 4509253851418672523}
+  autoStart: 0
+  resumeBehavior: 0
+  lastTransition: 0
 --- !u!1 &8419354146698989005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1926,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 7651824281218780589}
-  confusedIndicatorPrefab: {fileID: 4263168227368164486, guid: 5acdc5da3b5ca4943aaa87c52dc6ca8a, type: 3}
-  offset: {x: 0, y: 1, z: 0}
   rotationRange: 15
   rotationPeriod: 2.5
