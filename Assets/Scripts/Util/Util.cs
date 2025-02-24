@@ -12,6 +12,17 @@ public static class Util
             z ?? self.z
         );
     }
+    
+    
+    public static Color Copy(this Color self, float? r = null, float? g = null, float? b = null, float? a = null)
+    {
+        return new Color(
+            r ?? self.r,
+            g ?? self.g,
+            b ?? self.b,
+            a ?? self.a
+        );
+    }
 
     public static float DistanceTo2DSquared(this Vector3 self, Vector3 other)
     {
