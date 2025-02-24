@@ -1460,7 +1460,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
-  durationSeconds: 3
+  durationSeconds: 5
 --- !u!114 &2615104306404674119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1722,5 +1722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2042680c20e46578eac894b7cac1f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 7651824281218780589}
   confusedIndicatorPrefab: {fileID: 4263168227368164486, guid: 5acdc5da3b5ca4943aaa87c52dc6ca8a, type: 3}
   offset: {x: 0, y: 1, z: 0}
+  rotationRange: 15
+  rotationPeriod: 2.5

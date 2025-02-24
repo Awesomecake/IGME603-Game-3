@@ -32,7 +32,6 @@ public class Path : MonoBehaviour
 
     public Transform GetNode(Iterator current)
     {
-        Debug.Log(current?.Index);
         return current == null ? null : _nodes[current.Index];
     }
 
