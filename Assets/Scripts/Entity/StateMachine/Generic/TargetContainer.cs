@@ -3,6 +3,7 @@ using UnityEngine;
 public class TargetContainer : AbstractTargetContainer
 {
     [SerializeField] private Transform target;
+    private Vector3 _lastKnownPosition = new Vector3();
 
     public void UpdateTarget(Transform newTarget)
     {
@@ -11,6 +12,10 @@ public class TargetContainer : AbstractTargetContainer
 
     public override Vector3 GetCurrentTarget()
     {
-        return target.position;
+        if (target)
+        {
+            _lastKnownPosition = target.position;
+        }
+        return _lastKnownPosition;
     }
 }
