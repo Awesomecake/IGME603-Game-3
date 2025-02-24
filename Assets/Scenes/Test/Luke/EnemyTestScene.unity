@@ -1532,14 +1532,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 293088714792967029, guid: 1200846e870474e36b64f5c067334d92, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 473244424135727475, guid: 1200846e870474e36b64f5c067334d92, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1461686750}
-    - target: {fileID: 753121527366711749, guid: 1200846e870474e36b64f5c067334d92, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2052598004456028538, guid: 1200846e870474e36b64f5c067334d92, type: 3}
       propertyPath: m_Name
       value: Enemy
