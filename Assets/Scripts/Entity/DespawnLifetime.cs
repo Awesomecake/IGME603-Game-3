@@ -6,6 +6,6 @@ public class DespawnLifetime : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Util.AfterDelay(lifetimeSeconds, () => Destroy(gameObject)));
+        StartCoroutine(Util.AfterDelay(lifetimeSeconds, () => gameObject.SetActive(false)));
     }
 }
