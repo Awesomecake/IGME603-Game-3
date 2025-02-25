@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             lookDirection = controllerLookDirection;
         }
+        GetComponent<Animator>().SetBool("moving", isMoving);
     }
 
     //Get movement input from InputActions, update movement logic
