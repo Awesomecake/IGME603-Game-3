@@ -14,7 +14,7 @@ public class TargetContainer : AbstractTargetContainer
     {
         if (target)
         {
-            _lastKnownPosition = target.position;
+            _lastKnownPosition = target.position.Copy();
         }
         return _lastKnownPosition;
     }

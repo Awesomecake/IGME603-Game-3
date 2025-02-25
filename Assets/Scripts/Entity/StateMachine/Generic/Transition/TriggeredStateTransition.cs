@@ -3,9 +3,10 @@ using UnityEngine;
 public class TriggeredStateTransition : StateTransition
 {
     [SerializeField] private EventTrigger trigger;
-    
+
     private HierarchicalStateMachine _stateMachine;
     private bool _needsTransition = false;
+    private Coroutine _resetCoroutine;
 
     private void TriggerTransition()
     {
@@ -17,7 +18,10 @@ public class TriggeredStateTransition : StateTransition
     {
         _stateMachine = GetComponent<HierarchicalStateMachine>();
         trigger.onTrigger.AddListener(TriggerTransition);
-        StartCoroutine(Util.AfterDelay(0.5f, () => _needsTransition = false));
+        _resetCoroutine = StartCoroutine(Util.AfterDelay(
+            delaySeconds: 0.5f,
+            lambda: () => _needsTransition = false
+        ));
     }
 
     private void OnDestroy()
@@ -27,11 +31,10 @@ public class TriggeredStateTransition : StateTransition
 
     public override bool NeedsTransition()
     {
-        StopAllCoroutines();
+        if (_resetCoroutine != null) StopCoroutine(_resetCoroutine);
         if (!_needsTransition) return false;
-        
+
         _needsTransition = false;
         return true;
-
     }
 }

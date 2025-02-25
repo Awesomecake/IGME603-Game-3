@@ -41,7 +41,7 @@ public class MutliTargetContainer : AbstractTargetContainer
         var target = GetTransform();
         if (target)
         {
-            _lastKnownPosition = target.position;
+            _lastKnownPosition = target.position.Copy();
         }
         return _lastKnownPosition;
     }
