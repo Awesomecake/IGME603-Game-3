@@ -461,7 +461,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPath: {fileID: 0}
-  stunEventTrigger: {fileID: 0}
 --- !u!212 &8870791972918118780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1179,6 +1178,7 @@ GameObject:
   - component: {fileID: 689338688534399522}
   - component: {fileID: 5069456815159268378}
   - component: {fileID: 4015000096324770028}
+  - component: {fileID: 9025838152269338534}
   - component: {fileID: 2771552285726832718}
   m_Layer: 0
   m_Name: EnemyStateMachine
@@ -1288,6 +1288,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 2566211922637911623}
+  toState: {fileID: 6653935788104775647}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  trigger: {fileID: 2307772068654445001}
+--- !u!114 &9025838152269338534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666495289949573324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 6653935788104775647}
   toState: {fileID: 6653935788104775647}
   onTransitionSideEffect:
     m_PersistentCalls:

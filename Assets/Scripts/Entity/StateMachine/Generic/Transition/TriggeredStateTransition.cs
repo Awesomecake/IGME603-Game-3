@@ -17,6 +17,7 @@ public class TriggeredStateTransition : StateTransition
     {
         _stateMachine = GetComponent<HierarchicalStateMachine>();
         trigger.onTrigger.AddListener(TriggerTransition);
+        StartCoroutine(Util.AfterDelay(0.5f, () => _needsTransition = false));
     }
 
     private void OnDestroy()
@@ -26,6 +27,7 @@ public class TriggeredStateTransition : StateTransition
 
     public override bool NeedsTransition()
     {
+        StopAllCoroutines();
         if (!_needsTransition) return false;
         
         _needsTransition = false;
