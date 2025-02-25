@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/ProcGenTesting.unity
     guid: 3d5820c080e5f0045b0050500c4a1d5c
+  - enabled: 1
+    path: Assets/Scenes/Test/Luke/EnemyTestScene.unity
+    guid: f157836496b724207a3d8aaf6fefe7ab
   m_configObjects: {}
