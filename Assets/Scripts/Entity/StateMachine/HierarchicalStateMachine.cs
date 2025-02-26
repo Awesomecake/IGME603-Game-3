@@ -132,7 +132,7 @@ public class HierarchicalStateMachine : State
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void ChangeState(State toState)
+    public void ChangeState(State toState)
     {
         Debug.Log($"Changing state from {_currentState.gameObject.name} to {toState.gameObject.name}");
         _currentState.ExitState();
