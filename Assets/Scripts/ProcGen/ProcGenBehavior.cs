@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+
 //using System.Linq;
 //using Unity.VisualScripting;
 //using UnityEditor.Experimental.GraphView;
@@ -9,8 +11,12 @@ using UnityEngine.Tilemaps;
 public class ProcGenBehavior : MonoBehaviour
 {
     [Header("Generation Vars")]
-    [SerializeField] private uint terrainWidth = 0;
-    [SerializeField] private uint terrainHeight = 0;
+    [SerializeField] private uint numHorizontalChunks = 1;
+    [SerializeField] private uint numVerticalChunks = 1;
+    [SerializeField] private uint chunkWidth = 5;
+    [SerializeField] private uint chunkHeight = 5;
+    private uint terrainWidth = 0;
+    private uint terrainHeight = 0;
     [SerializeField] private float noiseAmplitude = 0.5f;
     [SerializeField] private float magnification = 1f;
     [SerializeField] private float seed = 0f;
@@ -27,21 +33,34 @@ public class ProcGenBehavior : MonoBehaviour
         RIGHT, DOWN, UP
     };
 
+    private enum ChunkOrientation
+    { 
+        LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+    };
+
+
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
     [SerializeField] private Tilemap groundTileMap;
+    private int[,] chunkMap;
     private int[,] map;
 
     void Start()
     {
+        //calculate terrainWidth and terrainHeight
+        terrainWidth = numHorizontalChunks * chunkWidth;
+        terrainHeight = numVerticalChunks * chunkHeight;
+
         //if groundTile and groundTileMap have been assigned,..
         if (groundTile != null && groundTileMap != null)
         {
             //generate terrain at the start of the scene
-            Generate();
+            //Generate();
+            GenerateChunks();
         }
     }
 
+    //***** VALUE AND TERRAIN CHANGE AT RUNTIME FUNCTIONS *****
     void Update()
     {
         //Debug key for testing generation REMOVE WHEN PUSHING/BUILDING
@@ -51,7 +70,8 @@ public class ProcGenBehavior : MonoBehaviour
             if (groundTile != null && groundTileMap != null)
             {
                 //generate terrain at the start of the scene
-                Generate();
+                //Generate();
+                GenerateChunks();
             }
         }
     }
@@ -65,6 +85,46 @@ public class ProcGenBehavior : MonoBehaviour
     {
         seed = newSeed;
     }
+
+    //***** CHUNK AND RANDOM WALKER FUNCTIONS *****
+    private void GenerateChunks()
+    {
+        //Clear all pre-existing ground tiles
+        groundTileMap.ClearAllTiles();
+
+        //Create an array of chunks to be randomly walked through and populated with modules
+        chunkMap = GenerateChunkArray(numHorizontalChunks, numVerticalChunks, true);
+
+        //randomly walk and assign 
+
+        //Render a tilemap using the array
+        RenderMap(map, groundTileMap, groundTile);
+
+        //Generate and render a boarder of width = boarderWidth around the rendered map
+        GenerateAndRenderBoarder(boarderWidth, groundTileMap, groundTile);
+    }
+
+    private int[,] GenerateChunkArray(uint numHorizontalChunks, uint numVerticalChunks, bool empty)
+    {
+        //create 2D integer array of numHorizontalChunks = numHorizontalChunks and numVerticalChunks = numVerticalChunks
+        int[,] chunkMap = new int[numHorizontalChunks, numVerticalChunks];
+
+        //iterate through numHorizontalChunks and numVerticalChunks of map
+        for (int x = 0; x < numHorizontalChunks; x++)
+        {
+            for (int y = 0; y < numVerticalChunks; y++)
+            {
+                //if empty is true, set map[x,y] to 0
+                //else if empty is false, set map[x,y] to 1
+                chunkMap[x, y] = (empty) ? 0 : 1;
+            }
+        }
+
+        //return map
+        return chunkMap;
+    }
+
+    //***** PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
 
     /// <summary>
     /// Generate 2D procedural terrain
@@ -243,6 +303,7 @@ public class ProcGenBehavior : MonoBehaviour
         return map;
     }
 
+    //***** RENDER FUNCTIONS *****
     private void RenderMap(int[,] map, Tilemap groundTileMap, TileBase groundTileBase)
     {
         //get and store terrainWidth and terrainHeight of map
