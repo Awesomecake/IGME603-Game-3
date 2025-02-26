@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     bool isMoving;
     Vector2 lastMoveDirection;
+    float health = 100f;
 
     //Determining Look Direction from both Keyboard & Controller
     Vector2 mousePosition;
@@ -53,6 +54,21 @@ public class PlayerController : MonoBehaviour
             lookDirection = controllerLookDirection;
         }
         GetComponent<Animator>().SetBool("moving", isMoving);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+
     }
 
     //Get movement input from InputActions, update movement logic

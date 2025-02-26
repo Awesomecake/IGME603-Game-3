@@ -6,6 +6,11 @@ public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
 
+    private void Start()
+    {
+        StartCoroutine(DeathTimer());
+    }
+
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
@@ -25,6 +30,12 @@ public class Throwable : MonoBehaviour
     public virtual void ThrownItemCollided(Collider2D collision)
     {
         Debug.LogWarning(collision.name);
+        Destroy(gameObject);
+    }
+
+    public IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(10);
         Destroy(gameObject);
     }
 }
