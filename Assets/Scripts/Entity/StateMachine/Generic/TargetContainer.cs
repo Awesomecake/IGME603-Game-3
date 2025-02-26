@@ -12,7 +12,7 @@ public class TargetContainer : AbstractTargetContainer
 
     public override Vector3 GetCurrentTarget()
     {
-        if (target)
+        if (target && target.gameObject.activeSelf)
         {
             _lastKnownPosition = target.position.Copy();
         }

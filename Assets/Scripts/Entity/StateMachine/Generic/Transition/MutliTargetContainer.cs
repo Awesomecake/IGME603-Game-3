@@ -39,7 +39,7 @@ public class MutliTargetContainer : AbstractTargetContainer
     public override Vector3 GetCurrentTarget()
     {
         var target = GetTransform();
-        if (target)
+        if (target && target.gameObject.activeSelf)
         {
             _lastKnownPosition = target.position.Copy();
         }
