@@ -41,4 +41,11 @@ public static class Util
         yield return new WaitForSeconds(delaySeconds);
         lambda?.Invoke();
     }
+
+    public static float GetAngleTowards2D(this Vector3 self, Vector3 target)
+    {
+        var directionToTarget = target - self;
+        return Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+    }
 }

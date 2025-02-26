@@ -8,7 +8,7 @@ public class DistanceStateTransition : StateTransition
     
     public override bool NeedsTransition()
     {
-        var target = targetContainer.GetCurrentTarget();
+        var target = targetContainer.GetLocation();
         var squaredDistanceThreshold = distanceThreshold * distanceThreshold;
         var currentSquaredDistance = body.position.DistanceTo2DSquared(target);
 

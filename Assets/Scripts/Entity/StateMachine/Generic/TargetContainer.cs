@@ -7,10 +7,12 @@ public class TargetContainer : AbstractTargetContainer
 
     public void UpdateTarget(Transform newTarget)
     {
+        if (!newTarget) return;
         target = newTarget;
+        _lastKnownPosition = target.position.Copy();
     }
 
-    public override Vector3 GetCurrentTarget()
+    public override Vector3 GetLocation()
     {
         if (target && target.gameObject.activeSelf)
         {

@@ -36,7 +36,7 @@ public class MutliTargetContainer : AbstractTargetContainer
         _targets.Clear();
     }
 
-    public override Vector3 GetCurrentTarget()
+    public override Vector3 GetLocation()
     {
         var target = GetTransform();
         if (target && target.gameObject.activeSelf)

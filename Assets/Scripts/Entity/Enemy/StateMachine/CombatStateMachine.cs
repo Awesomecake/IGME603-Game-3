@@ -6,9 +6,10 @@ public class CombatStateMachine : HierarchicalStateMachine
     private Color _originalVisionColor;
     [SerializeField] private Color spottedVisionColor = Color.red.Copy(a: 0.2f);
     
-    private void Start()
+    protected override void Start()
     {
         _originalVisionColor = visionCone.color;
+        base.Start();
     }
 
     public override void EnterState()

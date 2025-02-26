@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf57b2ac0954362b146ec0bed0404f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 5937279804195191749}
+  body: {fileID: 293088714792967029}
 --- !u!1 &495823176945041125
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +689,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
-  durationSeconds: 1
+  durationSeconds: 0.35
 --- !u!1 &2552684814130455413
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +791,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
-  durationSeconds: 2.5
+  durationSeconds: 1
 --- !u!1 &2591783164779770596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 7211790727727396489}
-  toState: {fileID: 1206996343327336404}
+  toState: {fileID: 7373885167090446332}
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
@@ -1638,8 +1640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fromState: {fileID: 1206996343327336404}
-  toState: {fileID: 1206996343327336404}
+  fromState: {fileID: 8076453520210853585}
+  toState: {fileID: 8076453520210853585}
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
@@ -1657,7 +1659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 4597366744768485734}
-  toState: {fileID: 1206996343327336404}
+  toState: {fileID: 7373885167090446332}
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
@@ -1674,7 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fea662609a14e31bc74f6175bc471a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fromState: {fileID: 1206996343327336404}
+  fromState: {fileID: 7373885167090446332}
   toState: {fileID: 4597366744768485734}
   onTransitionSideEffect:
     m_PersistentCalls:
@@ -1699,7 +1701,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
-  durationSeconds: 5
+  durationSeconds: 3
 --- !u!114 &2615104306404674119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,7 +1714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7989d042bf4140cabcbfe077c86ce419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fromState: {fileID: 1206996343327336404}
+  fromState: {fileID: 7373885167090446332}
   toState: {fileID: 7211790727727396489}
   onTransitionSideEffect:
     m_PersistentCalls:
@@ -1924,7 +1926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8221365661876777561}
-  - component: {fileID: 1206996343327336404}
+  - component: {fileID: 7373885167090446332}
   m_Layer: 0
   m_Name: InvestigatingStateMachine
   m_TagString: Untagged
@@ -1948,7 +1950,7 @@ Transform:
   - {fileID: 8495514826366529238}
   m_Father: {fileID: 5478564622966083847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1206996343327336404
+--- !u!114 &7373885167090446332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1957,7 +1959,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7842755032711370827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153799739d4f4d68b8d2c6fa065cb80f, type: 3}
+  m_Script: {fileID: 11500000, guid: 47b5ddb1ee9b4f7dad89b29c18e277a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 8076453520210853585}
