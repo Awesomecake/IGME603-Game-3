@@ -109,6 +109,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolTarget: {fileID: 4516021416677035699}
   path: {fileID: 0}
+--- !u!1 &230665813076295644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7588980913919996438}
+  - component: {fileID: 6591480498791720049}
+  m_Layer: 0
+  m_Name: CombatStartedState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7588980913919996438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230665813076295644}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2289311476903266018}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6591480498791720049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230665813076295644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf57b2ac0954362b146ec0bed0404f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &495823176945041125
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,8 +200,6 @@ MonoBehaviour:
   body: {fileID: 293088714792967029}
   movementSpeed: 5
   simpleTargetContainer: {fileID: 5937279804195191749}
-  visionCone: {fileID: 3981740941880127099}
-  spottedVisionColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!1 &534183559573600258
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +626,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289311476903266018}
-  - component: {fileID: 2566211922637911623}
+  - component: {fileID: 723732208233912474}
+  - component: {fileID: 3650552183879356895}
   m_Layer: 0
   m_Name: CombatStateMachine
   m_TagString: Untagged
@@ -605,10 +648,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7588980913919996438}
   - {fileID: 2756593619473776523}
   m_Father: {fileID: 8107849715497315717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2566211922637911623
+--- !u!114 &723732208233912474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -617,13 +661,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090198776743706462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153799739d4f4d68b8d2c6fa065cb80f, type: 3}
+  m_Script: {fileID: 11500000, guid: 09f44ef797914aa39fc1d83f8198f2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialState: {fileID: 671974490130653374}
+  initialState: {fileID: 6591480498791720049}
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  visionCone: {fileID: 3981740941880127099}
+  spottedVisionColor: {r: 1, g: 0, b: 0, a: 0.2}
+--- !u!114 &3650552183879356895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090198776743706462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7989d042bf4140cabcbfe077c86ce419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 6591480498791720049}
+  toState: {fileID: 671974490130653374}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  durationSeconds: 1
 --- !u!1 &2552684814130455413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,8 +1289,8 @@ GameObject:
   - component: {fileID: 8107849715497315717}
   - component: {fileID: 4443477674843941934}
   - component: {fileID: 5644100487724582711}
-  - component: {fileID: 689338688534399522}
   - component: {fileID: 5069456815159268378}
+  - component: {fileID: 689338688534399522}
   - component: {fileID: 4015000096324770028}
   - component: {fileID: 9025838152269338534}
   - component: {fileID: 2771552285726832718}
@@ -1284,29 +1348,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 6349233482066167557}
-  toState: {fileID: 2566211922637911623}
+  toState: {fileID: 723732208233912474}
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 8122394739922733082}
---- !u!114 &689338688534399522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4666495289949573324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fromState: {fileID: 2566211922637911623}
-  toState: {fileID: 6349233482066167557}
-  onTransitionSideEffect:
-    m_PersistentCalls:
-      m_Calls: []
-  trigger: {fileID: 3766498717028804488}
 --- !u!114 &5069456815159268378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,6 +1371,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 2307772068654445001}
+--- !u!114 &689338688534399522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666495289949573324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 723732208233912474}
+  toState: {fileID: 6349233482066167557}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  trigger: {fileID: 3766498717028804488}
 --- !u!114 &4015000096324770028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,7 +1401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fromState: {fileID: 2566211922637911623}
+  fromState: {fileID: 723732208233912474}
   toState: {fileID: 6653935788104775647}
   onTransitionSideEffect:
     m_PersistentCalls:
