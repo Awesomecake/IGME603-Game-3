@@ -4,23 +4,28 @@ public class TriggeredStateTransition : StateTransition
 {
     [SerializeField] private EventTrigger trigger;
 
-    private HierarchicalStateMachine _stateMachine;
+    protected HierarchicalStateMachine StateMachine;
 
     private void Start()
     {
-        _stateMachine = GetComponent<HierarchicalStateMachine>();
-        trigger.onTrigger.AddListener(TriggerTransition);
+        StateMachine = GetComponent<HierarchicalStateMachine>();
+        trigger.onTrigger.AddListener(OnTriggerActivated);
     }
 
     private void OnDestroy()
     {
-        trigger?.onTrigger?.RemoveListener(TriggerTransition);
+        trigger?.onTrigger?.RemoveListener(OnTriggerActivated);
     }
 
-    private void TriggerTransition()
+    private void OnTriggerActivated()
     {
-        if (_stateMachine.GetCurrentState() != fromState) return;
-        _stateMachine.ChangeState(toState);
+        Transition();
+    }
+
+    protected virtual void Transition()
+    {
+        if (StateMachine.GetCurrentState() != fromState) return;
+        StateMachine.ChangeState(toState);
     }
 
     public override bool NeedsTransition()
