@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Throwable : MonoBehaviour
 {
@@ -25,6 +26,28 @@ public class Throwable : MonoBehaviour
 
         ThrownItemCollided(collision);
 
+        //Logic to Destroy Terrain
+
+        //Tilemap tilemap = collision.GetComponent<Tilemap>();
+        //TilemapCollider2D tilemapCollider2D = collision.GetComponent<TilemapCollider2D>();
+
+        //if (tilemap != null)
+        //{
+        //    Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+
+        //    tilemap.SetTile(cellPosition + new Vector3Int(1, 1, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(1, 0, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(1, -1, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(0, 1, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(0, 0, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(0, -1, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, 1, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, 0, 0), null);
+        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, -1, 0), null);
+
+        //    tilemapCollider2D.enabled = false;
+        //    tilemapCollider2D.enabled = true;
+        //}
     }
 
     public virtual void ThrownItemCollided(Collider2D collision)
