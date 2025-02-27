@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f896c75cca9734e85ab54ead5c49e264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 0}
 --- !u!212 &8870791972918118780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1912,7 +1913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8010d3b23c8a4014b9c773b5f7829867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 7651824281218780589}
+  character: {fileID: 8762207145965704484}
   stunnedIndicatorPrefab: {fileID: 4263168227368164486, guid: 5acdc5da3b5ca4943aaa87c52dc6ca8a, type: 3}
   offset: {x: 0, y: 1, z: 0}
 --- !u!1 &7842755032711370827
@@ -2057,6 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2042680c20e46578eac894b7cac1f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 293088714792967029}
+  character: {fileID: 8762207145965704484}
   rotationRange: 15
   rotationPeriod: 2.5

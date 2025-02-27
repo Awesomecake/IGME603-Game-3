@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ConfusedState : State
 {
-    [SerializeField] private Rigidbody2D character;
+    [SerializeField] private Enemy character;
 
     [SerializeField] private float rotationRange = 15f;
     [SerializeField] private float rotationPeriod = 2f;
@@ -12,10 +12,15 @@ public class ConfusedState : State
 
     public override void EnterState()
     {
-        character.velocity = Vector3.zero;
+        character.body.velocity = Vector3.zero;
 
         _baseRotation = character.transform.rotation.eulerAngles.z;
         _enterTime = Time.time;
+    }
+
+    public override void ExitState()
+    {
+        character.SetState(Enemy.State.Normal);
     }
 
     public override void StateUpdate()
