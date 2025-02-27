@@ -33,23 +33,32 @@ public class ProcGenBehavior : MonoBehaviour
         RIGHT, DOWN, UP
     };
 
-    private enum ChunkOrientation
+    private enum ChunkValue
     { 
-        LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+        NONE, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
     };
-
 
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
     [SerializeField] private Tilemap groundTileMap;
     private int[,] chunkMap;
+    private GameObject[,] chunkModules;
+    [SerializeField] private List<GameObject> modules;
+    private List<int[,]> dataModules;
     private int[,] map;
+
+    [Header("Module Vars")]
+    [SerializeField] private List<GameObject> possibleModules;
+    [SerializeField] private List<GameObject> NONEModules;
 
     void Start()
     {
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
         terrainHeight = numVerticalChunks * chunkHeight;
+
+        //convert all modules to dataModules
+        dataModules = ConvertModulesToData(modules);
 
         //if groundTile and groundTileMap have been assigned,..
         if (groundTile != null && groundTileMap != null)
@@ -93,9 +102,20 @@ public class ProcGenBehavior : MonoBehaviour
         groundTileMap.ClearAllTiles();
 
         //Create an array of chunks to be randomly walked through and populated with modules
-        chunkMap = GenerateChunkArray(numHorizontalChunks, numVerticalChunks, true);
+        chunkMap = GenerateChunkArray(numHorizontalChunks, numVerticalChunks, false);
 
-        //randomly walk and assign 
+        //randomly walk and prune through the chunkMap
+
+        //assign chunk values for each chunk
+
+        //Create an array to manipulate later
+        map = GenerateArray(terrainWidth, terrainHeight, true);
+
+        //populate the chunkMap with modules based on their chunk values
+        PlaceModules(chunkMap);
+
+        //Render a tilemap using the array
+        //RenderChunks(chunkMap, groundTileMap, groundTile);
 
         //Render a tilemap using the array
         RenderMap(map, groundTileMap, groundTile);
@@ -116,12 +136,95 @@ public class ProcGenBehavior : MonoBehaviour
             {
                 //if empty is true, set map[x,y] to 0
                 //else if empty is false, set map[x,y] to 1
-                chunkMap[x, y] = (empty) ? 0 : 1;
+                chunkMap[x, y] = (empty) ? 0 : (int)ChunkValue.NONE;
             }
         }
 
         //return map
         return chunkMap;
+    }
+
+    private void RenderChunks(int[,] chunkMap, Tilemap groundTileMap, TileBase groundTileBase)
+    {
+        //get and store terrainWidth and terrainHeight of chunkMap
+        uint terrainWidth = numHorizontalChunks * chunkWidth;
+        uint terrainHeight = numVerticalChunks * chunkHeight;
+
+        //iterate through terrainWidth and terrainHeight of chunkMap
+        for (int x = 0; x < terrainWidth; x++)
+        {
+            for (int y = 0; y < terrainHeight; y++)
+            {
+                //if value of map at [x,y] is 1,...
+                if (chunkMap[x, y] == 1)
+                {
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                }
+            }
+        }
+    }
+
+    private List<int[,]> ConvertModulesToData(List<GameObject> modules)
+    {
+        //create a new list
+        List<int[,]> dataModules = new List<int[,]>();
+
+        //return dataModules
+        return dataModules;
+    }
+
+    private void PlaceModules(int[,] chunkMap)
+    {
+        //get numHorizontalChunks and numVerticalChunks
+        int numHorizontalChunks = chunkMap.GetLength(0);
+        int numVerticalChunks = chunkMap.GetLength(1);
+
+        //create map indexes
+        int mapX = 0;
+        int mapY = 0;
+
+        //iterate through chunkMap,...
+        for (int x = 0; x < numHorizontalChunks; x++)
+        {
+            for(int y = 0; y < numVerticalChunks; y++)
+            {
+                //update mapX and mapY
+                mapX = (int)chunkWidth * x;
+                mapY = (int)chunkHeight * y;
+
+                //place a module at each chunk in accordance with the chunk's value
+                switch (chunkMap[x,y])
+                {
+                    case (int)ChunkValue.NONE:
+                        RenderModule(NONEModules[Random.Range(0, NONEModules.Count - 1)], mapX, mapY);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    private void RenderModule(GameObject chunkToRender, int moduleStartingX, int moduleStartingY)
+    {
+        Tilemap chunkTileMap = chunkToRender.GetComponent<Tilemap>();
+
+        for(int x = 0; x < chunkWidth; x++)
+        {
+            for (int y = 0; y < chunkHeight; y++)
+            {
+                //if the corresponding chunk tile is a base tile,...
+                if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == groundTile)
+                {
+                    map[moduleStartingX + x, moduleStartingY + y] = 1;
+                }
+                //else the correspionding chunk tile is a air tile,...
+                else
+                {
+                    map[moduleStartingX + x, moduleStartingY + y] = 0;
+                }
+            }
+        }
     }
 
     //***** PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
