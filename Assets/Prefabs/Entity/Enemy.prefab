@@ -58,8 +58,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3602993273214046747}
-  - component: {fileID: 4516021416677035699}
-  - component: {fileID: 8983747466155714558}
+  - component: {fileID: 5159409769795131064}
+  - component: {fileID: 8718485635551553200}
   m_Layer: 0
   m_Name: PatrolHandler
   m_TagString: Untagged
@@ -82,7 +82,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7651824281218780589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4516021416677035699
+--- !u!114 &5159409769795131064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,11 +91,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 151939326610470453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b07ae609324b429dbcb75f358407a9e, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c2436cbb544708ada61d599ee4a808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
---- !u!114 &8983747466155714558
+  patrolTarget: {fileID: 8718485635551553200}
+  areaPrefab: {fileID: 8433534975572709192, guid: b30202628c2504999bfaf7c7f16f8027, type: 3}
+--- !u!114 &8718485635551553200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,11 +105,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 151939326610470453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e154936d1c45438aa671ca3adfb35abd, type: 3}
+  m_Script: {fileID: 11500000, guid: 37a7a2e883374d4fa1f67f5a42fa4b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolTarget: {fileID: 4516021416677035699}
-  path: {fileID: 0}
 --- !u!1 &230665813076295644
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f896c75cca9734e85ab54ead5c49e264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPath: {fileID: 0}
 --- !u!212 &8870791972918118780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -759,9 +757,9 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8983747466155714558}
-        m_TargetAssemblyTypeName: PatrolHandler, Assembly-CSharp
-        m_MethodName: NextNode
+      - m_Target: {fileID: 5159409769795131064}
+        m_TargetAssemblyTypeName: PatrolAreaHandler, Assembly-CSharp
+        m_MethodName: NextPoint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -771,7 +769,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  targetContainer: {fileID: 4516021416677035699}
+  targetContainer: {fileID: 8718485635551553200}
   body: {fileID: 7651824281218780589}
   distanceThreshold: 0.1
 --- !u!114 &3728274098569712778
@@ -988,7 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 293088714792967029}
   movementSpeed: 3
-  simpleTargetContainer: {fileID: 4516021416677035699}
+  simpleTargetContainer: {fileID: 8718485635551553200}
 --- !u!1 &3663629136222502896
 GameObject:
   m_ObjectHideFlags: 0
