@@ -10,7 +10,7 @@ public class PatrolArea : MonoBehaviour
     public Vector3 GetRandomLocation()
     {
         var xOffset = Random.Range(-width / 2f, width / 2f);
-        var yOffset = Random.Range(-width / 2f, width / 2f);
+        var yOffset = Random.Range(-height / 2f, height / 2f);
 
         return transform.position + new Vector3(xOffset, yOffset, 0f);
     }
