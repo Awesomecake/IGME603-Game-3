@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,7 +16,7 @@ public class Throwable : MonoBehaviour
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        projectileRigidBody.AddForce(direction*strength);
+        projectileRigidBody.AddForce(direction * strength);
     }
 
     //Detecting when item overlaps a rigidbody
@@ -45,8 +46,7 @@ public class Throwable : MonoBehaviour
         //    tilemap.SetTile(cellPosition + new Vector3Int(-1, 0, 0), null);
         //    tilemap.SetTile(cellPosition + new Vector3Int(-1, -1, 0), null);
 
-        //    tilemapCollider2D.enabled = false;
-        //    tilemapCollider2D.enabled = true;
+        //    tilemapCollider2D.CreateMesh(true,true);
         //}
     }
 
