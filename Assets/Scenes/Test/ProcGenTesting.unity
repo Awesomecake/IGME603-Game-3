@@ -455,12 +455,13 @@ MonoBehaviour:
   magnification: 7
   seed: 0
   boarderWidth: 10
+  maxWalkerDistance: 14
   groundTile: {fileID: 11400000, guid: 3820b1e236877a041b43920b104adc1e, type: 2}
   groundTileMap: {fileID: 1750480631}
-  modules: []
-  possibleModules: []
   NONEModules:
   - {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
+  MIDDLE_LEFTModules:
+  - {fileID: 5579036130010935674, guid: 057f0ff655756f84aa6d248569c470cf, type: 3}
 --- !u!4 &736217605
 Transform:
   m_ObjectHideFlags: 0
@@ -3001,6 +3002,10 @@ PrefabInstance:
     - target: {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
       propertyPath: m_Name
       value: NONE Module
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
