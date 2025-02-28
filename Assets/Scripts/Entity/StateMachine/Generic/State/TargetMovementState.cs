@@ -8,10 +8,9 @@ public class TargetMovementState : State
     
     public override void StateFixedUpdate()
     {
-        var target = simpleTargetContainer.GetCurrentTarget();
-        var vectorToTarget = target - body.transform.position;
-        var directionToTarget = vectorToTarget.normalized;
-        var facingAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        var target = simpleTargetContainer.GetLocation();
+        var directionToTarget = (target - body.transform.position).normalized;
+        var facingAngle = body.transform.position.GetAngleTowards2D(target);
         
         body.rotation = facingAngle;
         body.velocity = movementSpeed * directionToTarget;

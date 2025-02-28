@@ -27,8 +27,8 @@ public static class Util
     public static float DistanceTo2DSquared(this Vector3 self, Vector3 other)
     {
         var xDiff = self.x - other.x;
-        var zDiff = self.z - other.z;
-        return xDiff * xDiff + zDiff * zDiff;
+        var yDiff = self.y - other.y;
+        return xDiff * xDiff + yDiff * yDiff;
     }
 
     public static float DistanceTo2D(this Vector3 self, Vector3 other)
@@ -40,5 +40,12 @@ public static class Util
     {
         yield return new WaitForSeconds(delaySeconds);
         lambda?.Invoke();
+    }
+
+    public static float GetAngleTowards2D(this Vector3 self, Vector3 target)
+    {
+        var directionToTarget = target - self;
+        return Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
     }
 }

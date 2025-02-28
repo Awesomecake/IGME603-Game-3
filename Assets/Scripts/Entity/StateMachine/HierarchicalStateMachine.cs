@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // Handles updating the active state
 // A State Machine which can be a child of another HierarchicalStateMachine.
@@ -14,17 +13,17 @@ public class HierarchicalStateMachine : State
         Continue,
         Reset
     }
-    
+
     [SerializeField] private State initialState;
     [SerializeField] private bool autoStart = false; // only applicable to root state machine
     [SerializeField] private ResumeBehavior resumeBehavior = ResumeBehavior.Continue;
-    private bool _isRunning = false; 
+    private bool _isRunning = false;
 
     [HideInInspector] public float lastTransition = 0f;
 
     private State _currentState;
     private readonly Dictionary<State, List<StateTransition>> _transitions = new();
-    
+
     // Manually start the state machine. Only call on the root state machine.
     public void Begin()
     {
@@ -39,13 +38,13 @@ public class HierarchicalStateMachine : State
         ExitState();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (!initialState) FindInitialState();
         _currentState = initialState;
 
         SetupTransitions();
-        
+
         // TODO add debug message warning about unreachable states
         if (autoStart) StartCoroutine(Util.AfterDelay(0.1f, Begin));
     }
@@ -86,7 +85,7 @@ public class HierarchicalStateMachine : State
             _transitions[fromState].Add(transition);
             Debug.Log("added transition");
         }
-        
+
         Debug.Log(_transitions.Keys.ToSeparatedString(", "));
     }
 
@@ -132,20 +131,21 @@ public class HierarchicalStateMachine : State
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void ChangeState(State toState)
+    public void ChangeState(State toState)
     {
         Debug.Log($"Changing state from {_currentState.gameObject.name} to {toState.gameObject.name}");
         _currentState.ExitState();
+        lastTransition = Time.time;
+        
         _currentState = toState;
         _currentState.EnterState();
-        lastTransition = Time.time;
     }
 
     public State GetCurrentState()
     {
         return _currentState;
     }
-    
+
     public override State GetRunningState()
     {
         return _currentState.GetRunningState();

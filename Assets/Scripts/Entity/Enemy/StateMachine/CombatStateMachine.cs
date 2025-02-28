@@ -1,20 +1,21 @@
-using System;
 using UnityEngine;
 
-public class ChaseState : EnemyMovementState
+public class CombatStateMachine : HierarchicalStateMachine
 {
     [SerializeField] private SpriteRenderer visionCone;
     private Color _originalVisionColor;
     [SerializeField] private Color spottedVisionColor = Color.red.Copy(a: 0.2f);
-
-    private void Start()
+    
+    protected override void Start()
     {
         _originalVisionColor = visionCone.color;
+        base.Start();
     }
 
     public override void EnterState()
     {
         SetVisionColor(spottedVisionColor);
+        base.EnterState();
     }
 
     public override void ExitState()
@@ -22,7 +23,7 @@ public class ChaseState : EnemyMovementState
         SetVisionColor(_originalVisionColor);
         base.ExitState();
     }
-
+    
     private void SetVisionColor(Color color)
     {
         visionCone.color = color;
