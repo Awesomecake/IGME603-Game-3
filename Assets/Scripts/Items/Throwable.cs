@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
+    protected float itemSpeedModifier = 1f;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class Throwable : MonoBehaviour
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        projectileRigidBody.AddForce(direction * strength);
+        projectileRigidBody.AddForce(direction * strength * itemSpeedModifier);
     }
 
     //Detecting when item overlaps a rigidbody
@@ -58,7 +59,7 @@ public class Throwable : MonoBehaviour
 
     public IEnumerator DeathTimer()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(6);
         Destroy(gameObject);
     }
 }
