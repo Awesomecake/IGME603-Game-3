@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     bool isMoving;
     Vector2 lastMoveDirection;
     float health = 100f;
+    public bool hasDiamond;
 
     //Determining Look Direction from both Keyboard & Controller
     Vector2 mousePosition;
