@@ -456,18 +456,23 @@ MonoBehaviour:
   seed: 0
   boarderWidth: 10
   maxWalkerDistance: 14
+  walkerPath: []
   groundTile: {fileID: 11400000, guid: 3820b1e236877a041b43920b104adc1e, type: 2}
   groundTileMap: {fileID: 1750480631}
   NONEModules:
   - {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
   LEFT_RIGHTModules:
   - {fileID: 5579036130010935674, guid: 375c19e5ea244d34ab1ec08a7b6c92d6, type: 3}
+  - {fileID: 5579036130010935674, guid: df9e1b3290e798248839740bbcadba22, type: 3}
+  - {fileID: 5579036130010935674, guid: 1029ec12c9fa3354a8412d4dea33a101, type: 3}
   LEFT_UPModules:
   - {fileID: 5579036130010935674, guid: c08e97c93513b9148af3de99853b6216, type: 3}
   LEFT_DOWNModules:
   - {fileID: 5579036130010935674, guid: 61464287638476c4fb8e0a59354c6247, type: 3}
+  - {fileID: 5579036130010935674, guid: 803f995222f4d5e4688cf249dc099e67, type: 3}
   UP_DOWNModules:
   - {fileID: 5579036130010935674, guid: 055ebdb14b0ce7143a5ecb2fe047c4ac, type: 3}
+  - {fileID: 5579036130010935674, guid: b0e7dc2b281a9164d965e1e797b9a300, type: 3}
   RIGHT_UPModules:
   - {fileID: 5579036130010935674, guid: 3ac1bfce433e7fe4a991491232104339, type: 3}
   RIGHT_DOWNModules:

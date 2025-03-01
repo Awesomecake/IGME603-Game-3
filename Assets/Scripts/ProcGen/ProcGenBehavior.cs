@@ -11,13 +11,15 @@ using UnityEngine.Tilemaps;
 
 public class ProcGenBehavior : MonoBehaviour
 {
-    [Header("General Generation Vars")]
-    [SerializeField] private uint numHorizontalChunks = 1;
-    [SerializeField] private uint numVerticalChunks = 1;
-    [SerializeField] private uint chunkWidth = 5;
-    [SerializeField] private uint chunkHeight = 5;
+    private uint numHorizontalChunks = 5;
+    private uint numVerticalChunks = 5;
+    private uint chunkWidth = 10;
+    private uint chunkHeight = 10;
+
     private uint terrainWidth = 0;
     private uint terrainHeight = 0;
+
+    [Header("General Generation Vars")]
     [SerializeField] private float noiseAmplitude = 0.5f;
     [SerializeField] private float magnification = 1f;
     [SerializeField] private float seed = 0f;
@@ -25,13 +27,13 @@ public class ProcGenBehavior : MonoBehaviour
 
     [Header("Random Walker Vars")]
     [SerializeField] private uint maxWalkerDistance = 2;
-    [SerializeField] private List<Vector2Int> walkerPath;
+    private List<Vector2Int> walkerPath;
 
-    //[Header("Random Walker Vars")]
-    //[SerializeField] private uint maxWalkStraightDistance = 5;
-    //private uint currentWalkStraightDistance = 0;
-    //[SerializeField] private float turnChancePerStep;
-    //private Direction currentDirection = Direction.RIGHT;
+    [Header("Player/Guard/LilBro/Gem Vars")]
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject guardPrefab;
+    [SerializeField] private GameObject lilBroPrefab;
+    [SerializeField] private GameObject gemPrefab;
 
     private enum Direction
     {
@@ -45,7 +47,7 @@ public class ProcGenBehavior : MonoBehaviour
 
     private enum ChunkValue
     { 
-        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN
     };
 
     [Header("Gameobject Vars")]
@@ -580,40 +582,40 @@ public class ProcGenBehavior : MonoBehaviour
                 switch (chunkMap[x, y])
                 {
                     case ChunkValue.FILLED:
-                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.LEFT_RIGHT:
-                        map = PlaceOneModule(LEFT_RIGHTModules[UnityEngine.Random.Range(0, LEFT_RIGHTModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(LEFT_RIGHTModules[UnityEngine.Random.Range(0, LEFT_RIGHTModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.LEFT_UP:
-                        map = PlaceOneModule(LEFT_UPModules[UnityEngine.Random.Range(0, LEFT_UPModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(LEFT_UPModules[UnityEngine.Random.Range(0, LEFT_UPModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.LEFT_DOWN:
-                        map = PlaceOneModule(LEFT_DOWNModules[UnityEngine.Random.Range(0, LEFT_DOWNModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(LEFT_DOWNModules[UnityEngine.Random.Range(0, LEFT_DOWNModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.UP_DOWN:
-                        map = PlaceOneModule(UP_DOWNModules[UnityEngine.Random.Range(0, UP_DOWNModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(UP_DOWNModules[UnityEngine.Random.Range(0, UP_DOWNModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.RIGHT_UP:
-                        map = PlaceOneModule(RIGHT_UPModules[UnityEngine.Random.Range(0, RIGHT_UPModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(RIGHT_UPModules[UnityEngine.Random.Range(0, RIGHT_UPModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.RIGHT_DOWN:
-                        map = PlaceOneModule(RIGHT_DOWNModules[UnityEngine.Random.Range(0, RIGHT_DOWNModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(RIGHT_DOWNModules[UnityEngine.Random.Range(0, RIGHT_DOWNModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.MIDDLE_LEFT:
-                        map = PlaceOneModule(MIDDLE_LEFTModules[UnityEngine.Random.Range(0, MIDDLE_LEFTModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(MIDDLE_LEFTModules[UnityEngine.Random.Range(0, MIDDLE_LEFTModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.MIDDLE_UP:
-                        map = PlaceOneModule(MIDDLE_UPModules[UnityEngine.Random.Range(0, MIDDLE_UPModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(MIDDLE_UPModules[UnityEngine.Random.Range(0, MIDDLE_UPModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.MIDDLE_DOWN:
-                        map = PlaceOneModule(MIDDLE_DOWNModules[UnityEngine.Random.Range(0, MIDDLE_DOWNModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(MIDDLE_DOWNModules[UnityEngine.Random.Range(0, MIDDLE_DOWNModules.Count)], mapX, mapY, map);
                         break;
                     case ChunkValue.MIDDLE_RIGHT:
-                        map = PlaceOneModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count)], mapX, mapY, map);
                         break;
                     default:
-                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY, map);
+                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count)], mapX, mapY, map);
                         break;
                 }
             }
