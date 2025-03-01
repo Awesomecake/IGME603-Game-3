@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalExit : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class GoalExit : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             if(collision.GetComponent<PlayerController>().hasDiamond)
-                FindObjectOfType<MenuManager>().ChangeSceneFromName("MainMenu");
+            {
+                Destroy(collision.gameObject);
+                SceneManager.LoadScene("MainMenu");
+            }
         }
     }
 }
