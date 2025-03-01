@@ -25,7 +25,7 @@ public class ProcGenBehavior : MonoBehaviour
 
     [Header("Random Walker Vars")]
     [SerializeField] private uint maxWalkerDistance = 2;
-    [SerializeField] private List<Vector2Int> walkerPath = new List<Vector2Int>();
+    [SerializeField] private List<Vector2Int> walkerPath;
 
     //[Header("Random Walker Vars")]
     //[SerializeField] private uint maxWalkStraightDistance = 5;
@@ -45,16 +45,14 @@ public class ProcGenBehavior : MonoBehaviour
 
     private enum ChunkValue
     { 
-        NONE, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
     };
 
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
     [SerializeField] private Tilemap groundTileMap;
-    private int[,] chunkMap;
-    private GameObject[,] chunkModules;
-    //[SerializeField] private List<GameObject> modules;
-    private List<int[,]> dataModules;
+    private WalkerValue[,] walkerMap;
+    private ChunkValue[,] chunkMap;
     private int[,] map;
 
     [Header("Module Vars")]
@@ -75,9 +73,6 @@ public class ProcGenBehavior : MonoBehaviour
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
         terrainHeight = numVerticalChunks * chunkHeight;
-
-        //convert all modules to dataModules
-        //dataModules = ConvertModulesToData(modules);
 
         //if groundTile and groundTileMap have been assigned,..
         if (groundTile != null && groundTileMap != null)
@@ -117,24 +112,38 @@ public class ProcGenBehavior : MonoBehaviour
     //***** CHUNK AND RANDOM WALKER FUNCTIONS *****
     private void GenerateChunks()
     {
+        //*** Proc Gen Setup ***
         //Clear all pre-existing ground tiles
         groundTileMap.ClearAllTiles();
 
         //Create an array of chunks to be randomly walked through and populated with modules
-        chunkMap = GenerateChunkArray(numHorizontalChunks, numVerticalChunks);
+        walkerMap = GenerateWalkerkMap(numHorizontalChunks, numVerticalChunks, WalkerValue.OPEN);
 
-        //randomly walk through the chunkMap
-        RandomWalk(chunkMap);
+        //Create a list of Vector2Int to populate with the walker's steps
+        walkerPath = new List<Vector2Int>();
 
-        //assign chunk values for each chunk
-        AssignChunkValues(chunkMap);
+        //Create an array of chunks to be populated with modules
+        chunkMap = GenerateChunkMap(numHorizontalChunks, numVerticalChunks, ChunkValue.FILLED);
 
-        //Create an array to manipulate later
-        map = GenerateArray(terrainWidth, terrainHeight, true);
+        //Create a 2D map of 0's to manipulate and render later
+        map = GenerateMap(terrainWidth, terrainHeight, 0);
+
+        //*** Generate ***
+        //randomly walk through the walkerMap to generate a walkerPath
+        walkerPath = RandomWalk(walkerMap, walkerPath);
+
+        //for (int i = 0; i < walkerPath.Count; i++)
+        //{
+        //    Debug.Log(walkerPath[i]);
+        //}
+
+        //assign chunk values for each chunk based on the walkerPath
+        chunkMap = AssignChunkValues(chunkMap, walkerPath);
 
         //populate the chunkMap with modules based on their chunk values
-        PlaceModules(chunkMap);
+        map = PlaceModules(chunkMap, chunkWidth, chunkHeight, map);
 
+        //*** Render ***
         //Render a tilemap using the array
         RenderMap(map, groundTileMap, groundTile);
 
@@ -142,18 +151,18 @@ public class ProcGenBehavior : MonoBehaviour
         GenerateAndRenderBoarder(boarderWidth, groundTileMap, groundTile);
     }
 
-    private int[,] GenerateChunkArray(uint numHorizontalChunks, uint numVerticalChunks)
+    private ChunkValue[,] GenerateChunkMap(uint numHorizontalChunks, uint numVerticalChunks, ChunkValue initValue)
     {
         //create 2D integer array of numHorizontalChunks = numHorizontalChunks and numVerticalChunks = numVerticalChunks
-        int[,] chunkMap = new int[numHorizontalChunks, numVerticalChunks];
+        ChunkValue[,] chunkMap = new ChunkValue[numHorizontalChunks, numVerticalChunks];
 
         //iterate through numHorizontalChunks and numVerticalChunks of map
         for (int x = 0; x < numHorizontalChunks; x++)
         {
             for (int y = 0; y < numVerticalChunks; y++)
             {
-                //set map[x,y] to 0
-                chunkMap[x, y] = 0;
+                //set chunkMap[x,y] to initValue
+                chunkMap[x, y] = initValue;
             }
         }
 
@@ -161,7 +170,26 @@ public class ProcGenBehavior : MonoBehaviour
         return chunkMap;
     }
 
-    private void RandomWalk(int[,] chunkMap)
+    private WalkerValue[,] GenerateWalkerkMap(uint numHorizontalChunks, uint numVerticalChunks, WalkerValue initValue)
+    {
+        //create 2D integer array of numHorizontalChunks = numHorizontalChunks and numVerticalChunks = numVerticalChunks
+        WalkerValue[,] walkerMap = new WalkerValue[numHorizontalChunks, numVerticalChunks];
+
+        //iterate through numHorizontalChunks and numVerticalChunks of map
+        for (int x = 0; x < numHorizontalChunks; x++)
+        {
+            for (int y = 0; y < numVerticalChunks; y++)
+            {
+                //set walkerMap[x,y] to initValue
+                walkerMap[x, y] = initValue;
+            }
+        }
+
+        //return walkerMap
+        return walkerMap;
+    }
+
+    private List<Vector2Int> RandomWalk(WalkerValue[,] walkerkMap, List<Vector2Int> walkerPath)
     {
         //define currentWalkerDistance
         uint currentWalkerDistance = 1;
@@ -170,21 +198,15 @@ public class ProcGenBehavior : MonoBehaviour
         Vector2Int currentPosition = new Vector2Int(UnityEngine.Random.Range(0, (int)numHorizontalChunks - 1), UnityEngine.Random.Range(0, (int)numHorizontalChunks  - 1));
         //Debug.Log("Current position is: " + currentPosition);
 
-        //set starting position to currentWalkerDistance
-        chunkMap[currentPosition.x, currentPosition.y] = (int)currentWalkerDistance;
+        //set starting position to WalkerValue.STEPPED
+        walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
 
         //add step to walkerPath
         walkerPath.Add(currentPosition);
 
-        //define nextPosition
-        //Vector2Int nextPosition;
-
-        //define lastPosition
-        //Vector2Int lastPosition;
-
         //define all possible next steps
         List<Vector2Int> possibleNextSteps = new List<Vector2Int>();
-        possibleNextSteps = FindPossibleSteps(chunkMap, currentPosition);
+        possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
 
         //for(int j = 0; j < possibleNextSteps.Count; j++)
         //{
@@ -201,31 +223,89 @@ public class ProcGenBehavior : MonoBehaviour
             //increment currentWalkerDistance
             currentWalkerDistance++;
 
-            //set current position on chunkMap to currentWalkerDistance
-            chunkMap[currentPosition.x, currentPosition.y] = (int)currentWalkerDistance;
+            //set current position on walkerkMap to WalkerValue.STEPPED
+            walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
 
             //add step to walkerPath
             walkerPath.Add(currentPosition);
 
             //update possibleNextSteps
-            possibleNextSteps = FindPossibleSteps(chunkMap, currentPosition);
+            possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
 
             //if walker visits a chunk it has previously visited,...
             //then prune by walking backwards until you reach the chunk that was previoulsy visited
         }
+
+        //return walkerPath
+        return walkerPath;
     }
 
-    private void AssignChunkValues(int[,] chunkMap)
+    private List<Vector2Int> FindPossibleSteps(WalkerValue[,] walkerMap, Vector2Int currentPosition)
     {
         //get numHorizontalChunks and numVerticalChunks
         int numHorizontalChunks = chunkMap.GetLength(0);
         int numVerticalChunks = chunkMap.GetLength(1);
 
-        //define surrounding chunk positions
-        //bool leftPosition = false;
-        //bool upPosition = false;
-        //bool rightPosition = false;
-        //bool downPosition = false;
+        //define all possible next steps
+        List<Vector2Int> possibleNextSteps = new List<Vector2Int>();
+
+        //check left
+        //if the chunk to the left is NOT out of bounds,...
+        if (currentPosition.x - 1 >= 0)
+        {
+            //if chunk to the left has NOT been stepped in and is NOT closed,...
+            if (walkerMap[currentPosition.x - 1, currentPosition.y] != WalkerValue.STEPPED && walkerMap[currentPosition.x - 1, currentPosition.y] != WalkerValue.CLOSED)
+            {
+                //add the chunk to the left as a possible direction to step in
+                possibleNextSteps.Add(new Vector2Int(currentPosition.x - 1, currentPosition.y));
+            }
+        }
+
+        //check up
+        //if the chunk to the up is NOT out of bounds,...
+        if (currentPosition.y + 1 < numVerticalChunks)
+        {
+            //if chunk to the left has NOT been stepped in and is NOT closed,...
+            if (walkerMap[currentPosition.x, currentPosition.y + 1] != WalkerValue.STEPPED && walkerMap[currentPosition.x, currentPosition.y + 1] != WalkerValue.CLOSED)
+            {
+                //add the chunk to the left as a possible direction to step in
+                possibleNextSteps.Add(new Vector2Int(currentPosition.x, currentPosition.y + 1));
+            }
+        }
+
+        //check right
+        //if the chunk to the rught is NOT out of bounds,...
+        if (currentPosition.x + 1 < numHorizontalChunks)
+        {
+            //if chunk to the right has NOT been stepped in and is NOT closed,...
+            if (walkerMap[currentPosition.x + 1, currentPosition.y] != WalkerValue.STEPPED && walkerMap[currentPosition.x + 1, currentPosition.y] != WalkerValue.CLOSED)
+            {
+                //add the chunk to the right as a possible direction to step in
+                possibleNextSteps.Add(new Vector2Int(currentPosition.x + 1, currentPosition.y));
+            }
+        }
+
+        //check down
+        //if the chunk to the down is NOT out of bounds,...
+        if (currentPosition.y - 1 >= 0)
+        {
+            //if chunk to the down has NOT been stepped in and is NOT closed,...
+            if (walkerMap[currentPosition.x, currentPosition.y - 1] != WalkerValue.STEPPED && walkerMap[currentPosition.x, currentPosition.y - 1] != WalkerValue.CLOSED)
+            {
+                //add the chunk to the down as a possible direction to step in
+                possibleNextSteps.Add(new Vector2Int(currentPosition.x, currentPosition.y - 1));
+            }
+        }
+
+        //return possibleNextSteps
+        return possibleNextSteps;
+    }
+
+    private ChunkValue[,] AssignChunkValues(ChunkValue[,] chunkMap, List<Vector2Int> walkerPath)
+    {
+        //get numHorizontalChunks and numVerticalChunks
+        int numHorizontalChunks = chunkMap.GetLength(0);
+        int numVerticalChunks = chunkMap.GetLength(1);
 
         //define currentPosition, lastPosition, and nextPosition
         Vector2Int currentPosition;
@@ -251,25 +331,102 @@ public class ProcGenBehavior : MonoBehaviour
                 nextPosition = walkerPath[i + 1];
 
             //define curToLastDirection and curToNextDirection
-            Vector2Int curToLastDirection = currentPosition - lastPosition;
-            Vector2Int curToNextDirection = currentPosition - nextPosition;
+            Vector2Int curToLastDirection = lastPosition - currentPosition;
+            Vector2Int curToNextDirection = nextPosition - currentPosition;
 
-            //
+            //based on curToLastDirection and curToNextDirection, assign chunkMap value to: FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, or MIDDLE_RIGHT
             switch ((curToLastDirection, curToNextDirection))
             {
+                //going LEFT_RIGHT
+                case var value when value == (Vector2Int.left, Vector2Int.right):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_RIGHT;
+                    break;
+                //going LEFT_RIGHT
+                case var value when value == (Vector2Int.right, Vector2Int.left):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_RIGHT;
+                    break;
+                //going LEFT_UP
+                case var value when value == (Vector2Int.left, Vector2Int.up):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_UP;
+                    break;
+                //going LEFT_UP
+                case var value when value == (Vector2Int.up, Vector2Int.left):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_UP;
+                    break;
+                //going LEFT_DOWN
+                case var value when value == (Vector2Int.left, Vector2Int.down):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_DOWN;
+                    break;
+                //going LEFT_DOWN
+                case var value when value == (Vector2Int.down, Vector2Int.left):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.LEFT_DOWN;
+                    break;
+                //going UP_DOWN
+                case var value when value == (Vector2Int.up, Vector2Int.down):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.UP_DOWN;
+                    break;
+                //going UP_DOWN
+                case var value when value == (Vector2Int.down, Vector2Int.up):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.UP_DOWN;
+                    break;
+                //going RIGHT_UP
+                case var value when value == (Vector2Int.right, Vector2Int.up):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.RIGHT_UP;
+                    break;
+                //going RIGHT_UP
+                case var value when value == (Vector2Int.up, Vector2Int.right):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.RIGHT_UP;
+                    break;
+                //going RIGHT_DOWN
+                case var value when value == (Vector2Int.right, Vector2Int.down):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.RIGHT_DOWN;
+                    break;
+                //going RIGHT_DOWN
+                case var value when value == (Vector2Int.down, Vector2Int.right):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.RIGHT_DOWN;
+                    break;
                 //going MIDDLE_LEFT
                 case var value when value == (Vector2Int.zero, Vector2Int.left):
-                    chunkMap[currentPosition.x, currentPosition.y] = (int)ChunkValue.MIDDLE_LEFT;
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_LEFT;
                     break;
-                //going up
-                case var value when value == (Vector2Int.zero, Vector2Int.left):
-                    //
+                //going MIDDLE_LEFT
+                case var value when value == (Vector2Int.left, Vector2Int.zero):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_LEFT;
                     break;
+                //going MIDDLE_UP
+                case var value when value == (Vector2Int.zero, Vector2Int.up):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_UP;
+                    break;
+                //going MIDDLE_UP
+                case var value when value == (Vector2Int.up, Vector2Int.zero):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_UP;
+                    break;
+                //going MIDDLE_DOWN
+                case var value when value == (Vector2Int.zero, Vector2Int.down):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_DOWN;
+                    break;
+                //going MIDDLE_DOWN
+                case var value when value == (Vector2Int.down, Vector2Int.zero):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_DOWN;
+                    break;
+                //going MIDDLE_RIGHT
+                case var value when value == (Vector2Int.zero, Vector2Int.right):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_RIGHT;
+                    break;
+                //going MIDDLE_RIGHT
+                case var value when value == (Vector2Int.right, Vector2Int.zero):
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_RIGHT;
+                    break;
+                //going FILLED or anywhere else
                 default:
+                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.FILLED;
                     break;
             }
+
+            //Debug.Log("Cuurent walker pos: " + currentPosition + ". And is orientation: " + chunkMap[currentPosition.x, currentPosition.y]);
         }
 
+        #region OLD CODE
         //iterate through each chunk in chunkMap
         //for (int x = 0; x < numHorizontalChunks; x++)
         //{
@@ -278,15 +435,15 @@ public class ProcGenBehavior : MonoBehaviour
         //        //if chunk is WalkerValue.OPEN,...
         //        if (chunkMap[x,y] == (int)WalkerValue.OPEN)
         //        {
-        //            //set chunk to ChunkValue.NONE
-        //            chunkMap[x, y] = (int)ChunkValue.NONE;
+        //            //set chunk to ChunkValue.FILLED
+        //            chunkMap[x, y] = (int)ChunkValue.FILLED;
         //        }
         //        else if (chunkMap[x,y] == (int)WalkerValue.STEPPED)
         //        {
         //            //find left chunk
-        //            if (x <= 0 || chunkMap[x - 1, y] == (int)ChunkValue.NONE || chunkMap[x - 1, y] == (int)WalkerValue.OPEN)
+        //            if (x <= 0 || chunkMap[x - 1, y] == (int)ChunkValue.FILLED || chunkMap[x - 1, y] == (int)WalkerValue.OPEN)
         //            {
-        //                //leftPosition = (int)ChunkValue.NONE;
+        //                //leftPosition = (int)ChunkValue.FILLED;
         //                leftPosition = false;
         //            }
         //            else
@@ -295,7 +452,7 @@ public class ProcGenBehavior : MonoBehaviour
         //            }
 
         //            //find up chunk
-        //            if(y >= numVerticalChunks - 1 || chunkMap[x, y + 1] == (int)ChunkValue.NONE || chunkMap[x, y + 1] == (int)WalkerValue.OPEN)
+        //            if(y >= numVerticalChunks - 1 || chunkMap[x, y + 1] == (int)ChunkValue.FILLED || chunkMap[x, y + 1] == (int)WalkerValue.OPEN)
         //            {
         //                upPosition = false;
         //            }
@@ -305,7 +462,7 @@ public class ProcGenBehavior : MonoBehaviour
         //            }
 
         //            //find right chunk
-        //            if (x >= numHorizontalChunks - 1 || chunkMap[x + 1, y] == (int)ChunkValue.NONE || chunkMap[x + 1, y] == (int)WalkerValue.OPEN)
+        //            if (x >= numHorizontalChunks - 1 || chunkMap[x + 1, y] == (int)ChunkValue.FILLED || chunkMap[x + 1, y] == (int)WalkerValue.OPEN)
         //            {
         //                rightPosition = false;
         //            }
@@ -315,7 +472,7 @@ public class ProcGenBehavior : MonoBehaviour
         //            }
 
         //            //find down chunk
-        //            if (y <= 0 || chunkMap[x, y - 1] == (int)ChunkValue.NONE || chunkMap[x, y - 1] == (int)WalkerValue.OPEN)
+        //            if (y <= 0 || chunkMap[x, y - 1] == (int)ChunkValue.FILLED || chunkMap[x, y - 1] == (int)WalkerValue.OPEN)
         //            {
         //                upPosition = false;
         //            }
@@ -325,7 +482,7 @@ public class ProcGenBehavior : MonoBehaviour
         //            }
 
         //            //check surrounding chunks and assign chunk value accordingly
-        //            //Remember, that the possible ChunkValues are: NONE, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+        //            //Remember, that the possible ChunkValues are: FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
         //            switch ((leftPosition, upPosition, rightPosition, downPosition))
         //            {
         //                case (true, false, false, false):
@@ -359,73 +516,16 @@ public class ProcGenBehavior : MonoBehaviour
         //                    chunkMap[x, y] = (int)ChunkValue.MIDDLE_RIGHT;
         //                    break;
         //                default:
-        //                    chunkMap[x, y] = (int)ChunkValue.NONE;
+        //                    chunkMap[x, y] = (int)ChunkValue.FILLED;
         //                    break;
         //            }
         //        }
         //    }
         //}
-    }
+        #endregion
 
-    private List<Vector2Int> FindPossibleSteps(int[,] chunkMap, Vector2Int currentPosition)
-    {
-        //get numHorizontalChunks and numVerticalChunks
-        int numHorizontalChunks = chunkMap.GetLength(0);
-        int numVerticalChunks = chunkMap.GetLength(1);
-
-        //define all possible next steps
-        List<Vector2Int> possibleNextSteps = new List<Vector2Int>();
-
-        //check left
-        //if the chunk to the left is NOT out of bounds,...
-        if(currentPosition.x - 1 >= 0)
-        {
-            //if chunk to the left has NOT been stepped in and is NOT closed,...
-            if (chunkMap[currentPosition.x - 1, currentPosition.y] != (int)WalkerValue.STEPPED && chunkMap[currentPosition.x - 1, currentPosition.y] != (int)WalkerValue.CLOSED)
-            {
-                //add the chunk to the left as a possible direction to step in
-                possibleNextSteps.Add(new Vector2Int(currentPosition.x - 1, currentPosition.y));
-            }
-        }
-
-        //check up
-        //if the chunk to the up is NOT out of bounds,...
-        if (currentPosition.y + 1 < numVerticalChunks)
-        {
-            //if chunk to the left has NOT been stepped in and is NOT closed,...
-            if (chunkMap[currentPosition.x, currentPosition.y + 1] != (int)WalkerValue.STEPPED && chunkMap[currentPosition.x, currentPosition.y + 1] != (int)WalkerValue.CLOSED)
-            {
-                //add the chunk to the left as a possible direction to step in
-                possibleNextSteps.Add(new Vector2Int(currentPosition.x, currentPosition.y + 1));
-            }
-        }
-
-        //check right
-        //if the chunk to the rught is NOT out of bounds,...
-        if (currentPosition.x + 1 < numHorizontalChunks)
-        {
-            //if chunk to the right has NOT been stepped in and is NOT closed,...
-            if (chunkMap[currentPosition.x + 1, currentPosition.y] != (int)WalkerValue.STEPPED && chunkMap[currentPosition.x + 1, currentPosition.y] != (int)WalkerValue.CLOSED)
-            {
-                //add the chunk to the right as a possible direction to step in
-                possibleNextSteps.Add(new Vector2Int(currentPosition.x + 1, currentPosition.y));
-            }
-        }
-
-        //check down
-        //if the chunk to the down is NOT out of bounds,...
-        if (currentPosition.y - 1 >= 0)
-        {
-            //if chunk to the down has NOT been stepped in and is NOT closed,...
-            if (chunkMap[currentPosition.x, currentPosition.y - 1] != (int)WalkerValue.STEPPED && chunkMap[currentPosition.x, currentPosition.y - 1] != (int)WalkerValue.CLOSED)
-            {
-                //add the chunk to the down as a possible direction to step in
-                possibleNextSteps.Add(new Vector2Int(currentPosition.x, currentPosition.y - 1));
-            }
-        }
-
-        //return possibleNextSteps
-        return possibleNextSteps;
+        //return chunkMap
+        return chunkMap;
     }
 
     //private void RenderChunks(int[,] chunkMap, Tilemap groundTileMap, TileBase groundTileBase)
@@ -457,7 +557,7 @@ public class ProcGenBehavior : MonoBehaviour
     //    return dataModules;
     //}
 
-    private void PlaceModules(int[,] chunkMap)
+    private int[,] PlaceModules(ChunkValue[,] chunkMap, uint chunkWidth, uint chunkHeight, int[,] map)
     {
         //get numHorizontalChunks and numVerticalChunks
         int numHorizontalChunks = chunkMap.GetLength(0);
@@ -479,48 +579,51 @@ public class ProcGenBehavior : MonoBehaviour
                 //place a module at each chunk in accordance with the chunk's value
                 switch (chunkMap[x, y])
                 {
-                    case (int)ChunkValue.NONE:
-                        RenderModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.FILLED:
+                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.LEFT_RIGHT:
-                        RenderModule(LEFT_RIGHTModules[UnityEngine.Random.Range(0, LEFT_RIGHTModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.LEFT_RIGHT:
+                        map = PlaceOneModule(LEFT_RIGHTModules[UnityEngine.Random.Range(0, LEFT_RIGHTModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.LEFT_UP:
-                        RenderModule(LEFT_UPModules[UnityEngine.Random.Range(0, LEFT_UPModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.LEFT_UP:
+                        map = PlaceOneModule(LEFT_UPModules[UnityEngine.Random.Range(0, LEFT_UPModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.LEFT_DOWN:
-                        RenderModule(LEFT_DOWNModules[UnityEngine.Random.Range(0, LEFT_DOWNModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.LEFT_DOWN:
+                        map = PlaceOneModule(LEFT_DOWNModules[UnityEngine.Random.Range(0, LEFT_DOWNModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.UP_DOWN:
-                        RenderModule(UP_DOWNModules[UnityEngine.Random.Range(0, UP_DOWNModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.UP_DOWN:
+                        map = PlaceOneModule(UP_DOWNModules[UnityEngine.Random.Range(0, UP_DOWNModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.RIGHT_UP:
-                        RenderModule(RIGHT_UPModules[UnityEngine.Random.Range(0, RIGHT_UPModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.RIGHT_UP:
+                        map = PlaceOneModule(RIGHT_UPModules[UnityEngine.Random.Range(0, RIGHT_UPModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.RIGHT_DOWN:
-                        RenderModule(RIGHT_DOWNModules[UnityEngine.Random.Range(0, RIGHT_DOWNModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.RIGHT_DOWN:
+                        map = PlaceOneModule(RIGHT_DOWNModules[UnityEngine.Random.Range(0, RIGHT_DOWNModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.MIDDLE_LEFT:
-                        RenderModule(MIDDLE_LEFTModules[UnityEngine.Random.Range(0, MIDDLE_LEFTModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.MIDDLE_LEFT:
+                        map = PlaceOneModule(MIDDLE_LEFTModules[UnityEngine.Random.Range(0, MIDDLE_LEFTModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.MIDDLE_UP:
-                        RenderModule(MIDDLE_UPModules[UnityEngine.Random.Range(0, MIDDLE_UPModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.MIDDLE_UP:
+                        map = PlaceOneModule(MIDDLE_UPModules[UnityEngine.Random.Range(0, MIDDLE_UPModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.MIDDLE_DOWN:
-                        RenderModule(MIDDLE_DOWNModules[UnityEngine.Random.Range(0, MIDDLE_DOWNModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.MIDDLE_DOWN:
+                        map = PlaceOneModule(MIDDLE_DOWNModules[UnityEngine.Random.Range(0, MIDDLE_DOWNModules.Count - 1)], mapX, mapY, map);
                         break;
-                    case (int)ChunkValue.MIDDLE_RIGHT:
-                        RenderModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count - 1)], mapX, mapY);
+                    case ChunkValue.MIDDLE_RIGHT:
+                        map = PlaceOneModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count - 1)], mapX, mapY, map);
                         break;
                     default:
-                        RenderModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY);
+                        map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY, map);
                         break;
                 }
             }
         }
+
+        //return map
+        return map;
     }
 
-    private void RenderModule(GameObject chunkToRender, int moduleStartingX, int moduleStartingY)
+    private int[,] PlaceOneModule(GameObject chunkToRender, int moduleStartingX, int moduleStartingY, int[,] map)
     {
         Tilemap chunkTileMap = chunkToRender.GetComponent<Tilemap>();
 
@@ -531,15 +634,20 @@ public class ProcGenBehavior : MonoBehaviour
                 //if the corresponding chunk tile is a base tile,...
                 if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == groundTile)
                 {
+                    //set the corresponding map tile to a base tile
                     map[moduleStartingX + x, moduleStartingY + y] = 1;
                 }
-                //else the correspionding chunk tile is a air tile,...
+                //else the correspionding chunk tile is an air tile,...
                 else
                 {
+                    //set the corresponding map tile to an air tile
                     map[moduleStartingX + x, moduleStartingY + y] = 0;
                 }
             }
         }
+
+        //return map
+        return map;
     }
 
     //***** PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
@@ -553,7 +661,7 @@ public class ProcGenBehavior : MonoBehaviour
         groundTileMap.ClearAllTiles();
 
         //Create an array to manipulate later
-        map = GenerateArray(terrainWidth, terrainHeight, true);
+        map = GenerateMap(terrainWidth, terrainHeight, 0);
 
         //Generate Terrain by directly applying perlin noise
         map = GenerateTerrain(map);
@@ -576,7 +684,7 @@ public class ProcGenBehavior : MonoBehaviour
     /// <param name="terrainHeight"> terrainHeight of 2D integer array </param>
     /// <param name="empty"> whether 2D integer array should be filled with 0s or 1s </param>
     /// <returns> A 2D integer array of either 0s or 1s based on the value of empty </returns>
-    private int[,] GenerateArray(uint terrainWidth, uint terrainHeight, bool empty)
+    private int[,] GenerateMap(uint terrainWidth, uint terrainHeight, int initValue)
     {
         //create 2D integer array of terrainWidth = terrainWidth and terrainHeight = terrainHeight
         int[,] map = new int[terrainWidth, terrainHeight];
@@ -586,9 +694,8 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = 0; y < terrainHeight; y++)
             {
-                //if empty is true, set map[x,y] to 0
-                //else if empty is false, set map[x,y] to 1
-                map[x, y] = (empty) ? 0 : 1;
+                //set map[x,y] to initValue
+                map[x, y] = initValue;
             }
         }
 
