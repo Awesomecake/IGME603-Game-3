@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item1: {fileID: 1456410070365849978, guid: 269f6f8eadbd4a54991f930bc2ac4249, type: 3}
   item2: {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
-  item3: {fileID: 0}
+  item3: {fileID: 47576519631612836, guid: bcf496cc82252d14dafb1a3ebed1f6ab, type: 3}
   spriteRenderer: {fileID: 7401413692154628250}
 --- !u!114 &6351137390402409544
 MonoBehaviour:
