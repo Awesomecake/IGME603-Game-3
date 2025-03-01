@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class ProcGenBehavior : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private GameObject guardPrefab;
     [SerializeField] private GameObject lilBroPrefab;
     [SerializeField] private GameObject gemPrefab;
+    private bool hasPlayerSpawned = false;
+    private bool hasLilBroSpawned = false;
+    private bool hasGemSpawned = false;
 
     private enum Direction
     {
@@ -47,11 +51,15 @@ public class ProcGenBehavior : MonoBehaviour
 
     private enum ChunkValue
     { 
-        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN
+        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, GEM_LEFT, GEM_RIGHT, GEM_UP, GEM_DOWN
     };
 
     [Header("Gameobject Vars")]
     [SerializeField] private TileBase groundTile;
+    [SerializeField] private TileBase playerTile;
+    [SerializeField] private TileBase guardTile;
+    [SerializeField] private TileBase lilBroTile;
+    [SerializeField] private TileBase gemTile;
     [SerializeField] private Tilemap groundTileMap;
     private WalkerValue[,] walkerMap;
     private ChunkValue[,] chunkMap;
@@ -69,6 +77,16 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private List<GameObject> MIDDLE_UPModules;
     [SerializeField] private List<GameObject> MIDDLE_DOWNModules;
     [SerializeField] private List<GameObject> MIDDLE_RIGHTModules;
+
+    [SerializeField] private List<GameObject> PLAYER_LEFTModules;
+    [SerializeField] private List<GameObject> PLAYER_UPModules;
+    [SerializeField] private List<GameObject> PLAYER_RIGHTModules;
+    [SerializeField] private List<GameObject> PLAYER_DOWNModules;
+
+    [SerializeField] private List<GameObject> GEM_LEFTModules;
+    [SerializeField] private List<GameObject> GEM_UPModules;
+    [SerializeField] private List<GameObject> GEM_RIGHTModules;
+    [SerializeField] private List<GameObject> GEM_DOWNModules;
 
     void Start()
     {
@@ -96,7 +114,8 @@ public class ProcGenBehavior : MonoBehaviour
             {
                 //generate terrain at the start of the scene
                 //Generate();
-                GenerateChunks();
+                //GenerateChunks();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
@@ -141,6 +160,9 @@ public class ProcGenBehavior : MonoBehaviour
 
         //assign chunk values for each chunk based on the walkerPath
         chunkMap = AssignChunkValues(chunkMap, walkerPath);
+
+        //
+        chunkMap = AssignSpecialChunkValues(chunkMap, walkerPath);
 
         //populate the chunkMap with modules based on their chunk values
         map = PlaceModules(chunkMap, chunkWidth, chunkHeight, map);
@@ -389,7 +411,10 @@ public class ProcGenBehavior : MonoBehaviour
                     break;
                 //going MIDDLE_LEFT
                 case var value when value == (Vector2Int.zero, Vector2Int.left):
-                    chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_LEFT;
+                    if (hasPlayerSpawned)
+                        chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.MIDDLE_LEFT;
+                    else
+                        chunkMap[currentPosition.x, currentPosition.y] = ChunkValue.PLAYER_LEFT;
                     break;
                 //going MIDDLE_LEFT
                 case var value when value == (Vector2Int.left, Vector2Int.zero):
@@ -530,34 +555,66 @@ public class ProcGenBehavior : MonoBehaviour
         return chunkMap;
     }
 
-    //private void RenderChunks(int[,] chunkMap, Tilemap groundTileMap, TileBase groundTileBase)
-    //{
-    //    //get and store terrainWidth and terrainHeight of chunkMap
-    //    uint terrainWidth = numHorizontalChunks * chunkWidth;
-    //    uint terrainHeight = numVerticalChunks * chunkHeight;
+    private ChunkValue[,] AssignSpecialChunkValues(ChunkValue[,] chunkMap, List<Vector2Int> walkerPath)
+    {
+        //if walker path is long enough to have a player chunk and the player has NOT yet spawned,...
+        if(walkerPath.Count >= 0 && !hasPlayerSpawned)
+        {
+            //set hasPlayerSpawned to true
+            hasPlayerSpawned = true;
 
-    //    //iterate through terrainWidth and terrainHeight of chunkMap
-    //    for (int x = 0; x < terrainWidth; x++)
-    //    {
-    //        for (int y = 0; y < terrainHeight; y++)
-    //        {
-    //            //if value of map at [x,y] is 1,...
-    //            if (chunkMap[x, y] == 1)
-    //            {
-    //                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
-    //            }
-    //        }
-    //    }
-    //}
+            //reassign the chunkValue of the first position along the walkerPath to a player chunk with the correct orientation
+            switch(chunkMap[walkerPath[0].x, walkerPath[0].y])
+            {
+                case ChunkValue.MIDDLE_LEFT:
+                    chunkMap[walkerPath[0].x, walkerPath[0].y] = ChunkValue.PLAYER_LEFT;
+                    break;
+                case ChunkValue.MIDDLE_UP:
+                    chunkMap[walkerPath[0].x, walkerPath[0].y] = ChunkValue.PLAYER_UP;
+                    break;
+                case ChunkValue.MIDDLE_RIGHT:
+                    chunkMap[walkerPath[0].x, walkerPath[0].y] = ChunkValue.PLAYER_RIGHT;
+                    break;
+                case ChunkValue.MIDDLE_DOWN:
+                    chunkMap[walkerPath[0].x, walkerPath[0].y] = ChunkValue.PLAYER_DOWN;
+                    break;
+                default:
+                    break;
+            }
+        }
 
-    //private List<int[,]> ConvertModulesToData(List<GameObject> modules)
-    //{
-    //    //create a new list
-    //    List<int[,]> dataModules = new List<int[,]>();
+        //if walker path is long enough to have a gen chunk and the gem has NOT yet spawned,...
+        if (walkerPath.Count >= 1 && !hasGemSpawned)
+        {
+            //set hasGemSpawned to true
+            hasGemSpawned = true;
 
-    //    //return dataModules
-    //    return dataModules;
-    //}
+            //define walkerLength
+            int walkerLength = walkerPath.Count - 1;
+
+            //reassign the chunkValue of the first position along the walkerPath to a player chunk with the correct orientation
+            switch (chunkMap[walkerPath[walkerLength].x, walkerPath[walkerLength].y])
+            {
+                case ChunkValue.MIDDLE_LEFT:
+                    chunkMap[walkerPath[walkerLength].x, walkerPath[walkerLength].y] = ChunkValue.GEM_LEFT;
+                    break;
+                case ChunkValue.MIDDLE_UP:
+                    chunkMap[walkerPath[walkerLength].x, walkerPath[walkerLength].y] = ChunkValue.GEM_UP;
+                    break;
+                case ChunkValue.MIDDLE_RIGHT:
+                    chunkMap[walkerPath[walkerLength].x, walkerPath[walkerLength].y] = ChunkValue.GEM_RIGHT;
+                    break;
+                case ChunkValue.MIDDLE_DOWN:
+                    chunkMap[walkerPath[walkerLength].x, walkerPath[walkerLength].y] = ChunkValue.GEM_DOWN;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //return chunkMap
+        return chunkMap;
+    }
 
     private int[,] PlaceModules(ChunkValue[,] chunkMap, uint chunkWidth, uint chunkHeight, int[,] map)
     {
@@ -614,6 +671,33 @@ public class ProcGenBehavior : MonoBehaviour
                     case ChunkValue.MIDDLE_RIGHT:
                         map = PlaceOneModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count)], mapX, mapY, map);
                         break;
+
+                    case ChunkValue.PLAYER_LEFT:
+                        map = PlaceOneModule(PLAYER_LEFTModules[UnityEngine.Random.Range(0, PLAYER_LEFTModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.PLAYER_UP:
+                        map = PlaceOneModule(PLAYER_UPModules[UnityEngine.Random.Range(0, PLAYER_UPModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.PLAYER_RIGHT:
+                        map = PlaceOneModule(PLAYER_RIGHTModules[UnityEngine.Random.Range(0, PLAYER_RIGHTModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.PLAYER_DOWN:
+                        map = PlaceOneModule(PLAYER_DOWNModules[UnityEngine.Random.Range(0, PLAYER_DOWNModules.Count)], mapX, mapY, map);
+                        break;
+
+                    case ChunkValue.GEM_LEFT:
+                        map = PlaceOneModule(GEM_LEFTModules[UnityEngine.Random.Range(0, GEM_LEFTModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.GEM_UP:
+                        map = PlaceOneModule(GEM_UPModules[UnityEngine.Random.Range(0, GEM_UPModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.GEM_RIGHT:
+                        map = PlaceOneModule(GEM_RIGHTModules[UnityEngine.Random.Range(0, GEM_RIGHTModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.GEM_DOWN:
+                        map = PlaceOneModule(GEM_DOWNModules[UnityEngine.Random.Range(0, GEM_DOWNModules.Count)], mapX, mapY, map);
+                        break;
+
                     default:
                         map = PlaceOneModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count)], mapX, mapY, map);
                         break;
@@ -639,7 +723,31 @@ public class ProcGenBehavior : MonoBehaviour
                     //set the corresponding map tile to a base tile
                     map[moduleStartingX + x, moduleStartingY + y] = 1;
                 }
-                //else the correspionding chunk tile is an air tile,...
+                //else the corresponding chunk tile is a player tile,...
+                else if(chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == playerTile)
+                {
+                    //set the corresponding map tile to a player tile
+                    map[moduleStartingX + x, moduleStartingY + y] = 2;
+                }
+                //else the corresponding chunk tile is a guard tile,...
+                else if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == guardTile)
+                {
+                    //set the corresponding map tile to a guard tile
+                    map[moduleStartingX + x, moduleStartingY + y] = 3;
+                }
+                //else the corresponding chunk tile is a lil bro tile,...
+                else if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == lilBroTile)
+                {
+                    //set the corresponding map tile to a lil bro tile
+                    map[moduleStartingX + x, moduleStartingY + y] = 4;
+                }
+                //else the corresponding chunk tile is a gem tile,...
+                else if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == gemTile)
+                {
+                    //set the corresponding map tile to a gem tile
+                    map[moduleStartingX + x, moduleStartingY + y] = 5;
+                }
+                //else the corresponding chunk tile is an air tile,...
                 else
                 {
                     //set the corresponding map tile to an air tile
@@ -846,6 +954,30 @@ public class ProcGenBehavior : MonoBehaviour
                 if (map[x, y] == 1)
                 {
                     groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                }
+                //if value of map at [x,y] is 2,...
+                else if (map[x, y] == 2)
+                {
+                    //spawn player
+                    Instantiate(playerPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                }
+                //if value of map at [x,y] is 3,...
+                else if (map[x, y] == 3)
+                {
+                    //spawn guard
+                    Instantiate(guardPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                }
+                //if value of map at [x,y] is 4,...
+                else if (map[x, y] == 4)
+                {
+                    //spawn lil bro
+                    Instantiate(lilBroPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                }
+                //if value of map at [x,y] is 5,...
+                else if (map[x, y] == 5)
+                {
+                    //spawn gem
+                    Instantiate(gemPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
             }
         }

@@ -447,17 +447,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898a9c65979a9bc42b8478fc24459f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numHorizontalChunks: 5
-  numVerticalChunks: 5
-  chunkWidth: 10
-  chunkHeight: 10
   noiseAmplitude: 0.5
   magnification: 7
   seed: 0
   boarderWidth: 10
   maxWalkerDistance: 14
-  walkerPath: []
+  playerPrefab: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
+  guardPrefab: {fileID: 2052598004456028538, guid: 1200846e870474e36b64f5c067334d92, type: 3}
+  lilBroPrefab: {fileID: 0}
+  gemPrefab: {fileID: 4821079123302601521, guid: 358884f881ec14b4490c0b4f9cacc06e, type: 3}
   groundTile: {fileID: 11400000, guid: 3820b1e236877a041b43920b104adc1e, type: 2}
+  playerTile: {fileID: 11400000, guid: 0720d9310367239489d1a4926709297d, type: 2}
+  guardTile: {fileID: 11400000, guid: 64a20f698f6d05944ba35bba3bb24b04, type: 2}
+  lilBroTile: {fileID: 11400000, guid: 10eed0bb7edaf46408f99dedb84a804f, type: 2}
+  gemTile: {fileID: 11400000, guid: 3115d3889d747a641bf9d3ccb4e5573e, type: 2}
   groundTileMap: {fileID: 1750480631}
   NONEModules:
   - {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
@@ -485,6 +488,22 @@ MonoBehaviour:
   - {fileID: 5579036130010935674, guid: 4fbcbb0a97b555c47b21b7725398b9ca, type: 3}
   MIDDLE_RIGHTModules:
   - {fileID: 5579036130010935674, guid: 7cf72d7aefa790a4993450a7f4cb9177, type: 3}
+  PLAYER_LEFTModules:
+  - {fileID: 5579036130010935674, guid: b6e7bb84782137044bb4c00ceb157a78, type: 3}
+  PLAYER_UPModules:
+  - {fileID: 5579036130010935674, guid: 032e26c6661a3e347988fbc2f7c252de, type: 3}
+  PLAYER_RIGHTModules:
+  - {fileID: 5579036130010935674, guid: 18b4faee8d4a8bf48a8a499e7c7e8ad2, type: 3}
+  PLAYER_DOWNModules:
+  - {fileID: 5579036130010935674, guid: 95c887c97c1c7614d89887d5515ac7ff, type: 3}
+  GEM_LEFTModules:
+  - {fileID: 5579036130010935674, guid: 49a229b64ca2a644aa3728a6c061c4d7, type: 3}
+  GEM_UPModules:
+  - {fileID: 5579036130010935674, guid: ac86a2eda6fee634c948482cf99a74cb, type: 3}
+  GEM_RIGHTModules:
+  - {fileID: 5579036130010935674, guid: 78b3c03e46d6add4a8343d4a53fc0010, type: 3}
+  GEM_DOWNModules:
+  - {fileID: 5579036130010935674, guid: a58453b4f6f60074aa94e2fa8a1b9c2d, type: 3}
 --- !u!4 &736217605
 Transform:
   m_ObjectHideFlags: 0
@@ -1183,6 +1202,10 @@ PrefabInstance:
     - target: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7717675293237488019, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
       propertyPath: m_LocalPosition.x
