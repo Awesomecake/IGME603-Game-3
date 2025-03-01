@@ -25,6 +25,7 @@ public class ProcGenBehavior : MonoBehaviour
 
     [Header("Random Walker Vars")]
     [SerializeField] private uint maxWalkerDistance = 2;
+    [SerializeField] private List<Vector2Int> walkerPath = new List<Vector2Int>();
 
     //[Header("Random Walker Vars")]
     //[SerializeField] private uint maxWalkStraightDistance = 5;
@@ -58,7 +59,16 @@ public class ProcGenBehavior : MonoBehaviour
 
     [Header("Module Vars")]
     [SerializeField] private List<GameObject> NONEModules;
+    [SerializeField] private List<GameObject> LEFT_RIGHTModules;
+    [SerializeField] private List<GameObject> LEFT_UPModules;
+    [SerializeField] private List<GameObject> LEFT_DOWNModules;
+    [SerializeField] private List<GameObject> UP_DOWNModules;
+    [SerializeField] private List<GameObject> RIGHT_UPModules;
+    [SerializeField] private List<GameObject> RIGHT_DOWNModules;
     [SerializeField] private List<GameObject> MIDDLE_LEFTModules;
+    [SerializeField] private List<GameObject> MIDDLE_UPModules;
+    [SerializeField] private List<GameObject> MIDDLE_DOWNModules;
+    [SerializeField] private List<GameObject> MIDDLE_RIGHTModules;
 
     void Start()
     {
@@ -117,7 +127,7 @@ public class ProcGenBehavior : MonoBehaviour
         RandomWalk(chunkMap);
 
         //assign chunk values for each chunk
-        //...
+        AssignChunkValues(chunkMap);
 
         //Create an array to manipulate later
         map = GenerateArray(terrainWidth, terrainHeight, true);
@@ -142,8 +152,8 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = 0; y < numVerticalChunks; y++)
             {
-                //set map[x,y] to WalkerValue.OPEN
-                chunkMap[x, y] = (int)WalkerValue.OPEN;
+                //set map[x,y] to 0
+                chunkMap[x, y] = 0;
             }
         }
 
@@ -160,8 +170,11 @@ public class ProcGenBehavior : MonoBehaviour
         Vector2Int currentPosition = new Vector2Int(UnityEngine.Random.Range(0, (int)numHorizontalChunks - 1), UnityEngine.Random.Range(0, (int)numHorizontalChunks  - 1));
         //Debug.Log("Current position is: " + currentPosition);
 
-        //set starting position to WalkerValue.STEPPED
-        chunkMap[currentPosition.x, currentPosition.y] = (int)WalkerValue.STEPPED;
+        //set starting position to currentWalkerDistance
+        chunkMap[currentPosition.x, currentPosition.y] = (int)currentWalkerDistance;
+
+        //add step to walkerPath
+        walkerPath.Add(currentPosition);
 
         //define nextPosition
         //Vector2Int nextPosition;
@@ -185,11 +198,14 @@ public class ProcGenBehavior : MonoBehaviour
             //step in a random (but possible) direction
             currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
 
-            //set current position on chunkMap to WalkerValue.STEPPED
-            chunkMap[currentPosition.x, currentPosition.y] = (int)WalkerValue.STEPPED;
-
             //increment currentWalkerDistance
             currentWalkerDistance++;
+
+            //set current position on chunkMap to currentWalkerDistance
+            chunkMap[currentPosition.x, currentPosition.y] = (int)currentWalkerDistance;
+
+            //add step to walkerPath
+            walkerPath.Add(currentPosition);
 
             //update possibleNextSteps
             possibleNextSteps = FindPossibleSteps(chunkMap, currentPosition);
@@ -197,10 +213,157 @@ public class ProcGenBehavior : MonoBehaviour
             //if walker visits a chunk it has previously visited,...
             //then prune by walking backwards until you reach the chunk that was previoulsy visited
         }
+    }
 
-        //if(currentWalkerDistance < maxWalkerDistance)
+    private void AssignChunkValues(int[,] chunkMap)
+    {
+        //get numHorizontalChunks and numVerticalChunks
+        int numHorizontalChunks = chunkMap.GetLength(0);
+        int numVerticalChunks = chunkMap.GetLength(1);
+
+        //define surrounding chunk positions
+        //bool leftPosition = false;
+        //bool upPosition = false;
+        //bool rightPosition = false;
+        //bool downPosition = false;
+
+        //define currentPosition, lastPosition, and nextPosition
+        Vector2Int currentPosition;
+        Vector2Int lastPosition;
+        Vector2Int nextPosition;
+
+        //iterate through walkerPath
+        for (int i = 0; i < walkerPath.Count; i++)
+        {
+            //set currentPosition
+            currentPosition = walkerPath[i];
+
+            //set lastPosition
+            if (i == 0)
+                lastPosition = currentPosition;
+            else
+                lastPosition = walkerPath[i - 1];
+
+            //set nextPosition
+            if (i == walkerPath.Count - 1)
+                nextPosition = currentPosition;
+            else
+                nextPosition = walkerPath[i + 1];
+
+            //define curToLastDirection and curToNextDirection
+            Vector2Int curToLastDirection = currentPosition - lastPosition;
+            Vector2Int curToNextDirection = currentPosition - nextPosition;
+
+            //
+            switch ((curToLastDirection, curToNextDirection))
+            {
+                //going MIDDLE_LEFT
+                case var value when value == (Vector2Int.zero, Vector2Int.left):
+                    chunkMap[currentPosition.x, currentPosition.y] = (int)ChunkValue.MIDDLE_LEFT;
+                    break;
+                //going up
+                case var value when value == (Vector2Int.zero, Vector2Int.left):
+                    //
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //iterate through each chunk in chunkMap
+        //for (int x = 0; x < numHorizontalChunks; x++)
         //{
+        //    for(int y = 0; y < numVerticalChunks; y++)
+        //    {
+        //        //if chunk is WalkerValue.OPEN,...
+        //        if (chunkMap[x,y] == (int)WalkerValue.OPEN)
+        //        {
+        //            //set chunk to ChunkValue.NONE
+        //            chunkMap[x, y] = (int)ChunkValue.NONE;
+        //        }
+        //        else if (chunkMap[x,y] == (int)WalkerValue.STEPPED)
+        //        {
+        //            //find left chunk
+        //            if (x <= 0 || chunkMap[x - 1, y] == (int)ChunkValue.NONE || chunkMap[x - 1, y] == (int)WalkerValue.OPEN)
+        //            {
+        //                //leftPosition = (int)ChunkValue.NONE;
+        //                leftPosition = false;
+        //            }
+        //            else
+        //            {
+        //                leftPosition = true;
+        //            }
 
+        //            //find up chunk
+        //            if(y >= numVerticalChunks - 1 || chunkMap[x, y + 1] == (int)ChunkValue.NONE || chunkMap[x, y + 1] == (int)WalkerValue.OPEN)
+        //            {
+        //                upPosition = false;
+        //            }
+        //            else
+        //            {
+        //                upPosition = true;
+        //            }
+
+        //            //find right chunk
+        //            if (x >= numHorizontalChunks - 1 || chunkMap[x + 1, y] == (int)ChunkValue.NONE || chunkMap[x + 1, y] == (int)WalkerValue.OPEN)
+        //            {
+        //                rightPosition = false;
+        //            }
+        //            else
+        //            {
+        //                rightPosition = true;
+        //            }
+
+        //            //find down chunk
+        //            if (y <= 0 || chunkMap[x, y - 1] == (int)ChunkValue.NONE || chunkMap[x, y - 1] == (int)WalkerValue.OPEN)
+        //            {
+        //                upPosition = false;
+        //            }
+        //            else
+        //            {
+        //                upPosition = true;
+        //            }
+
+        //            //check surrounding chunks and assign chunk value accordingly
+        //            //Remember, that the possible ChunkValues are: NONE, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT
+        //            switch ((leftPosition, upPosition, rightPosition, downPosition))
+        //            {
+        //                case (true, false, false, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.MIDDLE_LEFT;
+        //                    break;
+        //                case (true, true, false, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.LEFT_UP;
+        //                    break;
+        //                case (false, true, true, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.RIGHT_UP;
+        //                    break;
+        //                case (false, false, true, true):
+        //                    chunkMap[x, y] = (int)ChunkValue.RIGHT_DOWN;
+        //                    break;
+        //                case (false, false, false, true):
+        //                    chunkMap[x, y] = (int)ChunkValue.MIDDLE_DOWN;
+        //                    break;
+        //                case (true, false, true, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.LEFT_RIGHT;
+        //                    break;
+        //                case (false, true, false, true):
+        //                    chunkMap[x, y] = (int)ChunkValue.UP_DOWN;
+        //                    break;
+        //                case (true, false, false, true):
+        //                    chunkMap[x, y] = (int)ChunkValue.LEFT_DOWN;
+        //                    break;
+        //                case (false, true, false, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.MIDDLE_UP;
+        //                    break;
+        //                case (false, false, true, false):
+        //                    chunkMap[x, y] = (int)ChunkValue.MIDDLE_RIGHT;
+        //                    break;
+        //                default:
+        //                    chunkMap[x, y] = (int)ChunkValue.NONE;
+        //                    break;
+        //            }
+        //        }
+        //    }
         //}
     }
 
@@ -307,20 +470,47 @@ public class ProcGenBehavior : MonoBehaviour
         //iterate through chunkMap,...
         for (int x = 0; x < numHorizontalChunks; x++)
         {
-            for(int y = 0; y < numVerticalChunks; y++)
+            for (int y = 0; y < numVerticalChunks; y++)
             {
                 //update mapX and mapY
                 mapX = (int)chunkWidth * x;
                 mapY = (int)chunkHeight * y;
 
                 //place a module at each chunk in accordance with the chunk's value
-                switch (chunkMap[x,y])
+                switch (chunkMap[x, y])
                 {
                     case (int)ChunkValue.NONE:
                         RenderModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY);
                         break;
-                    case (int)WalkerValue.STEPPED:
+                    case (int)ChunkValue.LEFT_RIGHT:
+                        RenderModule(LEFT_RIGHTModules[UnityEngine.Random.Range(0, LEFT_RIGHTModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.LEFT_UP:
+                        RenderModule(LEFT_UPModules[UnityEngine.Random.Range(0, LEFT_UPModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.LEFT_DOWN:
+                        RenderModule(LEFT_DOWNModules[UnityEngine.Random.Range(0, LEFT_DOWNModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.UP_DOWN:
+                        RenderModule(UP_DOWNModules[UnityEngine.Random.Range(0, UP_DOWNModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.RIGHT_UP:
+                        RenderModule(RIGHT_UPModules[UnityEngine.Random.Range(0, RIGHT_UPModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.RIGHT_DOWN:
+                        RenderModule(RIGHT_DOWNModules[UnityEngine.Random.Range(0, RIGHT_DOWNModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.MIDDLE_LEFT:
                         RenderModule(MIDDLE_LEFTModules[UnityEngine.Random.Range(0, MIDDLE_LEFTModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.MIDDLE_UP:
+                        RenderModule(MIDDLE_UPModules[UnityEngine.Random.Range(0, MIDDLE_UPModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.MIDDLE_DOWN:
+                        RenderModule(MIDDLE_DOWNModules[UnityEngine.Random.Range(0, MIDDLE_DOWNModules.Count - 1)], mapX, mapY);
+                        break;
+                    case (int)ChunkValue.MIDDLE_RIGHT:
+                        RenderModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count - 1)], mapX, mapY);
                         break;
                     default:
                         RenderModule(NONEModules[UnityEngine.Random.Range(0, NONEModules.Count - 1)], mapX, mapY);
