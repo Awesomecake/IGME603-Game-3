@@ -9,14 +9,26 @@ public class Drill : Throwable
     private Tilemap tilemap;
     private TilemapCollider2D tilemapCollider;
 
+    private void Awake()
+    {
+        itemSpeedModifier = 0.5f;
+    }
+
     private void Update()
     {
+        //If we have found tilemap, start destroying it
         if (tilemap != null)
         {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position + transform.forward);
 
-            tilemap.SetTile(cellPosition + new Vector3Int(0, 0, 0), null);
+            //Assume size of tilemap is 70x70, avoid destroying edges
+            if (cellPosition.x == -10 || cellPosition.y == -10 || cellPosition.x == 59 || cellPosition.y == 59)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
+            tilemap.SetTile(cellPosition, null);
 
             tilemapCollider.CreateMesh(true, true);
         }
@@ -27,7 +39,5 @@ public class Drill : Throwable
     {
         tilemap = collision.GetComponent<Tilemap>();
         tilemapCollider = collision.GetComponent<TilemapCollider2D>();
-
-        Destroy(gameObject);
     }
 }

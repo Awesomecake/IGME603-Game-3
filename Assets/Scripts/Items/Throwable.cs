@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
+    protected float itemSpeedModifier = 1f;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class Throwable : MonoBehaviour
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        projectileRigidBody.AddForce(direction * strength);
+        projectileRigidBody.AddForce(direction * strength * itemSpeedModifier);
     }
 
     //Detecting when item overlaps a rigidbody
@@ -26,28 +27,6 @@ public class Throwable : MonoBehaviour
             return;
 
         ThrownItemCollided(collision);
-
-        //Logic to Destroy Terrain
-
-        //Tilemap tilemap = collision.GetComponent<Tilemap>();
-        //TilemapCollider2D tilemapCollider2D = collision.GetComponent<TilemapCollider2D>();
-
-        //if (tilemap != null)
-        //{
-        //    Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-
-        //    tilemap.SetTile(cellPosition + new Vector3Int(1, 1, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(1, 0, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(1, -1, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(0, 1, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(0, 0, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(0, -1, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, 1, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, 0, 0), null);
-        //    tilemap.SetTile(cellPosition + new Vector3Int(-1, -1, 0), null);
-
-        //    tilemapCollider2D.CreateMesh(true,true);
-        //}
     }
 
     public virtual void ThrownItemCollided(Collider2D collision)
@@ -58,7 +37,7 @@ public class Throwable : MonoBehaviour
 
     public IEnumerator DeathTimer()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(6);
         Destroy(gameObject);
     }
 }
