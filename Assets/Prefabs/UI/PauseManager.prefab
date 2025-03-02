@@ -540,6 +540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7436491044653920843}
   - component: {fileID: 2434995165114895529}
+  - component: {fileID: 1771632077770354197}
   m_Layer: 0
   m_Name: Hud
   m_TagString: Untagged
@@ -580,6 +581,27 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1771632077770354197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268574734141224294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b4c10c9fa93094ca7299dbc88f06d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot1: {fileID: 4373505429395330004}
+  slot2: {fileID: 1542150854148436939}
+  slot3: {fileID: 8788656843003818516}
+  items:
+  - {fileID: 47576519631612836, guid: bcf496cc82252d14dafb1a3ebed1f6ab, type: 3}
+  - {fileID: 1456410070365849978, guid: 269f6f8eadbd4a54991f930bc2ac4249, type: 3}
+  - {fileID: 47576519631612836, guid: b783ad9d0a1344e4bb604d1aaf34acdf, type: 3}
+  - {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
+  - {fileID: 47576519631612836, guid: e64fbb47db46ed6418e8017d1a742d6d, type: 3}
 --- !u!1 &355267065488912695
 GameObject:
   m_ObjectHideFlags: 0
