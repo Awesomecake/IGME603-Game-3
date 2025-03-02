@@ -51,7 +51,11 @@ public class ProcGenBehavior : MonoBehaviour
 
     private enum ChunkValue
     { 
-        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, GEM_LEFT, GEM_RIGHT, GEM_UP, GEM_DOWN
+        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, 
+        MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, 
+        PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, 
+        GEM_LEFT, GEM_RIGHT, GEM_UP, GEM_DOWN,
+        LB_LEFT_RIGHT, LB_LEFT_UP, LB_LEFT_DOWN, LB_UP_DOWN, LB_RIGHT_UP, LB_RIGHT_DOWN
     };
 
     [Header("Gameobject Vars")]
@@ -78,11 +82,21 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private List<GameObject> MIDDLE_DOWNModules;
     [SerializeField] private List<GameObject> MIDDLE_RIGHTModules;
 
+    [Header("Player Module Vars")]
     [SerializeField] private List<GameObject> PLAYER_LEFTModules;
     [SerializeField] private List<GameObject> PLAYER_UPModules;
     [SerializeField] private List<GameObject> PLAYER_RIGHTModules;
     [SerializeField] private List<GameObject> PLAYER_DOWNModules;
 
+    [Header("Lil Bro Module Vars")]
+    [SerializeField] private List<GameObject> LB_LEFT_RIGHTModules;
+    [SerializeField] private List<GameObject> LB_LEFT_UPModules;
+    [SerializeField] private List<GameObject> LB_LEFT_DOWNModules;
+    [SerializeField] private List<GameObject> LB_UP_DOWNModules;
+    [SerializeField] private List<GameObject> LB_RIGHT_UPModules;
+    [SerializeField] private List<GameObject> LB_RIGHT_DOWNModules;
+
+    [Header("gem Module Vars")]
     [SerializeField] private List<GameObject> GEM_LEFTModules;
     [SerializeField] private List<GameObject> GEM_UPModules;
     [SerializeField] private List<GameObject> GEM_RIGHTModules;
@@ -558,12 +572,12 @@ public class ProcGenBehavior : MonoBehaviour
     private ChunkValue[,] AssignSpecialChunkValues(ChunkValue[,] chunkMap, List<Vector2Int> walkerPath)
     {
         //if walker path is long enough to have a player chunk and the player has NOT yet spawned,...
-        if(walkerPath.Count >= 0 && !hasPlayerSpawned)
+        if(walkerPath.Count >= 1 && !hasPlayerSpawned)
         {
             //set hasPlayerSpawned to true
             hasPlayerSpawned = true;
 
-            //reassign the chunkValue of the first position along the walkerPath to a player chunk with the correct orientation
+            //reassign the chunkValue of the first position along the walkerPath to the player chunk with the correct orientation
             switch(chunkMap[walkerPath[0].x, walkerPath[0].y])
             {
                 case ChunkValue.MIDDLE_LEFT:
@@ -583,8 +597,43 @@ public class ProcGenBehavior : MonoBehaviour
             }
         }
 
-        //if walker path is long enough to have a gen chunk and the gem has NOT yet spawned,...
-        if (walkerPath.Count >= 1 && !hasGemSpawned)
+        //if walker path is long enough to have the lil bro chunk and the lil bro has NOT yet spawned,...
+        if (walkerPath.Count >= 3 && !hasLilBroSpawned)
+        {
+            //set hasLilBroSpawned to true
+            hasLilBroSpawned = true;
+
+            //define walkerHalfWay
+            int walkerHalfWay = (walkerPath.Count - 1) / 2;
+
+            //reassign the chunkValue of the first position along the walkerPath to a lil bro chunk with the correct orientation
+            switch (chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y])
+            {
+                case ChunkValue.LEFT_UP:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_LEFT_UP;
+                    break;
+                case ChunkValue.LEFT_RIGHT:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_LEFT_RIGHT;
+                    break;
+                case ChunkValue.LEFT_DOWN:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_LEFT_DOWN;
+                    break;
+                case ChunkValue.UP_DOWN:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_UP_DOWN;
+                    break;
+                case ChunkValue.RIGHT_UP:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_RIGHT_UP;
+                    break;
+                case ChunkValue.RIGHT_DOWN:
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_UP_DOWN;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //if walker path is long enough to have the gem chunk and the gem has NOT yet spawned,...
+        if (walkerPath.Count >= 2 && !hasGemSpawned)
         {
             //set hasGemSpawned to true
             hasGemSpawned = true;
@@ -672,6 +721,7 @@ public class ProcGenBehavior : MonoBehaviour
                         map = PlaceOneModule(MIDDLE_RIGHTModules[UnityEngine.Random.Range(0, MIDDLE_RIGHTModules.Count)], mapX, mapY, map);
                         break;
 
+                    //player module cases
                     case ChunkValue.PLAYER_LEFT:
                         map = PlaceOneModule(PLAYER_LEFTModules[UnityEngine.Random.Range(0, PLAYER_LEFTModules.Count)], mapX, mapY, map);
                         break;
@@ -685,6 +735,27 @@ public class ProcGenBehavior : MonoBehaviour
                         map = PlaceOneModule(PLAYER_DOWNModules[UnityEngine.Random.Range(0, PLAYER_DOWNModules.Count)], mapX, mapY, map);
                         break;
 
+                    //lil bro module cases
+                    case ChunkValue.LB_LEFT_UP:
+                        map = PlaceOneModule(LB_LEFT_UPModules[UnityEngine.Random.Range(0, LB_LEFT_UPModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.LB_LEFT_RIGHT:
+                        map = PlaceOneModule(LB_LEFT_RIGHTModules[UnityEngine.Random.Range(0, LB_LEFT_RIGHTModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.LB_LEFT_DOWN:
+                        map = PlaceOneModule(LB_LEFT_DOWNModules[UnityEngine.Random.Range(0, LB_LEFT_DOWNModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.LB_UP_DOWN:
+                        map = PlaceOneModule(LB_UP_DOWNModules[UnityEngine.Random.Range(0, LB_UP_DOWNModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.LB_RIGHT_UP:
+                        map = PlaceOneModule(LB_RIGHT_UPModules[UnityEngine.Random.Range(0, LB_RIGHT_UPModules.Count)], mapX, mapY, map);
+                        break;
+                    case ChunkValue.LB_RIGHT_DOWN:
+                        map = PlaceOneModule(LB_RIGHT_DOWNModules[UnityEngine.Random.Range(0, LB_RIGHT_DOWNModules.Count)], mapX, mapY, map);
+                        break;
+
+                    //gem module cases
                     case ChunkValue.GEM_LEFT:
                         map = PlaceOneModule(GEM_LEFTModules[UnityEngine.Random.Range(0, GEM_LEFTModules.Count)], mapX, mapY, map);
                         break;
