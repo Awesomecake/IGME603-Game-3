@@ -8,7 +8,7 @@ TagManager:
   - Sound
   - Enemy
   - Detector
-  - LilBro
+  - Collectible
   layers:
   - Default
   - TransparentFX
