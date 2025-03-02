@@ -45,10 +45,10 @@ public class HUD_ItemSelection : MonoBehaviour
 
         //Find Player and update their items from the selection
 
-        player = FindObjectOfType<PlayerController>();
-        player.item1 = item1;
-        player.item2 = item2;
-        player.item3 = item3;
+        //player = FindObjectOfType<PlayerController>();
+        //player.item1 = item1;
+        //player.item2 = item2;
+        //player.item3 = item3;
     }
 
     // Update is called once per frame
