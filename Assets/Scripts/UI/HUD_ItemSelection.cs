@@ -9,9 +9,9 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image slot2;
     [SerializeField] private Image slot3;
 
-    [SerializeField] private Image slotHolder1;
-    [SerializeField] private Image slotHolder2;
-    [SerializeField] private Image slotHolder3;
+    [SerializeField] private Image slotBorder1;
+    [SerializeField] private Image slotBorder2;
+    [SerializeField] private Image slotBorder3;
 
     //Update HUD based on Player Items
     public void UpdateHUD(GameObject item1, GameObject item2, GameObject item3)
@@ -37,27 +37,27 @@ public class HUD_ItemSelection : MonoBehaviour
 
     public void Start()
     {
-        slotHolder1.color = Color.gray;
+        slotBorder1.color = Color.red;
     }
 
     public void SelectOne()
     {
-        slotHolder1.color = Color.gray;
-        slotHolder2.color = Color.white;
-        slotHolder3.color = Color.white;
+        slotBorder1.color = Color.red;
+        slotBorder2.color = Color.black;
+        slotBorder3.color = Color.black;
     }
 
     public void SelectTwo()
     {
-        slotHolder1.color = Color.white;
-        slotHolder2.color = Color.gray;
-        slotHolder3.color = Color.white;
+        slotBorder1.color = Color.black;
+        slotBorder2.color = Color.red;
+        slotBorder3.color = Color.black;
     }
 
     public void SelectThree()
     {
-        slotHolder1.color = Color.white;
-        slotHolder2.color = Color.white;
-        slotHolder3.color = Color.gray;
+        slotBorder1.color = Color.black;
+        slotBorder2.color = Color.black;
+        slotBorder3.color = Color.red;
     }
 }

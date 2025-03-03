@@ -30,6 +30,14 @@ public class PlayerController : MonoBehaviour
     private GameObject item2;
     private GameObject item3;
 
+    //cooldown timers for items
+    private float item1Cooldown = 0;
+    private float item2Cooldown = 0;
+    private float item3Cooldown = 0;
+
+    //global cooldown value for all items
+    private float globalCooldownResetTime = 2f;
+
     public int selectedSlot = 1;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -80,6 +88,15 @@ public class PlayerController : MonoBehaviour
             lookDirection = controllerLookDirection;
         }
         GetComponent<Animator>().SetBool("moving", isMoving);
+
+        if (item1Cooldown > 0)
+            item1Cooldown -= Time.deltaTime;
+
+        if (item2Cooldown > 0)
+            item2Cooldown -= Time.deltaTime;
+
+        if (item3Cooldown > 0)
+            item3Cooldown -= Time.deltaTime;
     }
 
     public void TakeDamage(float damage)
@@ -197,13 +214,25 @@ public class PlayerController : MonoBehaviour
         switch (selectedSlot)
         {
             case 1:
-                newItem = item1;
+                if(item1Cooldown <= 0)
+                {
+                    newItem = item1;
+                    item1Cooldown = globalCooldownResetTime;
+                }
                 break;
             case 2:
-                newItem = item2;
+                if (item2Cooldown <= 0)
+                {
+                    newItem = item2;
+                    item2Cooldown = globalCooldownResetTime;
+                }
                 break;
             case 3:
-                newItem = item3;
+                if (item3Cooldown <= 0)
+                {
+                    newItem = item3;
+                    item3Cooldown = globalCooldownResetTime;
+                }
                 break;
         }
 

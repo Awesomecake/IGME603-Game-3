@@ -596,9 +596,9 @@ MonoBehaviour:
   slot1: {fileID: 4373505429395330004}
   slot2: {fileID: 1542150854148436939}
   slot3: {fileID: 8788656843003818516}
-  slotHolder1: {fileID: 8171170188182513942}
-  slotHolder2: {fileID: 2901738172831718774}
-  slotHolder3: {fileID: 7293593792960782523}
+  slotBorder1: {fileID: 8932204250654384638}
+  slotBorder2: {fileID: 1425378918072157502}
+  slotBorder3: {fileID: 8559323366831319402}
 --- !u!1 &355267065488912695
 GameObject:
   m_ObjectHideFlags: 0
