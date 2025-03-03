@@ -5,6 +5,9 @@ public class Enemy : MonoBehaviour
     public enum State
     {
         Normal,
+        Chasing,
+        Investigating,
+        Confused,
         Stunned
     }
 
