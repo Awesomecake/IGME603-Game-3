@@ -7,9 +7,9 @@ public class DownedStateMachine : HierarchicalStateMachine
     public override void EnterState()
     {
         base.EnterState();
-        self.currentState = LilBro.State.Downed;
+        self.UpdateState(LilBro.State.Downed);
         var broCollider = self.GetComponent<Collider2D>();
-        
+
         if (!broCollider) return;
         broCollider.enabled = false;
         StartCoroutine(Util.AfterDelay(
@@ -20,7 +20,7 @@ public class DownedStateMachine : HierarchicalStateMachine
 
     public override void ExitState()
     {
-        self.currentState = LilBro.State.Normal;
+        self.UpdateState(LilBro.State.Normal);
         base.ExitState();
     }
 }

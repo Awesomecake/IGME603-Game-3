@@ -22,7 +22,7 @@ public class PlayerEnterDetector : MonoBehaviour
         if (!other.CompareTag("LilBro")) {return;}
         var bro = other.GetComponent<LilBro>();
         if (!bro) return;
-        if (bro.currentState == LilBro.State.Downed) return;
+        if (bro.GetCurrentState() == LilBro.State.Downed) return;
         SpottedTarget(other);
     }
 
