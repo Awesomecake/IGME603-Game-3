@@ -453,7 +453,7 @@ MonoBehaviour:
   maxWalkerDistance: 14
   playerPrefab: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
   guardPrefab: {fileID: 2052598004456028538, guid: 1200846e870474e36b64f5c067334d92, type: 3}
-  lilBroPrefab: {fileID: 3933706600631672719, guid: fdffb3a822d82ef4296ff683b9e8dcfc, type: 3}
+  lilBroPrefab: {fileID: 925839964475878445, guid: 970e1022210f444da8ca531431be10a1, type: 3}
   gemPrefab: {fileID: 4821079123302601521, guid: 358884f881ec14b4490c0b4f9cacc06e, type: 3}
   groundTile: {fileID: 11400000, guid: 3820b1e236877a041b43920b104adc1e, type: 2}
   playerTile: {fileID: 11400000, guid: 0720d9310367239489d1a4926709297d, type: 2}
@@ -1220,6 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 1750480631}
+  diamond: {fileID: 0}
 --- !u!4 &1159734624
 Transform:
   m_ObjectHideFlags: 0

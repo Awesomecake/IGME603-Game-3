@@ -230,6 +230,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  isLogging: 1
 --- !u!114 &4074747600320262137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +684,7 @@ MonoBehaviour:
       m_Calls: []
   targetContainer: {fileID: 5937279804195191749}
   body: {fileID: 7651824281218780589}
-  distanceThreshold: 3
+  distanceThreshold: 2.5
 --- !u!114 &3387209028332844261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,6 +895,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  isLogging: 1
 --- !u!212 &3301541249059136350
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1088,6 +1090,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  isLogging: 1
 --- !u!1 &3663629136222502896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1184,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  isLogging: 1
 --- !u!1 &3832659155577885203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1395,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  isLogging: 1
 --- !u!114 &864286557858284786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,7 +1770,7 @@ MonoBehaviour:
   self: {fileID: 8762207145965704484}
   targetContainer: {fileID: 5937279804195191749}
   bulletPrefab: {fileID: 7138066839719799760, guid: a0de9ecc4734b4648920c20a21cce4fd, type: 3}
-  velocity: 1
+  velocity: 500
 --- !u!1 &5437503059663331643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,6 +1987,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isLogging: 1
 --- !u!212 &8936801343553858323
 SpriteRenderer:
   m_ObjectHideFlags: 0
