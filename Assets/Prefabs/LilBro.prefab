@@ -56,7 +56,7 @@ MonoBehaviour:
   autoStart: 1
   resumeBehavior: 1
   lastTransition: 0
-  isLogging: 1
+  isLogging: 0
   onEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5873824783030695425}
-  movementSpeed: 0.5
+  movementSpeed: 3
   pathContainer: {fileID: 2870564387669009876}
   distanceThreshold: 0.3
   onPathEnded:

@@ -1608,6 +1608,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   trigger: {fileID: 3766498717028804488}
+  mode: 1
   delaySeconds: 1.75
 --- !u!114 &4015000096324770028
 MonoBehaviour:
@@ -1658,7 +1659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 6653935788104775647}
-  toState: {fileID: 22679885481399381}
+  toState: {fileID: 7211790727727396489}
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
