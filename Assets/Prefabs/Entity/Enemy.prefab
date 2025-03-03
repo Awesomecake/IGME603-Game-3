@@ -1596,7 +1596,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   trigger: {fileID: 3766498717028804488}
-  delaySeconds: 1.5
+  delaySeconds: 1
 --- !u!114 &4015000096324770028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,6 +2135,7 @@ MonoBehaviour:
   character: {fileID: 8762207145965704484}
   stunnedIndicatorPrefab: {fileID: 4263168227368164486, guid: 5acdc5da3b5ca4943aaa87c52dc6ca8a, type: 3}
   offset: {x: 0, y: 1, z: 0}
+  visionArea: {fileID: 753121527366711749}
 --- !u!1 &7842755032711370827
 GameObject:
   m_ObjectHideFlags: 0
