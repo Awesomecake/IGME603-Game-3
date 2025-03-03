@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        HUD_ItemSelection HUD =  FindObjectOfType<HUD_ItemSelection>();
+        HUD.UpdateHUD(item1, item2, item3);
     }
 
     // Update is called once per frame
