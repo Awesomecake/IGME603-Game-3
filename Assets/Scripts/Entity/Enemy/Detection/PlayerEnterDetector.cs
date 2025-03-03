@@ -19,8 +19,8 @@ public class PlayerEnterDetector : MonoBehaviour
 
     private void CheckBro(Collider2D other)
     {
-        if (!other.CompareTag("LilBro")) return;
-        var bro = GetComponent<LilBro>();
+        if (!other.CompareTag("LilBro")) {return;}
+        var bro = other.GetComponent<LilBro>();
         if (!bro) return;
         if (bro.currentState == LilBro.State.Downed) return;
         SpottedTarget(other);

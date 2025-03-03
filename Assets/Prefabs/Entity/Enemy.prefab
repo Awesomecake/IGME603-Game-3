@@ -684,7 +684,7 @@ MonoBehaviour:
       m_Calls: []
   targetContainer: {fileID: 5937279804195191749}
   body: {fileID: 7651824281218780589}
-  distanceThreshold: 2.5
+  distanceThreshold: 3
 --- !u!114 &3387209028332844261
 MonoBehaviour:
   m_ObjectHideFlags: 0

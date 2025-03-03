@@ -8,7 +8,7 @@ public class DelayedTriggerStateTransition : TriggeredStateTransition
 
     protected override void Transition()
     {
-        if (_delay != null) return;
+        if (_delay != null) CancelTransition();
         _delay = StartCoroutine(Delay());
     }
 
