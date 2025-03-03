@@ -20,6 +20,12 @@ public class WorldManager : MonoBehaviour
     public Tilemap world;
     public GoalDiamond diamond;
 
+    public TileBase GetTile(Vector3 worldPosition)
+    {
+        var cell = world.WorldToCell(worldPosition);
+        return world.GetTile(cell);
+    }
+    
     public List<Vector3> FindPath(Vector3 start, Vector3 end)
     {
         var path = new List<Vector3>();

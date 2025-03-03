@@ -5,6 +5,7 @@ public class CombatStateMachine : HierarchicalStateMachine
     [SerializeField] private SpriteRenderer visionCone;
     private Color _originalVisionColor;
     [SerializeField] private Color spottedVisionColor = Color.red.Copy(a: 0.2f);
+    [SerializeField] private Enemy self;
     
     protected override void Start()
     {
@@ -14,12 +15,14 @@ public class CombatStateMachine : HierarchicalStateMachine
 
     public override void EnterState()
     {
+        self.SetState(Enemy.State.Chasing);
         SetVisionColor(spottedVisionColor);
         base.EnterState();
     }
 
     public override void ExitState()
     {
+        self.SetState(Enemy.State.Normal);
         SetVisionColor(_originalVisionColor);
         base.ExitState();
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Handles updating the active state
 // A State Machine which can be a child of another HierarchicalStateMachine.
@@ -25,6 +26,8 @@ public class HierarchicalStateMachine : State
     private readonly Dictionary<State, List<StateTransition>> _transitions = new();
 
     [SerializeField] private bool isLogging = false;
+
+    public UnityEvent onEnter;
     
     // Manually start the state machine. Only call on the root state machine.
     public void Begin()
@@ -97,8 +100,9 @@ public class HierarchicalStateMachine : State
         {
             _currentState = initialState;
         }
-
+        
         LogMessage($"{name} Entering State {_currentState}");
+        onEnter?.Invoke();
         _currentState.EnterState();
         lastTransition = Time.time;
     }

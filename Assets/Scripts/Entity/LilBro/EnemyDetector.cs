@@ -7,6 +7,7 @@ public class EnemyDetector : AbstractTargetContainer
     private Vector3 _fleeTarget = new Vector3();
 
     [SerializeField] private EventTrigger trigger;
+    [SerializeField] private EventTrigger clearTrigger;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,7 +25,7 @@ public class EnemyDetector : AbstractTargetContainer
         _enemies.Remove(enemy);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         var averageEnemyPosition = new Vector3();
         var enemyCount = 0;
@@ -35,10 +36,24 @@ public class EnemyDetector : AbstractTargetContainer
             enemyCount++;
         }
 
-        if (enemyCount == 0) return;
+        if (enemyCount == 0)
+        {
+            clearTrigger.TriggerEvent();
+            return;
+        }
+
         averageEnemyPosition /= enemyCount;
-        var enemyDirection = averageEnemyPosition - transform.position;
-        _fleeTarget = -enemyDirection + transform.position;
+        var enemyDirection = (averageEnemyPosition - transform.position).normalized;
+        _fleeTarget = transform.position - enemyDirection - enemyDirection;
+        var counter = 0;
+        while (WorldManager.Instance.GetTile(_fleeTarget) != null &&
+               counter < 10)
+        {
+            _fleeTarget -= enemyDirection;
+            counter++;
+        }
+
+        trigger.TriggerEvent();
     }
 
     public override Vector3 GetLocation()

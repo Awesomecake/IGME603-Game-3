@@ -5,9 +5,11 @@ public class EventTrigger : MonoBehaviour
 {
     public UnityEvent onTrigger;
 
+    [SerializeField] private bool isLogging = true;
+
     public void TriggerEvent()
     {
-        Debug.Log($"triggering {gameObject.name}");
+        if (isLogging) Debug.Log($"triggering {gameObject.name}");
         onTrigger?.Invoke();
     }
 }
