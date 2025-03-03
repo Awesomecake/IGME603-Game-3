@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
     protected float itemSpeedModifier = 1f;
+    public string ownerTag = "Player";
 
     private void Start()
     {
@@ -23,10 +21,19 @@ public class Throwable : MonoBehaviour
     //Detecting when item overlaps a rigidbody
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals("Player") || collision.tag.Equals("Projectile") || collision.tag.Equals("Sound") || collision.tag.Equals("Detector"))
+        var isOwner = !string.IsNullOrEmpty(ownerTag) && collision.tag.Equals(ownerTag);
+        if (isOwner ||
+            collision.tag.Equals("Projectile") ||
+            collision.tag.Equals("Sound") ||
+            collision.tag.Equals("Detector"))
             return;
 
         ThrownItemCollided(collision);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag.Equals(ownerTag)) ownerTag = null;
     }
 
     public virtual void ThrownItemCollided(Collider2D collision)

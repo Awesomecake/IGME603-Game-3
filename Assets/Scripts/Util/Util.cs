@@ -12,7 +12,11 @@ public static class Util
             z ?? self.z
         );
     }
-    
+
+    public static Vector2 ToVector2(this Vector3 self)
+    {
+        return new Vector2(self.x, self.y);
+    }
     
     public static Color Copy(this Color self, float? r = null, float? g = null, float? b = null, float? a = null)
     {

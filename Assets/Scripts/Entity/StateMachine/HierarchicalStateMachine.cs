@@ -127,8 +127,8 @@ public class HierarchicalStateMachine : State
         foreach (var transition in transitions)
         {
             if (!transition.NeedsTransition()) continue;
-            ChangeState(transition.toState);
             transition.onTransitionSideEffect?.Invoke();
+            ChangeState(transition.toState);
             break;
         }
     }

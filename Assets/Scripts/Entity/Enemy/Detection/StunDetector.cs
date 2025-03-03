@@ -6,7 +6,9 @@ public class StunDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Projectile")) return;
+        var throwable = other.GetComponent<Throwable>();
+        if (!throwable) return;
+        if (throwable.ownerTag is "Enemy") return;
         trigger.TriggerEvent();
     }
 }
