@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //Movement Logic
     bool isMoving;
     Vector2 lastMoveDirection;
+
+    //Tracks Game Status
     float health = 100f;
     public bool hasDiamond;
 
@@ -17,20 +21,39 @@ public class PlayerController : MonoBehaviour
 
     Vector2 lookDirection;
 
-    private Rigidbody2D rigidbody;
-    public Rigidbody2D Rigidbody { get { return rigidbody; } }
+    private Rigidbody2D rb;
+    public Rigidbody2D Rigidbody { get { return rb; } }
 
-    public GameObject item1;
-    public GameObject item2;
-    public GameObject item3;
+    public List<GameObject> itemPrefabs = new List<GameObject>();
+
+    private GameObject item1;
+    private GameObject item2;
+    private GameObject item3;
+
+    public int selectedSlot = 1;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+
+    //HUD Display to show item selection
+    HUD_ItemSelection HUD;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        HUD_ItemSelection HUD =  FindObjectOfType<HUD_ItemSelection>();
+        List<GameObject> randomItems = new List<GameObject>(itemPrefabs);
+        item1 = randomItems[Random.Range(0,randomItems.Count)];
+        randomItems.Remove(item1);
+
+        item2 = randomItems[Random.Range(0, randomItems.Count)];
+        randomItems.Remove(item2);
+
+        item3 = randomItems[Random.Range(0, randomItems.Count)];
+        randomItems.Remove(item3);
+
+        rb = GetComponent<Rigidbody2D>();
+        
+        //Finds and updates HUD at runtime
+        HUD = FindObjectOfType<HUD_ItemSelection>();
         HUD.UpdateHUD(item1, item2, item3);
     }
 
@@ -39,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isMoving)
         {
-            rigidbody.AddForce(lastMoveDirection * (Time.deltaTime * 500f));
+            rb.AddForce(lastMoveDirection * (Time.deltaTime * 500f));
         }
 
         //If we have a mouse position, calculate look-at
@@ -74,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    #region InputActions
     //Get movement input from InputActions, update movement logic
     public void InputActionMove(InputAction.CallbackContext context)
     {
@@ -109,12 +133,83 @@ public class PlayerController : MonoBehaviour
         mousePosition = Vector2.zero;
     }
 
-    //Trigger throw effect, spawn thrown object
-    public void InputActionUseItemOne(InputAction.CallbackContext context)
+    public void InputActionSelectOne(InputAction.CallbackContext context)
     {
-        if (context.started && item1 != null)
+        if(context.started)
         {
-            GameObject item = Instantiate(item1, transform);
+            selectedSlot = 1;
+            HUD.SelectOne();
+        }
+    }
+
+    public void InputActionSelectTwo(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            selectedSlot = 2;
+            HUD.SelectTwo();
+        }
+    }
+
+    public void InputActionSelectThree(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            selectedSlot = 3;
+            HUD.SelectThree();
+        }
+    }
+
+    //Gets input from scroll wheel and updates HUD
+    public void InputActionScrollSelect(InputAction.CallbackContext context)
+    {
+        float input = context.ReadValue<Vector2>().y;
+
+        if (input < 0)
+        {
+            selectedSlot -= 1;
+            if (selectedSlot < 1) selectedSlot = 3;
+        }
+        else if (input > 0)
+        {
+            selectedSlot += 1;
+            if (selectedSlot > 3) selectedSlot = 1;
+        }
+
+        switch (selectedSlot)
+        {
+            case 1:
+                HUD.SelectOne();
+                break;
+            case 2:
+                HUD.SelectTwo();
+                break;
+            case 3:
+                HUD.SelectThree();
+                break;
+        }
+    }
+
+    //Trigger throw effect, spawn thrown object
+    public void InputActionUseItem(InputAction.CallbackContext context)
+    {
+        GameObject newItem = null;
+        switch (selectedSlot)
+        {
+            case 1:
+                newItem = item1;
+                break;
+            case 2:
+                newItem = item2;
+                break;
+            case 3:
+                newItem = item3;
+                break;
+        }
+
+        if (context.started && newItem != null)
+        {
+            GameObject item = Instantiate(newItem, transform);
 
             Throwable throwable = item.GetComponent<Throwable>();
 
@@ -124,36 +219,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    //Trigger throw effect, spawn thrown object
-    public void InputActionUseItemTwo(InputAction.CallbackContext context)
-    {
-        if (context.started && item2 != null)
-        {
-            GameObject item = Instantiate(item2, transform);
-
-            Throwable throwable = item.GetComponent<Throwable>();
-
-            if (throwable != null)
-            {
-                throwable.ThrowItem(500f, lookDirection);
-            }
-        }
-    }
-
-    //Trigger throw effect, spawn thrown object
-    public void InputActionUseItemThree(InputAction.CallbackContext context)
-    {
-        if (context.started && item3 != null)
-        {
-            GameObject item = Instantiate(item3, transform);
-
-            Throwable throwable = item.GetComponent<Throwable>();
-
-            if (throwable != null)
-            {
-                throwable.ThrowItem(500f, lookDirection);
-            }
-        }
-    }
+    #endregion
 }

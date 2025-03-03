@@ -596,12 +596,9 @@ MonoBehaviour:
   slot1: {fileID: 4373505429395330004}
   slot2: {fileID: 1542150854148436939}
   slot3: {fileID: 8788656843003818516}
-  items:
-  - {fileID: 47576519631612836, guid: bcf496cc82252d14dafb1a3ebed1f6ab, type: 3}
-  - {fileID: 1456410070365849978, guid: 269f6f8eadbd4a54991f930bc2ac4249, type: 3}
-  - {fileID: 47576519631612836, guid: b783ad9d0a1344e4bb604d1aaf34acdf, type: 3}
-  - {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
-  - {fileID: 47576519631612836, guid: e64fbb47db46ed6418e8017d1a742d6d, type: 3}
+  slotHolder1: {fileID: 8171170188182513942}
+  slotHolder2: {fileID: 2901738172831718774}
+  slotHolder3: {fileID: 7293593792960782523}
 --- !u!1 &355267065488912695
 GameObject:
   m_ObjectHideFlags: 0
