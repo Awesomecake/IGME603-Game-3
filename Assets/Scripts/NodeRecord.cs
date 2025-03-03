@@ -6,14 +6,14 @@ public class NodeRecord
 {
     private static readonly List<Vector3Int> Offsets = new()
     {
-        new Vector3Int(-1, -1),
+        // new Vector3Int(-1, -1),
         new Vector3Int(-1, 0),
-        new Vector3Int(-1, 1),
+        // new Vector3Int(-1, 1),
         new Vector3Int(0, -1),
         new Vector3Int(0, 1),
-        new Vector3Int(1, -1),
+        // new Vector3Int(1, -1),
         new Vector3Int(1, 0),
-        new Vector3Int(1, 1),
+        // new Vector3Int(1, 1),
     };
 
     public Vector3Int Tile { get; set; }
@@ -27,7 +27,8 @@ public class NodeRecord
     public List<Vector3Int> GetConnections()
     {
         return Offsets
-            .Where(it => WorldManager.Instance.world.GetTile(Tile + it) == null)
+            .Select(it => it + Tile)
+            .Where(it => WorldManager.Instance.world.GetTile(it) == null)
             .ToList();
     }
 }

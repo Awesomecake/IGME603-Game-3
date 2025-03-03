@@ -1,3 +1,3 @@
-public class ChaseState : EnemyMovementState
+public class ChaseState : TargetPathingMovementState
 {
 }

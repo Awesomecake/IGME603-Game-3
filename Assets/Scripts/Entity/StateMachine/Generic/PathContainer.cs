@@ -9,7 +9,7 @@ public class PathContainer: AbstractTargetContainer
     public void SetPath(List<Vector3> path)
     {
         _path = path;
-        _index = 0;
+        _index = path.Count > 1 ? 1 : 0;
     }
 
     public bool NextPoint()

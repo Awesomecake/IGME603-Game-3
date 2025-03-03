@@ -49,6 +49,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
 --- !u!1 &151939326610470453
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2756593619473776523}
   - component: {fileID: 671974490130653374}
+  - component: {fileID: 6083028441595023837}
   m_Layer: 0
   m_Name: CombatChaseState
   m_TagString: Untagged
@@ -200,7 +202,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 293088714792967029}
   movementSpeed: 5
+  pathContainer: {fileID: 6083028441595023837}
+  distanceThreshold: 0.2
   simpleTargetContainer: {fileID: 5937279804195191749}
+--- !u!114 &6083028441595023837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495823176945041125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627a0086a1bd4065b09ca62568a0b2d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &534183559573600258
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +606,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
 --- !u!50 &293088714792967029
 Rigidbody2D:
   serializedVersion: 4
@@ -669,6 +685,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
   visionCone: {fileID: 3981740941880127099}
   spottedVisionColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!114 &3650552183879356895
@@ -741,6 +758,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
 --- !u!114 &7122260746956495291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +790,7 @@ MonoBehaviour:
         m_CallState: 2
   targetContainer: {fileID: 8718485635551553200}
   body: {fileID: 7651824281218780589}
-  distanceThreshold: 0.1
+  distanceThreshold: 1
 --- !u!114 &3728274098569712778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,6 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8357574976902829243}
   - component: {fileID: 22679885481399381}
+  - component: {fileID: 684919487680480095}
   m_Layer: 0
   m_Name: PatrolMovementState
   m_TagString: Untagged
@@ -987,7 +1006,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 293088714792967029}
   movementSpeed: 3
-  simpleTargetContainer: {fileID: 8718485635551553200}
+  pathContainer: {fileID: 684919487680480095}
+  distanceThreshold: 0.2
+  onPathEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  locationContainer: {fileID: 8718485635551553200}
+  patrolAreaHandler: {fileID: 5159409769795131064}
+--- !u!114 &684919487680480095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841036248862211512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627a0086a1bd4065b09ca62568a0b2d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3663629136222502896
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1035,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8495514826366529238}
   - component: {fileID: 8076453520210853585}
+  - component: {fileID: 1369602664233490739}
   m_Layer: 0
   m_Name: InvestigatingState
   m_TagString: Untagged
@@ -1034,7 +1072,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 293088714792967029}
   movementSpeed: 4
-  simpleTargetContainer: {fileID: 473244424135727475}
+  pathContainer: {fileID: 1369602664233490739}
+  distanceThreshold: 0.2
+  onPathEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  locationContainer: {fileID: 473244424135727475}
+--- !u!114 &1369602664233490739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663629136222502896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627a0086a1bd4065b09ca62568a0b2d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3832659155577885203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,6 +1391,7 @@ MonoBehaviour:
   autoStart: 1
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
 --- !u!114 &5644100487724582711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1609,6 +1665,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
 --- !u!114 &2615496912019260274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,6 +2022,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
+  isLogging: 0
 --- !u!1 &7912645181447644723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,6 +2072,7 @@ MonoBehaviour:
   autoStart: 0
   resumeBehavior: 0
   lastTransition: 0
+  isLogging: 0
 --- !u!1 &8419354146698989005
 GameObject:
   m_ObjectHideFlags: 0

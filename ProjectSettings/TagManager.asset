@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Detector
   - Collectible
+  - LilBro
   layers:
   - Default
   - TransparentFX

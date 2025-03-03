@@ -24,18 +24,17 @@ public class WorldManager : MonoBehaviour
     {
         var path = new List<Vector3>();
 
-        Debug.Log($"Finding path from {start} to {end}");
         if (!world) return path;
 
         var startTile = world.WorldToCell(start);
         var endTile = world.WorldToCell(end);
-        Debug.Log(world.GetTile(startTile));
+
         if (world.GetTile(startTile) != null) return path;
         if (world.GetTile(endTile) != null) return path;
-
+        Debug.Log($"Finding path from {startTile} to {endTile}");
         
         return AStar.Search(startTile, endTile, AStar.CrossProduct)
-            .Select(it => world.CellToWorld(it))
+            .Select(it => world.CellToWorld(it) + new Vector3(0.5f, 0.5f))
             .ToList();
     }
 }

@@ -9,7 +9,7 @@ public class AStar : MonoBehaviour
     public static Stack<Vector3Int> Search(
         Vector3Int start,
         Vector3Int end,
-        Heuristic heuristic, int maxDepth = 1000000)
+        Heuristic heuristic, int maxDepth = 100000)
     {
         #region initialization
 
@@ -96,7 +96,7 @@ public class AStar : MonoBehaviour
         var pathDidNotReachEnd = current.Tile != end;
         if (pathDidNotReachEnd)
         {
-            Debug.Log("Search Failed");
+            Debug.Log($"Search Failed, Depth = {currentDepth}");
             return new Stack<Vector3Int>();
         }
 
