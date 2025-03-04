@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalDiamond : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GoalDiamond : MonoBehaviour
         {
             collision.GetComponent<PlayerController>().hasDiamond = true;
             Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
