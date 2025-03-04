@@ -9,7 +9,7 @@ public class AStar : MonoBehaviour
     public static Stack<Vector3Int> Search(
         Vector3Int start,
         Vector3Int end,
-        Heuristic heuristic, int maxDepth = 10000)
+        Heuristic heuristic, int maxDepth = 5000)
     {
         #region initialization
 
