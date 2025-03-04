@@ -13,6 +13,10 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image slotBorder2;
     [SerializeField] private Image slotBorder3;
 
+    [SerializeField] private Image lockEffect1;
+    [SerializeField] private Image lockEffect2;
+    [SerializeField] private Image lockEffect3;
+
     //Update HUD based on Player Items
     public void UpdateHUD(GameObject item1, GameObject item2, GameObject item3)
     {
@@ -33,6 +37,13 @@ public class HUD_ItemSelection : MonoBehaviour
         slot3.color = item3Renderer.color;
 
         Debug.Log(item3.name);
+    }
+
+    public void UpdateCooldownUI(float item1CooldownProgress, float item2CooldownProgress, float item3CooldownProgress)
+    {
+        lockEffect1.fillAmount = item1CooldownProgress;
+        lockEffect2.fillAmount = item2CooldownProgress;
+        lockEffect3.fillAmount = item3CooldownProgress;
     }
 
     public void Start()
