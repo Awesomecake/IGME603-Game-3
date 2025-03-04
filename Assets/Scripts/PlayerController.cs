@@ -97,6 +97,13 @@ public class PlayerController : MonoBehaviour
 
         if (item3Cooldown > 0)
             item3Cooldown -= Time.deltaTime;
+        
+        // Update UI
+        HUD.UpdateCooldownUI(
+            item1Cooldown / globalCooldownResetTime,
+            item2Cooldown / globalCooldownResetTime,
+            item3Cooldown / globalCooldownResetTime
+            );
     }
 
     public void TakeDamage(float damage)
