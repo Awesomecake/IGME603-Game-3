@@ -14,6 +14,7 @@ public class GoalDiamond : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             collision.GetComponent<PlayerController>().hasDiamond = true;
+            Destroy(collision.gameObject);
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
