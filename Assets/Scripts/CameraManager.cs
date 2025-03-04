@@ -15,6 +15,21 @@ public class CameraManager : MonoBehaviour
     private Vector3 _defaultOffset;
     private CinemachineFramingTransposer framingTransposer;
 
+    public static CameraManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        // Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start()
     {
@@ -35,5 +50,11 @@ public class CameraManager : MonoBehaviour
         mouseOffset = Vector3.ClampMagnitude(mouseOffset, maxMouseOffset);
         framingTransposer.m_TrackedObjectOffset = _defaultOffset + mouseOffset * mouseInfluenceStrength;
 
+    }
+
+    public void TrackPlayer(Transform newPlayer)
+    {
+        player = newPlayer;
+        virtualCamera.Follow = player;
     }
 }

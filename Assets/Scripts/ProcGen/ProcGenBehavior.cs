@@ -39,6 +39,8 @@ public class ProcGenBehavior : MonoBehaviour
     private bool hasLilBroSpawned = false;
     private bool hasGemSpawned = false;
 
+    private GameObject currentPlayer;
+
     private enum Direction
     {
         LEFT, RIGHT, DOWN, UP
@@ -115,6 +117,8 @@ public class ProcGenBehavior : MonoBehaviour
             //Generate();
             GenerateChunks();
         }
+
+        CameraManager.Instance.TrackPlayer(currentPlayer.transform);
     }
 
     //***** VALUE AND TERRAIN CHANGE AT RUNTIME FUNCTIONS *****
@@ -1030,7 +1034,7 @@ public class ProcGenBehavior : MonoBehaviour
                 else if (map[x, y] == 2)
                 {
                     //spawn player
-                    Instantiate(playerPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                    currentPlayer = Instantiate(playerPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
                 //if value of map at [x,y] is 3,...
                 else if (map[x, y] == 3)
