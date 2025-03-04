@@ -8,7 +8,8 @@ public class SeekGoalState : PathMovementState
         var world = WorldManager.Instance;
         var path = world.FindPath(
             transform.position,
-            world.diamond.transform.position
+            world.diamond.transform.position,
+            10000
         );
         pathContainer.SetPath(path);
     }

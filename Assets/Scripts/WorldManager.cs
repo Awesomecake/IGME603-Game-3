@@ -27,7 +27,7 @@ public class WorldManager : MonoBehaviour
         return world.GetTile(cell);
     }
 
-    public List<Vector3> FindPath(Vector3 start, Vector3 end)
+    public List<Vector3> FindPath(Vector3 start, Vector3 end, int depth = 1000)
     {
         var path = new List<Vector3>();
 
@@ -40,7 +40,7 @@ public class WorldManager : MonoBehaviour
         if (world.GetTile(endTile) != null) return path;
         Debug.Log($"Finding path from {startTile} to {endTile}");
 
-        return AStar.Search(startTile, endTile, AStar.CrossProduct)
+        return AStar.Search(startTile, endTile, AStar.CrossProduct, depth)
             .Select(it => world.CellToWorld(it) + new Vector3(0.5f, 0.5f))
             .ToList();
     }

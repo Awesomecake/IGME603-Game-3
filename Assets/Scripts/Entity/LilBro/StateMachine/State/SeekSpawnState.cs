@@ -14,7 +14,8 @@ public class SeekSpawnState : PathMovementState
         base.EnterState();
         var path = WorldManager.Instance.FindPath(
             transform.position,
-            _startPosition
+            _startPosition,
+            10000
         );
         pathContainer.SetPath(path);
     }
