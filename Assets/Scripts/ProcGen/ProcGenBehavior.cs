@@ -133,7 +133,14 @@ public class ProcGenBehavior : MonoBehaviour
                 //generate terrain at the start of the scene
                 //Generate();
                 //GenerateChunks();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                if (LevelManager.Instance)
+                {
+                    LevelManager.Instance.ReloadScene();
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             }
         }
     }

@@ -36,8 +36,8 @@ public class WorldManager : MonoBehaviour
         var startTile = world.WorldToCell(start);
         var endTile = world.WorldToCell(end);
 
-        if (world.GetTile(startTile) != null) return path;
-        if (world.GetTile(endTile) != null) return path;
+        if (world.GetTile(startTile)) return path;
+        if (world.GetTile(endTile)) return path;
         Debug.Log($"Finding path from {startTile} to {endTile}");
 
         return AStar.Search(startTile, endTile, AStar.CrossProduct, depth)

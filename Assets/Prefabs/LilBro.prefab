@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5873824783030695425}
-  movementSpeed: 1
+  movementSpeed: 1.5
   pathContainer: {fileID: 1044840472693253511}
   distanceThreshold: 0.1
   onPathEnded:

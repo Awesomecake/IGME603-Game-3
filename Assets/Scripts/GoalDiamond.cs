@@ -13,10 +13,45 @@ public class GoalDiamond : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            collision.GetComponent<PlayerController>().hasDiamond = true;
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            TriggerPlayerCollected(collision);
+        }
+
+        if (collision.tag.Equals("LilBro"))
+        {
+            TriggerBroCollected(collision);
+        }
+    }
+
+    private void TriggerBroCollected(Collider2D collision)
+    {
+        DestroyDiamond();
+        if (LevelManager.Instance)
+        {
+            LevelManager.Instance.NotifyBroCollectedDiamond();
+        }
+        else
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+
+    private void TriggerPlayerCollected(Collider2D collision)
+    {
+        collision.GetComponent<PlayerController>().hasDiamond = true;
+        DestroyDiamond();
+        if (LevelManager.Instance)
+        {
+            LevelManager.Instance.NotifyPlayerCollectedDiamond();
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    private void DestroyDiamond()
+    {
+        Destroy(gameObject);
     }
 }

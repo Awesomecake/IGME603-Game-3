@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
         //Finds and updates HUD at runtime
         HUD = FindObjectOfType<HUD_ItemSelection>();
         HUD.UpdateHUD(item1, item2, item3);
+
+        LevelManager.Instance?.RegisterPlayer(gameObject);
     }
 
     // Update is called once per frame
@@ -147,7 +149,8 @@ public class PlayerController : MonoBehaviour
     //Tracks Last Position of Mouse on Screen
     public void InputActionLookMouse(InputAction.CallbackContext context)
     {
-        mousePosition = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
+        mousePosition = Camera.main?.ScreenToWorldPoint(context.ReadValue<Vector2>())
+            ?? Vector2.zero;
     }
 
     //Tracks last look direction on controller, clears mouse position

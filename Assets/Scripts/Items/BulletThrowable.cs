@@ -8,14 +8,20 @@ public class BulletThrowable : Throwable
         Debug.Log($"bullet hit {collision}");
 
         HandlePlayerHit(collision);
-        
         Destroy(gameObject);
     }
 
     private void HandlePlayerHit(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        Destroy(collision.gameObject);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (LevelManager.Instance)
+        {
+            LevelManager.Instance.NotifyPlayerDie();
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
