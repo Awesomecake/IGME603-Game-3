@@ -27,7 +27,7 @@ public class WorldManager : MonoBehaviour
         return world.GetTile(cell);
     }
 
-    public List<Vector3> FindPath(Vector3 start, Vector3 end, int depth = 1000)
+    public List<Vector3> FindPath(Vector3 start, Vector3 end, int depth = 200)
     {
         var path = new List<Vector3>();
 

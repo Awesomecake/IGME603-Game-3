@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Util
@@ -50,6 +51,31 @@ public static class Util
     {
         var directionToTarget = target - self;
         return Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+    }
+    
+    public static List<Vector3> GetPathToNearestWall(Vector3 startPosition, Vector3 endPosition, string tag = "Untagged")
+    {
+        var direction = endPosition - startPosition;
+        var distance = startPosition.DistanceTo2D(endPosition);
+        var hits = Physics2D.RaycastAll(
+            startPosition,
+            direction,
+            distance
+        );
+        var newEndPosition = endPosition;
+        foreach (var hit in hits)
+        {
+            var isWall = hit.collider.CompareTag(tag);
+            if (!isWall) continue;
+                
+            newEndPosition = hit.point;
+            break;
+        }
 
+        return new List<Vector3>
+        {
+            startPosition,
+            newEndPosition
+        };
     }
 }

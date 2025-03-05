@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class SeekGoalState : PathMovementState
 {
     public override void EnterState()
