@@ -1,4 +1,3 @@
-    public class InvestigateState: EnemyMovementState
-    {
-        
-    }
+public class InvestigateState : PathMovementState
+{
+}

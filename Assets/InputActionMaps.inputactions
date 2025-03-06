@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "UseItemOne",
+                    "name": "SelectOne",
                     "type": "Button",
                     "id": "c87be05b-ea1c-4c55-816c-88346385e56c",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseItemTwo",
+                    "name": "SelectTwo",
                     "type": "Button",
                     "id": "38d69009-4c34-4faa-884c-c4141c2f36b2",
                     "expectedControlType": "Button",
@@ -33,13 +33,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseItemThree",
+                    "name": "SelectThree",
                     "type": "Button",
                     "id": "2f9a539d-48d4-4814-909c-dded8a99caa1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollSelection",
+                    "type": "Value",
+                    "id": "392c30ee-988c-4101-9c1c-1d1ad1d340b4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pause",
@@ -67,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UseItem",
+                    "type": "Button",
+                    "id": "e7ea5bff-f0c5-4966-9ca3-a5618cdba7b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -187,7 +205,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemOne",
+                    "action": "SelectOne",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -198,7 +216,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemOne",
+                    "action": "SelectOne",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -209,7 +227,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemTwo",
+                    "action": "SelectTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -220,7 +238,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemTwo",
+                    "action": "SelectTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -231,7 +249,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemThree",
+                    "action": "SelectThree",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -242,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItemThree",
+                    "action": "SelectThree",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -287,6 +305,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "LookDirectionGamepad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67c64779-1540-4363-a783-0160206aa60b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "118f8c49-fc41-4a6a-87d4-2ad40d25d60b",
+                    "path": "<Keyboard>/#(E)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0f8848f-aebf-4811-b02f-42d39efb9be4",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "613d4690-6b21-4749-9ed5-736986dcee33",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollSelection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

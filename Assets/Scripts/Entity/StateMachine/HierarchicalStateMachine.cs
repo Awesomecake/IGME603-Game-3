@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Handles updating the active state
 // A State Machine which can be a child of another HierarchicalStateMachine.
@@ -24,6 +25,10 @@ public class HierarchicalStateMachine : State
     private State _currentState;
     private readonly Dictionary<State, List<StateTransition>> _transitions = new();
 
+    [SerializeField] private bool isLogging = false;
+
+    public UnityEvent onEnter;
+    
     // Manually start the state machine. Only call on the root state machine.
     public void Begin()
     {
@@ -83,10 +88,10 @@ public class HierarchicalStateMachine : State
             }
 
             _transitions[fromState].Add(transition);
-            Debug.Log("added transition");
+            LogMessage($"{name} added transition");
         }
 
-        Debug.Log(_transitions.Keys.ToSeparatedString(", "));
+        LogMessage(_transitions.Keys.ToSeparatedString(", "));
     }
 
     public override void EnterState()
@@ -95,7 +100,9 @@ public class HierarchicalStateMachine : State
         {
             _currentState = initialState;
         }
-
+        
+        LogMessage($"{name} Entering State {_currentState}");
+        onEnter?.Invoke();
         _currentState.EnterState();
         lastTransition = Time.time;
     }
@@ -124,8 +131,8 @@ public class HierarchicalStateMachine : State
         foreach (var transition in transitions)
         {
             if (!transition.NeedsTransition()) continue;
-            ChangeState(transition.toState);
             transition.onTransitionSideEffect?.Invoke();
+            ChangeState(transition.toState);
             break;
         }
     }
@@ -133,7 +140,7 @@ public class HierarchicalStateMachine : State
     // ReSharper disable Unity.PerformanceAnalysis
     public void ChangeState(State toState)
     {
-        Debug.Log($"Changing state from {_currentState.gameObject.name} to {toState.gameObject.name}");
+        LogMessage($"Changing state from {_currentState.gameObject.name} to {toState.gameObject.name}");
         _currentState.ExitState();
         lastTransition = Time.time;
         
@@ -149,5 +156,11 @@ public class HierarchicalStateMachine : State
     public override State GetRunningState()
     {
         return _currentState.GetRunningState();
+    }
+
+    protected void LogMessage(string message)
+    {
+        if (!isLogging) return;
+        Debug.Log(message);
     }
 }

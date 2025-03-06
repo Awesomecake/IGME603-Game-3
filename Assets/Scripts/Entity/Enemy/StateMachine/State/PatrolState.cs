@@ -1,3 +1,3 @@
-public class PatrolState : EnemyMovementState
+public class PatrolState : PathMovementState
 {
 }
