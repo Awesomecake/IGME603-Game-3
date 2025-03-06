@@ -27,7 +27,8 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private uint boarderWidth = 10;
 
     [Header("Random Walker Vars")]
-    [SerializeField] private uint maxWalkerDistance = 2;
+    [SerializeField] private uint minWalkerDistance = 7;
+    [SerializeField] private uint maxWalkerDistance = 14;
     private List<Vector2Int> walkerPath;
 
     [Header("Player/Guard/LilBro/Gem Vars")]
@@ -251,27 +252,58 @@ public class ProcGenBehavior : MonoBehaviour
         //    Debug.Log("Possible Direction #" + j + " can go to: " + possibleNextSteps[j]);
         //}
 
-        //randomly walk through chunkMap until maxWalkerDistance is reached or there are no possible next steps,...
-        while (currentWalkerDistance < maxWalkerDistance && possibleNextSteps.Count != 0)
-        //for (int i = 0; i < maxWalkerDistance; i++)
+        int maxWalkAttempts = 25;
+        int curWalkAttempts = 0;
+
+        //randomly walk through chunkMap UNTIL maxWalkerDistance is reached 
+        //or there are no possible next steps,...
+        //&& possibleNextSteps.Count != 0
+        while (currentWalkerDistance < maxWalkerDistance && curWalkAttempts < maxWalkAttempts)
         {
-            //step in a random (but possible) direction
-            currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
+            //if currentWalkerDistance < minWalkerDistance AND walker cannot make any possible next steps,...
+            if (currentWalkerDistance < minWalkerDistance && possibleNextSteps.Count == 0)
+            {
+                //then prune by walking backwards until you reach the chunk that has at least 1 possible direction
+                //while ( && walkerPath.Count >= 2)
+                //{
+                //    //step backwards
+                //    currentPosition = walkerPath[walkerPath.Count - 2];
 
-            //increment currentWalkerDistance
-            currentWalkerDistance++;
+                //    //decrement currentWalkerDistance
+                //    currentWalkerDistance--;
 
-            //set current position on walkerkMap to WalkerValue.STEPPED
-            walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+                //    //set current position on walkerkMap to WalkerValue.STEPPED
+                //    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
 
-            //add step to walkerPath
-            walkerPath.Add(currentPosition);
+                //    //remove last step from walkerPath
+                //    walkerPath.RemoveAt(walkerPath.Count - 1);
 
-            //update possibleNextSteps
-            possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+                //    //update possibleNextSteps
+                //    possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+                //}
+                //at every step 
+            }
+            //else 
+            else
+            {
 
-            //if walker visits a chunk it has previously visited,...
-            //then prune by walking backwards until you reach the chunk that was previoulsy visited
+                //step in a random (but possible) direction
+                currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
+
+                //increment currentWalkerDistance
+                currentWalkerDistance++;
+
+                //set current position on walkerkMap to WalkerValue.STEPPED
+                walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+
+                //add step to walkerPath
+                walkerPath.Add(currentPosition);
+
+                //update possibleNextSteps
+                possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+
+                curWalkAttempts++;
+            }
         }
 
         //return walkerPath
