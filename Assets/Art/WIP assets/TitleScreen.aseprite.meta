@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01df1297918d8564d8f7b9af0b42db40
+guid: 1de9593f3bedf474aa91efbfd0b2ae67
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: game_res_mockup
+  - name: TitleScreen
     originalName: 
     pivot: {x: 0.5, y: 0.008264463}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 640
       height: 363
-    spriteID: 7c597f41e31d78943b9fc934c0708255
+    spriteID: d1b6d8a769c594640a0bdf2761af0a12
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,13 +144,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1437721695
-    name: game_res_mockup
+    guid: -299166292
+    name: TitleScreen
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: game_res_mockup
+    - name: TitleScreen
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -158,7 +158,7 @@ ScriptedImporter:
         y: -3
         width: 640
         height: 363
-      spriteId: 7c597f41e31d78943b9fc934c0708255
+      spriteId: d1b6d8a769c594640a0bdf2761af0a12
     linkedCells: []
     parentIndex: -1
   platformSettings: []

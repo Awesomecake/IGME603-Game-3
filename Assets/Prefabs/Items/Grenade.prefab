@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 3011738169616895343}
-  itemCooldown: 10
+  itemSpeedModifier: 1
+  itemCooldown: 5
   ownerTag: Player
   knockbackForce: 300
   explosionPrefab: {fileID: 4395655004753618120, guid: eda713680823aae4f9951810c99328ee, type: 3}
