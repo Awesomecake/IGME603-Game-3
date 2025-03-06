@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4073674140012312495}
   - component: {fileID: 417553573323691569}
   - component: {fileID: 1725161000049157395}
-  - component: {fileID: 7751666325272047302}
+  - component: {fileID: 5702344946267351092}
   - component: {fileID: 4839285969251209023}
   m_Layer: 0
   m_Name: LilBroStateMachine
@@ -114,7 +114,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 5577052947828941241}
---- !u!114 &7751666325272047302
+--- !u!114 &5702344946267351092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 526432289290171744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9557ff748269433c9e937fbdbaf7f78d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d44936ce621441dbe9731320e6aacf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fromState: {fileID: 603109954627392912}
@@ -132,6 +132,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 3494116156498114235}
+  mode: 1
+  delaySeconds: 2.5
 --- !u!114 &4839285969251209023
 MonoBehaviour:
   m_ObjectHideFlags: 0
