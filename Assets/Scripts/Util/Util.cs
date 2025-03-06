@@ -55,7 +55,7 @@ public static class Util
     
     public static List<Vector3> GetPathToNearestWall(Vector3 startPosition, Vector3 endPosition, string tag = "Untagged")
     {
-        var direction = endPosition - startPosition;
+        var direction = (endPosition - startPosition).normalized;
         var distance = startPosition.DistanceTo2D(endPosition);
         var hits = Physics2D.RaycastAll(
             startPosition,
@@ -69,6 +69,7 @@ public static class Util
             if (!isWall) continue;
                 
             newEndPosition = hit.point;
+            newEndPosition -= direction * 0.5f;
             break;
         }
 

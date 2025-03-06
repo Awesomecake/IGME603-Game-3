@@ -778,6 +778,7 @@ GameObject:
   - component: {fileID: 4009574566235543063}
   - component: {fileID: 3728274098569712778}
   - component: {fileID: 5230101009504580680}
+  - component: {fileID: 842696680773762327}
   m_Layer: 0
   m_Name: PatrolStateMachine
   m_TagString: Untagged
@@ -927,6 +928,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627a0086a1bd4065b09ca62568a0b2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &842696680773762327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552684814130455413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7989d042bf4140cabcbfe077c86ce419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 22679885481399381}
+  toState: {fileID: 3802755344726495943}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  durationSeconds: 10
 --- !u!1 &2591783164779770596
 GameObject:
   m_ObjectHideFlags: 0
