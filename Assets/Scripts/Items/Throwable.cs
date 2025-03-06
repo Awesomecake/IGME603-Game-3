@@ -17,7 +17,7 @@ public class Throwable : MonoBehaviour
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        projectileRigidBody.AddForce(direction * strength * itemSpeedModifier);
+        projectileRigidBody.AddForce(direction * (strength * itemSpeedModifier));
     }
 
     //Detecting when item overlaps a rigidbody

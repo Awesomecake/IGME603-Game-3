@@ -31,6 +31,12 @@ public class WorldManager : MonoBehaviour
         var cell = world.WorldToCell(worldPosition);
         return world.GetTile(cell);
     }
+    
+    public void SetTile(Vector3 worldPosition, TileBase tile)
+    {
+        var cell = world.WorldToCell(worldPosition);
+        world.SetTile(cell, tile);
+    }
 
     public List<Vector3> FindPath(Vector3 start, Vector3 end, int depth = 200)
     {

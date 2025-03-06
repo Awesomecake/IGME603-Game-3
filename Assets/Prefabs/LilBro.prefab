@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5873824783030695425}
-  movementSpeed: 3
+  movementSpeed: 3.5
   pathContainer: {fileID: 2870564387669009876}
   distanceThreshold: 0.3
   onPathEnded:
@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5873824783030695425}
-  movementSpeed: 1.5
+  movementSpeed: 2
   pathContainer: {fileID: 1044840472693253511}
   distanceThreshold: 0.1
   onPathEnded:
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5873824783030695425}
-  movementSpeed: 2
+  movementSpeed: 3
   pathContainer: {fileID: 682684435232628238}
   distanceThreshold: 0.1
   simpleTargetContainer: {fileID: 4774335774196784028}
