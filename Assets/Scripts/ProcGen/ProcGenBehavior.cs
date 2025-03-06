@@ -636,7 +636,7 @@ public class ProcGenBehavior : MonoBehaviour
                     chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_RIGHT_UP;
                     break;
                 case ChunkValue.RIGHT_DOWN:
-                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_UP_DOWN;
+                    chunkMap[walkerPath[walkerHalfWay].x, walkerPath[walkerHalfWay].y] = ChunkValue.LB_RIGHT_DOWN;
                     break;
                 default:
                     break;
