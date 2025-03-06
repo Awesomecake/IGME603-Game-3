@@ -103,6 +103,7 @@ MonoBehaviour:
   itemSpeedModifier: 0.5
   itemCooldown: 10
   ownerTag: Player
+  soundPrefab: {fileID: 755579084075967033, guid: b733c2a05c48446b4ad9f1a5411f54d8, type: 3}
 --- !u!50 &3011738169616895343
 Rigidbody2D:
   serializedVersion: 4

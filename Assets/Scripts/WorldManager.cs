@@ -21,6 +21,11 @@ public class WorldManager : MonoBehaviour
     public Tilemap world;
     [HideInInspector] public GoalDiamond diamond;
 
+    private void Start()
+    {
+        if (world == null) world = FindObjectOfType<Tilemap>();
+    }
+
     public TileBase GetTile(Vector3 worldPosition)
     {
         var cell = world.WorldToCell(worldPosition);
