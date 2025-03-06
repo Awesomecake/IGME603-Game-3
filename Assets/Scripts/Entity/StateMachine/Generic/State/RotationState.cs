@@ -5,7 +5,7 @@ public class RotationState : State
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private float turningSpeed = 30f;
-    [SerializeField] private LocationContainer targetContainer;
+    [SerializeField] private AbstractTargetContainer targetContainer;
 
     [SerializeField] private UnityEvent onFacingTarget;
     
