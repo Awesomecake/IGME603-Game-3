@@ -28,7 +28,7 @@ public class DelayedTriggerStateTransition : TriggeredStateTransition
                 break;
         }
 
-        _delay = StartCoroutine(Delay());
+        if (isActiveAndEnabled) _delay = StartCoroutine(Delay());
     }
 
     public void CancelTransition()
@@ -41,7 +41,7 @@ public class DelayedTriggerStateTransition : TriggeredStateTransition
     {
         yield return new WaitForSeconds(delaySeconds);
         base.Transition();
-        yield return null;
+        _delay = null;
     }
 
     public override bool NeedsTransition()
