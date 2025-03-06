@@ -7,6 +7,7 @@ public class Grenade : Throwable
 {
     public float knockbackForce;
     [SerializeField] private GameObject explosionPrefab;
+
     public override void ThrownItemCollided(Collider2D collision)
     {
         //Cast for entities in range of explosion

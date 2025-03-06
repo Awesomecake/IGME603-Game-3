@@ -9,11 +9,6 @@ public class Drill : Throwable
     private Tilemap tilemap;
     private TilemapCollider2D tilemapCollider;
 
-    private void Awake()
-    {
-        itemSpeedModifier = 0.5f;
-    }
-
     private void Update()
     {
         //If we have found tilemap, start destroying it
