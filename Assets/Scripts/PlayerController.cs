@@ -227,6 +227,9 @@ public class PlayerController : MonoBehaviour
     //Trigger throw effect, spawn thrown object
     public void InputActionUseItem(InputAction.CallbackContext context)
     {
+        if (!context.started)
+            return;
+
         GameObject newItem = null;
         switch (selectedSlot)
         {
@@ -253,7 +256,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (context.started && newItem != null)
+        if (newItem != null)
         {
             GameObject item = Instantiate(newItem, transform);
 
