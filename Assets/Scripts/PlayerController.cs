@@ -30,13 +30,14 @@ public class PlayerController : MonoBehaviour
     private GameObject item2;
     private GameObject item3;
 
+    private Throwable item1ThrowableScript;
+    private Throwable item2ThrowableScript;
+    private Throwable item3ThrowableScript;
+
     //cooldown timers for items
     private float item1Cooldown = 0;
     private float item2Cooldown = 0;
     private float item3Cooldown = 0;
-
-    //global cooldown value for all items
-    private float globalCooldownResetTime = 2f;
 
     public int selectedSlot = 1;
 
@@ -65,6 +66,10 @@ public class PlayerController : MonoBehaviour
         HUD.UpdateHUD(item1, item2, item3);
 
         LevelManager.Instance?.RegisterPlayer(gameObject);
+
+        item1ThrowableScript = item1.GetComponent<Throwable>();
+        item2ThrowableScript = item2.GetComponent<Throwable>();
+        item3ThrowableScript = item3.GetComponent<Throwable>();
     }
 
     // Update is called once per frame
@@ -102,10 +107,12 @@ public class PlayerController : MonoBehaviour
         
         // Update UI
         HUD.UpdateCooldownUI(
-            item1Cooldown / globalCooldownResetTime,
-            item2Cooldown / globalCooldownResetTime,
-            item3Cooldown / globalCooldownResetTime
+            item1Cooldown / item1ThrowableScript.itemCooldown,
+            item2Cooldown / item2ThrowableScript.itemCooldown,
+            item3Cooldown / item3ThrowableScript.itemCooldown
             );
+
+        Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
     }
 
     public void TakeDamage(float damage)
@@ -220,6 +227,9 @@ public class PlayerController : MonoBehaviour
     //Trigger throw effect, spawn thrown object
     public void InputActionUseItem(InputAction.CallbackContext context)
     {
+        if (!context.started)
+            return;
+
         GameObject newItem = null;
         switch (selectedSlot)
         {
@@ -227,26 +237,26 @@ public class PlayerController : MonoBehaviour
                 if(item1Cooldown <= 0)
                 {
                     newItem = item1;
-                    item1Cooldown = globalCooldownResetTime;
+                    item1Cooldown = item1ThrowableScript.itemCooldown;
                 }
                 break;
             case 2:
                 if (item2Cooldown <= 0)
                 {
                     newItem = item2;
-                    item2Cooldown = globalCooldownResetTime;
+                    item2Cooldown = item2ThrowableScript.itemCooldown;
                 }
                 break;
             case 3:
                 if (item3Cooldown <= 0)
                 {
                     newItem = item3;
-                    item3Cooldown = globalCooldownResetTime;
+                    item3Cooldown = item3ThrowableScript.itemCooldown;
                 }
                 break;
         }
 
-        if (context.started && newItem != null)
+        if (newItem != null)
         {
             GameObject item = Instantiate(newItem, transform);
 

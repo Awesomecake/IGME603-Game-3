@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 3011738169616895343}
+  itemSpeedModifier: 0.5
+  itemCooldown: 10
   ownerTag: Player
 --- !u!50 &3011738169616895343
 Rigidbody2D:
