@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 2262876634406332012}
+  itemSpeedModifier: 3
   itemCooldown: 3
   ownerTag: Player
   lineRenderer: {fileID: 7030660660142688079}
