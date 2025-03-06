@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public int selectedSlot = 1;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer heldSpriteRenderer;
 
     //HUD Display to show item selection
     HUD_ItemSelection HUD;
@@ -95,6 +96,8 @@ public class PlayerController : MonoBehaviour
             lookDirection = controllerLookDirection;
         }
         GetComponent<Animator>().SetBool("moving", isMoving);
+
+        heldSpriteRenderer.transform.up = lookDirection;
 
         if (item1Cooldown > 0)
             item1Cooldown -= Time.deltaTime;
@@ -172,6 +175,7 @@ public class PlayerController : MonoBehaviour
         if(context.started)
         {
             selectedSlot = 1;
+            heldSpriteRenderer.sprite = item1.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectOne();
         }
     }
@@ -181,6 +185,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             selectedSlot = 2;
+            heldSpriteRenderer.sprite = item2.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectTwo();
         }
     }
@@ -190,6 +195,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             selectedSlot = 3;
+            heldSpriteRenderer.sprite = item3.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectThree();
         }
     }

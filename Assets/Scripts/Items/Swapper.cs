@@ -7,7 +7,7 @@ public class Swapper : Throwable
 {
     public override void ThrownItemCollided(Collider2D collision)
     {
-        if (collision.tag.Equals("Enemy"))
+        if (collision.tag.Equals("Enemy") || collision.tag.Equals("LilBro"))
         {
             PlayerController player = FindObjectOfType<PlayerController>();
             Vector3 playerLocation = player.transform.position;
