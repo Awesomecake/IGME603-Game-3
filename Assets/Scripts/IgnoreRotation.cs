@@ -6,7 +6,7 @@ public class IgnoreRotation : MonoBehaviour
 
     private void LateUpdate()
     {
-        var needsFlip = flipOnFacingLeft && Mathf.DeltaAngle(transform.parent.rotation.eulerAngles.z, 180f) < 90f;
+        var needsFlip = flipOnFacingLeft && Mathf.Abs(Mathf.DeltaAngle(transform.parent.rotation.eulerAngles.z, 180f)) < 90f;
 
         transform.rotation = Quaternion.identity;
         
