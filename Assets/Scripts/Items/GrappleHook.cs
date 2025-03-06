@@ -12,6 +12,11 @@ public class GrappleHook : Throwable
     private bool hasCollidedToDynamic = false;
     private GameObject newAttachedTarget;
 
+    private void Awake()
+    {
+        itemSpeedModifier = 2f;
+    }
+
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();

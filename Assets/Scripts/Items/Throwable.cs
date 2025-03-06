@@ -5,6 +5,8 @@ public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
     protected float itemSpeedModifier = 1f;
+
+    public float itemCooldown = 5f;
     public string ownerTag = "Player";
 
     private void Start()
