@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public int bestWinStreak = 0;
     public int loses = 0;
     public float timeToComplete = 0;
+    private float startTime = 0;
 
     [Header("Components")]
     public static LevelManager Instance;
@@ -29,13 +30,15 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         LoadGameplayStats();
+        startTime = Time.time;
     }
 
     private void Update()
     {
         if(Time.timeScale != 0)
         {
-            timeToComplete = Time.time; 
+            timeToComplete = Time.time - startTime;
+            pauseManager.hudTimer.text = FormatTime(timeToComplete);
         }
     }
 

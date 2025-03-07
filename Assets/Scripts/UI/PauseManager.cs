@@ -5,6 +5,8 @@ using TMPro;
 public class PauseManager : MonoBehaviour
 {
     public bool pauseOnKeypress = true;
+    public TextMeshProUGUI hudTimer;
+
     public GameObject toolScreen;
     public GameObject winScreen;
     public TextMeshProUGUI timeToBeatText;
