@@ -769,8 +769,8 @@ MonoBehaviour:
   lilBroTile: {fileID: 11400000, guid: 10eed0bb7edaf46408f99dedb84a804f, type: 2}
   gemTile: {fileID: 11400000, guid: 3115d3889d747a641bf9d3ccb4e5573e, type: 2}
   wallTimeMap: {fileID: 1750480631}
-  openGroundTile: {fileID: 11400000, guid: 3b24695decfab704e888195bfee30bae, type: 2}
-  closedGroundTile: {fileID: 11400000, guid: 3b24695decfab704e888195bfee30bae, type: 2}
+  openGroundTile: {fileID: 11400000, guid: 897c2b68d6b2d114a9531d37b41c80e6, type: 2}
+  closedGroundTile: {fileID: 11400000, guid: 11fd2b4dd2a516c45a298c5239396735, type: 2}
   groundTimeMap: {fileID: 2092665697}
   NONEModules:
   - {fileID: 5579036130010935674, guid: bcecc3c69c212e94fb81703bf807ee19, type: 3}
@@ -2914,11 +2914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_TrackedObjectOffset.x
-      value: -7.497102
+      value: -7.610446
       objectReference: {fileID: 0}
     - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_TrackedObjectOffset.y
-      value: 5.481859
+      value: 7.813153
       objectReference: {fileID: 0}
     - target: {fileID: 8395136113838968418, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_LocalPosition.x
