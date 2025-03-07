@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour
         if(winStreak > bestWinStreak)
         {
             bestWinStreak = winStreak;
-            pauseManager.winStreakText.text = $"Win Streak: {winStreak} (<rainb w=0.5 f=1>New Best!</rainb>)";
+            pauseManager.winStreakText.text = $"Win Streak: {winStreak} (<wave a=0.1 f=1 w=1><rainb w=0.5 f=1>New Best!</rainb></wave>)";
         }else pauseManager.winStreakText.text = $"Win Streak: {winStreak}";
         SaveGameplayStats();
 
