@@ -24,6 +24,7 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         pauseMenu.SetActive(false);
+        toolScreen.SetActive(true);
     }
 
     private void Update()
@@ -50,6 +51,7 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+        toolScreen.SetActive(false);
     }
 
     public void MainMenu()
