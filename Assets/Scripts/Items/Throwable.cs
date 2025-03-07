@@ -4,7 +4,9 @@ using UnityEngine;
 public class Throwable : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D projectileRigidBody;
-    protected float itemSpeedModifier = 1f;
+    public float itemSpeedModifier = 1f;
+
+    public float itemCooldown = 5f;
     public string ownerTag = "Player";
 
     private void Start()
@@ -15,7 +17,7 @@ public class Throwable : MonoBehaviour
     //Apply force to thrown item
     public void ThrowItem(float strength, Vector2 direction)
     {
-        projectileRigidBody.AddForce(direction * strength * itemSpeedModifier);
+        projectileRigidBody.AddForce(direction * (strength * itemSpeedModifier));
     }
 
     //Detecting when item overlaps a rigidbody

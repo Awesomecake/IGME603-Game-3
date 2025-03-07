@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,10 +8,7 @@ public class Drill : Throwable
     private Tilemap tilemap;
     private TilemapCollider2D tilemapCollider;
 
-    private void Awake()
-    {
-        itemSpeedModifier = 0.5f;
-    }
+    [SerializeField] private GameObject soundPrefab;
 
     private void Update()
     {
@@ -28,7 +24,19 @@ public class Drill : Throwable
                 return;
             }
 
-            tilemap.SetTile(cellPosition, null);
+            if (tilemap.GetTile(cellPosition))
+            {
+                if (soundPrefab)
+                {
+                    Instantiate(
+                        soundPrefab,
+                        transform.position,
+                        quaternion.identity
+                    );
+                }
+
+                tilemap.SetTile(cellPosition, null);
+            }
 
             tilemapCollider.CreateMesh(true, true);
         }
