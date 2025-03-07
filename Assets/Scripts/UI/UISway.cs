@@ -6,6 +6,7 @@ public class UISway : MonoBehaviour
 {
 	[SerializeField]private float amount;
 	[SerializeField] private float speed;
+	[SerializeField] private Vector2 offset;
 
 	private RectTransform rect; 
 
@@ -18,6 +19,8 @@ public class UISway : MonoBehaviour
 	{
 		if (Mouse.current == null) return;
 
-		rect.localPosition = Vector3.Lerp(rect.localPosition, (-Mouse.current.position.ReadValue() + new Vector2(Screen.width / 2, Screen.height / 2)) * amount / 100, Time.unscaledDeltaTime * speed);
+		Vector2 targetPosition = (-Mouse.current.position.ReadValue() + new Vector2(Screen.width / 2, Screen.height / 2)) * amount / 100 + offset;
+
+		rect.localPosition = Vector3.Lerp(rect.localPosition, targetPosition, Time.unscaledDeltaTime * speed);
     }
 }
