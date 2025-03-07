@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     public int winStreak = 0;
     public int bestWinStreak = 0;
     public int loses = 0;
-    public int timeToComplete = 0;
+    public float timeToComplete = 0;
 
     [Header("Components")]
     public static LevelManager Instance;
@@ -29,6 +29,14 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         LoadGameplayStats();
+    }
+
+    private void Update()
+    {
+        if(Time.timeScale != 0)
+        {
+            timeToComplete = Time.time; 
+        }
     }
 
     public UnityEvent onPlayerCollectDiamond;
@@ -66,7 +74,7 @@ public class LevelManager : MonoBehaviour
     public void WinLevel()
     {
         // Update Stats
-        // TODO: Add timeToBeat implementation
+        pauseManager.timeToBeatText.text = FormatTime(timeToComplete);
         wins++;
         winStreak++;
 
@@ -122,5 +130,15 @@ public class LevelManager : MonoBehaviour
         winStreak = PlayerPrefs.GetInt("WinStreak", 0);
         bestWinStreak = PlayerPrefs.GetInt("BestWinStreak", 0);
         loses = PlayerPrefs.GetInt("Loses", 0);
+    }
+
+    private string FormatTime(float timeInSeconds)
+    {
+        // Format time as MM:SS:ms
+        int minutes = (int)((timeInSeconds % 3600) / 60);
+        int seconds = (int)(timeInSeconds % 60);
+        int milliseconds = (int)((timeInSeconds * 1000) % 1000);
+
+        return $"{minutes:00}:{seconds:00}:{milliseconds:000}";
     }
 }
