@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33cd2b6e066b2eb44959a72ddd407b8c
+guid: 386ab3bb25182db4d97968fc301bf215
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,112 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2.5DWall_v3_0
+      name: 2.5DWall_v7_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de7020c8917945c4c8e1c857c0c2f2a9
+      internalID: -483061984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 414e1bb4834cb6b4a9c4f217a2b0f001
+      internalID: 1350711220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d476874f6cb4040b748499a601bb7c
+      internalID: -1639805874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82494a12b1840284da0516a8bbc715e3
+      internalID: 1065134505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c445ad65ed4e3e43b0eb1c90a84e92c
+      internalID: 1523387186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_5
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9fc1d530d87099419fa17ba4f5a4878
-      internalID: 706373184
+      spriteID: 2f83c4315ab99d54b9061f757aa84ab7
+      internalID: -476365185
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_1
+      name: 2.5DWall_v7_6
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f742a7eed81f4fd48ac439228cf13c01
-      internalID: -251716418
+      spriteID: 5a5a60427675ef14485a41ed18d5cdf6
+      internalID: -1958315965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_2
+      name: 2.5DWall_v7_7
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 795b36c25e3d7af4e9beb17a774b3eba
-      internalID: 751286207
+      spriteID: f9770f7fbdbda2e4d9d3a20ede1df224
+      internalID: 1573752796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_3
+      name: 2.5DWall_v7_8
       rect:
         serializedVersion: 2
         x: 96
@@ -187,14 +292,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1118ddbfbe7bc67419a9dac539293a09
-      internalID: -557142544
+      spriteID: eb5042fd9c3baed44884bb5f62f1ff9f
+      internalID: -1583200803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_4
+      name: 2.5DWall_v7_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe68a5bb1e483945bae4db67743a89a
+      internalID: -1387715558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_10
       rect:
         serializedVersion: 2
         x: 0
@@ -208,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a553775fe8cfa14c8f77164658a0edd
-      internalID: 1714483861
+      spriteID: e77d7a5afa4604543954fb26283f619c
+      internalID: -476564116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_5
+      name: 2.5DWall_v7_11
       rect:
         serializedVersion: 2
         x: 32
@@ -229,14 +355,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4589f74413df68246b72470cd40d2b88
-      internalID: -216174634
+      spriteID: 918df0d670ff5ae46bcd94c2f75897c8
+      internalID: -1578390269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_6
+      name: 2.5DWall_v7_12
       rect:
         serializedVersion: 2
         x: 64
@@ -250,14 +376,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8f7c4a8283a9b143b294afc49aba111
-      internalID: 2132432888
+      spriteID: 0387637c366f09f449a8d921692b2aae
+      internalID: -166281839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_7
+      name: 2.5DWall_v7_13
       rect:
         serializedVersion: 2
         x: 96
@@ -271,14 +397,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 291c71df7a262e345a463d71bdd27246
-      internalID: -2055708153
+      spriteID: 4243675e05f12dd47a9041a6bade8a4d
+      internalID: 2000109532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_8
+      name: 2.5DWall_v7_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b1b41044f7fe243906cc71fab57b9b
+      internalID: -2054203080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_15
       rect:
         serializedVersion: 2
         x: 0
@@ -292,14 +439,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1d064a424fec74428244d9fe0671080
-      internalID: 1680032240
+      spriteID: 0d932463b27c4c047ab85320c1be7630
+      internalID: 566059364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_9
+      name: 2.5DWall_v7_16
       rect:
         serializedVersion: 2
         x: 32
@@ -313,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf75f0b8a70e6424ab4217349f15b83e
-      internalID: 554455629
+      spriteID: 2e5c481d99018cf4cb23972b31110064
+      internalID: -93605908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_10
+      name: 2.5DWall_v7_17
       rect:
         serializedVersion: 2
         x: 64
@@ -334,14 +481,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53c75865aa1642e48a2f27bb0af65f38
-      internalID: -1434438741
+      spriteID: a25439f726dd62240985c145360a433c
+      internalID: 1480177907
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_11
+      name: 2.5DWall_v7_18
       rect:
         serializedVersion: 2
         x: 96
@@ -355,14 +502,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74b29ebbe5ce9af4795abcaf71141e33
-      internalID: -1680682871
+      spriteID: e4d31d0280e84d242ab94401ce8c0cd8
+      internalID: 973409432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_12
+      name: 2.5DWall_v7_19
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93e32e9871dfd1648a6db2454a14d0d6
+      internalID: 208037214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_20
       rect:
         serializedVersion: 2
         x: 0
@@ -376,14 +544,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe6837b9cc8ac6f4993f7b5691dae735
-      internalID: -406858133
+      spriteID: b65a84ca7babd234fa3ad8ed7f68d46f
+      internalID: -159375716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_13
+      name: 2.5DWall_v7_21
       rect:
         serializedVersion: 2
         x: 32
@@ -397,14 +565,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8c2aed1f58ea7c449178c56e930f89c
-      internalID: 310848713
+      spriteID: fb16812a0250297439e67195244dc028
+      internalID: -448406314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_14
+      name: 2.5DWall_v7_22
       rect:
         serializedVersion: 2
         x: 64
@@ -418,14 +586,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 836b43d2f5feeec46a7cb449c8015e3a
-      internalID: 1624859605
+      spriteID: 3516cf880aee77448bbf68a6f2c5506a
+      internalID: 1489389144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_15
+      name: 2.5DWall_v7_23
       rect:
         serializedVersion: 2
         x: 96
@@ -439,14 +607,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11c0d1792f01d914d9c6f65320b6cb2f
-      internalID: 1386384868
+      spriteID: ed880797540c6f54cb24a723bffeb653
+      internalID: -260122588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_16
+      name: 2.5DWall_v7_24
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d177dccadd22046acdc64825ed11ca
+      internalID: -251786235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_25
       rect:
         serializedVersion: 2
         x: 0
@@ -460,14 +649,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a113aed1971602544b618cd6ebf0ea4a
-      internalID: 13452897
+      spriteID: 4875d8936f9d7c64797bc8c6028d6c85
+      internalID: 1562137801
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2.5DWall_v3_17
+      name: 2.5DWall_v7_26
       rect:
         serializedVersion: 2
         x: 32
@@ -481,8 +670,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43abe6d2fc97bdd42b546abc301ce740
-      internalID: -730284998
+      spriteID: fede31886c63e7047952c1cee8c1a257
+      internalID: 849440560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.5DWall_v7_27
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7431384b5405fa244851e70d096df6d9
+      internalID: 829065162
       vertices: []
       indices: 
       edges: []
@@ -498,24 +708,34 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      2.5DWall_v3_0: 706373184
-      2.5DWall_v3_1: -251716418
-      2.5DWall_v3_10: -1434438741
-      2.5DWall_v3_11: -1680682871
-      2.5DWall_v3_12: -406858133
-      2.5DWall_v3_13: 310848713
-      2.5DWall_v3_14: 1624859605
-      2.5DWall_v3_15: 1386384868
-      2.5DWall_v3_16: 13452897
-      2.5DWall_v3_17: -730284998
-      2.5DWall_v3_2: 751286207
-      2.5DWall_v3_3: -557142544
-      2.5DWall_v3_4: 1714483861
-      2.5DWall_v3_5: -216174634
-      2.5DWall_v3_6: 2132432888
-      2.5DWall_v3_7: -2055708153
-      2.5DWall_v3_8: 1680032240
-      2.5DWall_v3_9: 554455629
+      2.5DWall_v7_0: -483061984
+      2.5DWall_v7_1: 1350711220
+      2.5DWall_v7_10: -476564116
+      2.5DWall_v7_11: -1578390269
+      2.5DWall_v7_12: -166281839
+      2.5DWall_v7_13: 2000109532
+      2.5DWall_v7_14: -2054203080
+      2.5DWall_v7_15: 566059364
+      2.5DWall_v7_16: -93605908
+      2.5DWall_v7_17: 1480177907
+      2.5DWall_v7_18: 973409432
+      2.5DWall_v7_19: 208037214
+      2.5DWall_v7_2: -1639805874
+      2.5DWall_v7_20: -159375716
+      2.5DWall_v7_21: -448406314
+      2.5DWall_v7_22: 1489389144
+      2.5DWall_v7_23: -260122588
+      2.5DWall_v7_24: -251786235
+      2.5DWall_v7_25: 1562137801
+      2.5DWall_v7_26: 849440560
+      2.5DWall_v7_27: 829065162
+      2.5DWall_v7_3: 1065134505
+      2.5DWall_v7_4: 1523387186
+      2.5DWall_v7_5: -476365185
+      2.5DWall_v7_6: -1958315965
+      2.5DWall_v7_7: 1573752796
+      2.5DWall_v7_8: -1583200803
+      2.5DWall_v7_9: -1387715558
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
