@@ -224,6 +224,58 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 736217604}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 319374365}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveSeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReloadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ProcGenBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 585241356437099606, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1080925000251602465, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -454,30 +506,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 736217604}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 319374365}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetSeed
+      value: SaveSeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReloadScene
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ProcGenBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361221931724797219, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5028567584795596864, guid: 3e97545208c9d4f2f88b5900528c98d0, type: 3}
@@ -908,8 +984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 0
-  useSeed: 0
   boarderWidth: 10
+  seedManager: {fileID: 11400000, guid: 02906b328d5dec34c819c427f09cf9a3, type: 2}
   minWalkerDistance: 7
   maxWalkerDistance: 14
   playerPrefab: {fileID: 7359225311051824568, guid: 192d27ae66a62114c9b80806e248d40b, type: 3}
@@ -1440,7 +1516,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293945190}
   m_CullTransparentMesh: 1
---- !u!1001 &1438951748
+--- !u!1001 &1464598045
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1451,14 +1527,6 @@ PrefabInstance:
     - target: {fileID: 899291900566402318, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_Name
       value: CameraManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
-      propertyPath: m_TrackedObjectOffset.x
-      value: -17.59302
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
-      propertyPath: m_TrackedObjectOffset.y
-      value: 3.334254
       objectReference: {fileID: 0}
     - target: {fileID: 8395136113838968418, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2983,7 +3051,7 @@ Tilemap:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1438951748}
+  - {fileID: 1464598045}
   - {fileID: 736217605}
   - {fileID: 67027744}
   - {fileID: 918272828}

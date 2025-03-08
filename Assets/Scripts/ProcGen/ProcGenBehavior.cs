@@ -22,10 +22,10 @@ public class ProcGenBehavior : MonoBehaviour
 
     [Header("General Generation Vars")]
     [SerializeField] private int seed = 0;
-    [SerializeField] private bool useSeed = false;
     private float noiseAmplitude = 0.5f;
     private float magnification = 1f;
     [SerializeField] private uint boarderWidth = 10;
+    [SerializeField] private SeedManager seedManager;
 
     [Header("Random Walker Vars")]
     [SerializeField] private uint minWalkerDistance = 7;
@@ -112,16 +112,24 @@ public class ProcGenBehavior : MonoBehaviour
 
     void Start()
     {
-        //set random seed for level
-        if (useSeed)
+        //if seedManager is to use the storedSeed,...
+        if (seedManager.useSeed)
         {
-            UnityEngine.Random.InitState(seed);
+            //use the stored seed to generate the level
+            seed = seedManager.storedSeed;   
         }
+        //else seedManager says to NOT use the current seed
         else
         {
+            //use a new random seed to generate the level
             seed = (int)UnityEngine.Random.Range(0, 4294967296);
-            UnityEngine.Random.InitState(seed);
         }
+
+        //reset useSeed
+        seedManager.useSeed = false;
+
+        //generate level based on seed
+        UnityEngine.Random.InitState(seed);
 
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
@@ -173,18 +181,13 @@ public class ProcGenBehavior : MonoBehaviour
         return seed;
     }
 
-    public void SetSeed(int newSeed)
+    public void SaveSeed()
     {
-        //set seed to the given seed
-        seed = newSeed;
+        //save the current seed into seedManager
+        seedManager.storedSeed = GetSeed();
 
         //set useSeed to true
-        useSeed = true;
-    }
-
-    public void ReplayLevelSeed()
-    {
-        
+        seedManager.useSeed = true;
     }
 
     //***** CHUNK AND RANDOM WALKER FUNCTIONS *****
