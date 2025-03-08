@@ -129,7 +129,7 @@ public class ProcGenBehavior : MonoBehaviour
     void Update()
     {
         //Debug key for testing generation REMOVE WHEN PUSHING/BUILDING
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             //if wallTile and wallTimeMap have been assigned,..
             if (wallTile != null && wallTimeMap != null)
