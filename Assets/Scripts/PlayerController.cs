@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
     private Throwable item3ThrowableScript;
 
     //cooldown timers for items
-    private float item1Cooldown = 0;
-    private float item2Cooldown = 0;
-    private float item3Cooldown = 0;
+    private float item1Cooldown = 0.1f;
+    private float item2Cooldown = 0.1f;
+    private float item3Cooldown = 0.1f;
 
     public int selectedSlot = 1;
 
