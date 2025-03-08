@@ -21,9 +21,9 @@ public class ProcGenBehavior : MonoBehaviour
     private uint terrainHeight = 0;
 
     [Header("General Generation Vars")]
-    [SerializeField] private float noiseAmplitude = 0.5f;
-    [SerializeField] private float magnification = 1f;
     [SerializeField] private float seed = 0f;
+    private float noiseAmplitude = 0.5f;
+    private float magnification = 1f;
     [SerializeField] private uint boarderWidth = 10;
 
     [Header("Random Walker Vars")]
@@ -70,7 +70,7 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private Tilemap wallTimeMap;
     [SerializeField] private TileBase openGroundTile;
     [SerializeField] private TileBase closedGroundTile;
-    [SerializeField] private Tilemap groundTimeMap;
+    [SerializeField] private Tilemap groundTileMap;
 
     private WalkerValue[,] walkerMap;
     private ChunkValue[,] chunkMap;
@@ -111,6 +111,11 @@ public class ProcGenBehavior : MonoBehaviour
 
     void Start()
     {
+        //set random seed for level
+        //UnityEngine.Random.InitState(2);
+        //UnityEngine.Random.State stateBeforeStep3 = UnityEngine.Random.state;
+        //UnityEngine.Random.state = stateBeforeStep3;
+
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
         terrainHeight = numVerticalChunks * chunkHeight;
@@ -202,7 +207,7 @@ public class ProcGenBehavior : MonoBehaviour
         RenderMap(map, wallTimeMap, wallTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile, groundTileMap, closedGroundTile);
     }
 
     private ChunkValue[,] GenerateChunkMap(uint numHorizontalChunks, uint numVerticalChunks, ChunkValue initValue)
@@ -901,7 +906,7 @@ public class ProcGenBehavior : MonoBehaviour
         RenderMap(map, wallTimeMap, wallTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile, groundTileMap, closedGroundTile);
     }
 
     /// <summary>
@@ -1102,17 +1107,17 @@ public class ProcGenBehavior : MonoBehaviour
                 //Place ground tiles
                 if (map[x, y] == 1)
                 {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), closedGroundTile);
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), closedGroundTile);
                 }
                 else
                 {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), openGroundTile);
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), openGroundTile);
                 }
             }
         }
     }
 
-    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap wallTimeMap, TileBase groundTileBase)
+    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap wallTileMap, TileBase wallTileBase, Tilemap groundTileMap, TileBase groundTileBase)
     {
         //get and store terrainWidth and terrainHeight of map
         int terrainWidth = map.GetLength(0);
@@ -1123,7 +1128,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1132,7 +1139,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = terrainWidth; y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1141,7 +1150,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1150,7 +1161,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < 0; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
     }
