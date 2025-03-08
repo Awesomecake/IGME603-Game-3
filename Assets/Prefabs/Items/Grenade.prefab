@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.36, y: 0.48}
+  m_Size: {x: 1.25, y: 1.46875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 3011738169616895343}
+  itemSpeedModifier: 1
+  itemCooldown: 5
   ownerTag: Player
   knockbackForce: 300
   explosionPrefab: {fileID: 4395655004753618120, guid: eda713680823aae4f9951810c99328ee, type: 3}

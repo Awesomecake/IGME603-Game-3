@@ -30,17 +30,19 @@ public class PlayerController : MonoBehaviour
     private GameObject item2;
     private GameObject item3;
 
+    private Throwable item1ThrowableScript;
+    private Throwable item2ThrowableScript;
+    private Throwable item3ThrowableScript;
+
     //cooldown timers for items
     private float item1Cooldown = 0;
     private float item2Cooldown = 0;
     private float item3Cooldown = 0;
 
-    //global cooldown value for all items
-    private float globalCooldownResetTime = 2f;
-
     public int selectedSlot = 1;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer heldSpriteRenderer;
 
     //HUD Display to show item selection
     HUD_ItemSelection HUD;
@@ -62,9 +64,14 @@ public class PlayerController : MonoBehaviour
         
         //Finds and updates HUD at runtime
         HUD = FindObjectOfType<HUD_ItemSelection>();
+        HUD.StartToolSetup(item1, item2, item3);
         HUD.UpdateHUD(item1, item2, item3);
 
         LevelManager.Instance?.RegisterPlayer(gameObject);
+
+        item1ThrowableScript = item1.GetComponent<Throwable>();
+        item2ThrowableScript = item2.GetComponent<Throwable>();
+        item3ThrowableScript = item3.GetComponent<Throwable>();
     }
 
     // Update is called once per frame
@@ -91,21 +98,55 @@ public class PlayerController : MonoBehaviour
         }
         GetComponent<Animator>().SetBool("moving", isMoving);
 
+        heldSpriteRenderer.transform.up = lookDirection;
+
         if (item1Cooldown > 0)
             item1Cooldown -= Time.deltaTime;
+            if(selectedSlot == 1 && item1Cooldown > 0)
+            {
+                HUD.DeselectItems(1);
+            }
+        else if (item1Cooldown < 0){
+            if (selectedSlot == 1)
+            {
+                HUD.SelectOne();
+            }
+        }
 
         if (item2Cooldown > 0)
             item2Cooldown -= Time.deltaTime;
+            if(selectedSlot == 2 && item2Cooldown > 0)
+            {
+                HUD.DeselectItems(2);
+            }
+        else if (item2Cooldown < 0){
+            if (selectedSlot == 2)
+            {
+                HUD.SelectTwo();
+            }
+        }
 
         if (item3Cooldown > 0)
             item3Cooldown -= Time.deltaTime;
+            if(selectedSlot == 3 && item3Cooldown > 0)
+            {
+                HUD.DeselectItems(3);
+            }
+        else if (item3Cooldown < 0){
+            if (selectedSlot == 3)
+            {
+                HUD.SelectThree();
+            }
+        }
         
         // Update UI
         HUD.UpdateCooldownUI(
-            item1Cooldown / globalCooldownResetTime,
-            item2Cooldown / globalCooldownResetTime,
-            item3Cooldown / globalCooldownResetTime
+            item1Cooldown / item1ThrowableScript.itemCooldown,
+            item2Cooldown / item2ThrowableScript.itemCooldown,
+            item3Cooldown / item3ThrowableScript.itemCooldown
             );
+
+        //Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
     }
 
     public void TakeDamage(float damage)
@@ -165,6 +206,7 @@ public class PlayerController : MonoBehaviour
         if(context.started)
         {
             selectedSlot = 1;
+            heldSpriteRenderer.sprite = item1.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectOne();
         }
     }
@@ -174,6 +216,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             selectedSlot = 2;
+            heldSpriteRenderer.sprite = item2.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectTwo();
         }
     }
@@ -183,6 +226,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             selectedSlot = 3;
+            heldSpriteRenderer.sprite = item3.GetComponent<SpriteRenderer>().sprite;
             HUD.SelectThree();
         }
     }
@@ -220,6 +264,9 @@ public class PlayerController : MonoBehaviour
     //Trigger throw effect, spawn thrown object
     public void InputActionUseItem(InputAction.CallbackContext context)
     {
+        if (!context.started)
+            return;
+
         GameObject newItem = null;
         switch (selectedSlot)
         {
@@ -227,26 +274,26 @@ public class PlayerController : MonoBehaviour
                 if(item1Cooldown <= 0)
                 {
                     newItem = item1;
-                    item1Cooldown = globalCooldownResetTime;
+                    item1Cooldown = item1ThrowableScript.itemCooldown;
                 }
                 break;
             case 2:
                 if (item2Cooldown <= 0)
                 {
                     newItem = item2;
-                    item2Cooldown = globalCooldownResetTime;
+                    item2Cooldown = item2ThrowableScript.itemCooldown;
                 }
                 break;
             case 3:
                 if (item3Cooldown <= 0)
                 {
                     newItem = item3;
-                    item3Cooldown = globalCooldownResetTime;
+                    item3Cooldown = item3ThrowableScript.itemCooldown;
                 }
                 break;
         }
 
-        if (context.started && newItem != null)
+        if (newItem != null)
         {
             GameObject item = Instantiate(newItem, transform);
 

@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: game_res_mockup
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.008264463}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -131,7 +131,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 640
-      height: 360
+      height: 363
     spriteID: 7c597f41e31d78943b9fc934c0708255
     spriteBone: []
     spriteOutline: []
@@ -155,9 +155,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
+        y: -3
         width: 640
-        height: 360
+        height: 363
       spriteId: 7c597f41e31d78943b9fc934c0708255
     linkedCells: []
     parentIndex: -1

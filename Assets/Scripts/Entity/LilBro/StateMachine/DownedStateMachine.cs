@@ -4,23 +4,27 @@ public class DownedStateMachine : HierarchicalStateMachine
 {
     [SerializeField] private LilBro self;
 
+    private Collider2D _broCollider;
+
+    protected override void Start()
+    {
+        base.Start();
+        _broCollider = self.GetComponent<Collider2D>();
+    }
+
     public override void EnterState()
     {
         base.EnterState();
         self.UpdateState(LilBro.State.Downed);
-        var broCollider = self.GetComponent<Collider2D>();
 
-        if (!broCollider) return;
-        broCollider.enabled = false;
-        StartCoroutine(Util.AfterDelay(
-            0.1f,
-            () => broCollider.enabled = true
-        ));
+        if (!_broCollider) return;
+        _broCollider.enabled = false;
     }
 
     public override void ExitState()
     {
         self.UpdateState(LilBro.State.Normal);
+        if (_broCollider) _broCollider.enabled = true;
         base.ExitState();
     }
 }

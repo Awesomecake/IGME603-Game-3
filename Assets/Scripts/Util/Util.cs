@@ -18,6 +18,11 @@ public static class Util
     {
         return new Vector2(self.x, self.y);
     }
+
+    public static Vector3 ToVector3(this Vector2 self)
+    {
+        return new Vector3(self.x, self.y, 0f);
+    }
     
     public static Color Copy(this Color self, float? r = null, float? g = null, float? b = null, float? a = null)
     {

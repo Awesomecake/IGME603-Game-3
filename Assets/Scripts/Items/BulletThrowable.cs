@@ -7,8 +7,18 @@ public class BulletThrowable : Throwable
     {
         Debug.Log($"bullet hit {collision}");
 
+        DestroyTile();
+
         HandlePlayerHit(collision);
         Destroy(gameObject);
+    }
+
+    private void DestroyTile()
+    {
+        var currentPosition = transform.position;
+        var direction = projectileRigidBody.velocity.normalized.ToVector3();
+        WorldManager.Instance?.SetTile(currentPosition, null);
+        WorldManager.Instance?.SetTile(currentPosition + direction, null);
     }
 
     private void HandlePlayerHit(Collider2D collision)

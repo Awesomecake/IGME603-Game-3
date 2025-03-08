@@ -21,10 +21,21 @@ public class WorldManager : MonoBehaviour
     public Tilemap world;
     [HideInInspector] public GoalDiamond diamond;
 
+    private void Start()
+    {
+        if (world == null) world = FindObjectOfType<Tilemap>();
+    }
+
     public TileBase GetTile(Vector3 worldPosition)
     {
         var cell = world.WorldToCell(worldPosition);
         return world.GetTile(cell);
+    }
+    
+    public void SetTile(Vector3 worldPosition, TileBase tile)
+    {
+        var cell = world.WorldToCell(worldPosition);
+        world.SetTile(cell, tile);
     }
 
     public List<Vector3> FindPath(Vector3 start, Vector3 end, int depth = 200)
