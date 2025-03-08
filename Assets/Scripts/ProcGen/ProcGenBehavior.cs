@@ -61,16 +61,12 @@ public class ProcGenBehavior : MonoBehaviour
     };
 
     [Header("Gameobject Vars")]
-    [SerializeField] private TileBase wallTile;
+    [SerializeField] private TileBase groundTile;
     [SerializeField] private TileBase playerTile;
     [SerializeField] private TileBase guardTile;
     [SerializeField] private TileBase lilBroTile;
     [SerializeField] private TileBase gemTile;
-    [SerializeField] private Tilemap wallTimeMap;
-    [SerializeField] private TileBase openGroundTile;
-    [SerializeField] private TileBase closedGroundTile;
-    [SerializeField] private Tilemap groundTimeMap;
-
+    [SerializeField] private Tilemap groundTileMap;
     private WalkerValue[,] walkerMap;
     private ChunkValue[,] chunkMap;
     private int[,] map;
@@ -114,8 +110,8 @@ public class ProcGenBehavior : MonoBehaviour
         terrainWidth = numHorizontalChunks * chunkWidth;
         terrainHeight = numVerticalChunks * chunkHeight;
 
-        //if wallTile and wallTimeMap have been assigned,..
-        if (wallTile != null && wallTimeMap != null)
+        //if groundTile and groundTileMap have been assigned,..
+        if (groundTile != null && groundTileMap != null)
         {
             //generate terrain at the start of the scene
             //Generate();
@@ -131,8 +127,8 @@ public class ProcGenBehavior : MonoBehaviour
         //Debug key for testing generation REMOVE WHEN PUSHING/BUILDING
         if (Input.GetKeyDown(KeyCode.G))
         {
-            //if wallTile and wallTimeMap have been assigned,..
-            if (wallTile != null && wallTimeMap != null)
+            //if groundTile and groundTileMap have been assigned,..
+            if (groundTile != null && groundTileMap != null)
             {
                 //generate terrain at the start of the scene
                 //Generate();
@@ -164,7 +160,7 @@ public class ProcGenBehavior : MonoBehaviour
     {
         //*** Proc Gen Setup ***
         //Clear all pre-existing ground tiles
-        wallTimeMap.ClearAllTiles();
+        groundTileMap.ClearAllTiles();
 
         //Create an array of chunks to be randomly walked through and populated with modules
         walkerMap = GenerateWalkerkMap(numHorizontalChunks, numVerticalChunks, WalkerValue.OPEN);
@@ -198,10 +194,10 @@ public class ProcGenBehavior : MonoBehaviour
 
         //*** Render ***
         //Render a tilemap using the array
-        RenderMap(map, wallTimeMap, wallTile);
+        RenderMap(map, groundTileMap, groundTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, groundTileMap, groundTile);
     }
 
     private ChunkValue[,] GenerateChunkMap(uint numHorizontalChunks, uint numVerticalChunks, ChunkValue initValue)
@@ -804,7 +800,7 @@ public class ProcGenBehavior : MonoBehaviour
             for (int y = 0; y < chunkHeight; y++)
             {
                 //if the corresponding chunk tile is a base tile,...
-                if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == wallTile)
+                if (chunkTileMap.GetTile(new Vector3Int(x, y, 0)) == groundTile)
                 {
                     //set the corresponding map tile to a base tile
                     map[moduleStartingX + x, moduleStartingY + y] = 1;
@@ -854,7 +850,7 @@ public class ProcGenBehavior : MonoBehaviour
     private void Generate()
     {
         //Clear all pre-existing ground tiles
-        wallTimeMap.ClearAllTiles();
+        groundTileMap.ClearAllTiles();
 
         //Create an array to manipulate later
         map = GenerateMap(terrainWidth, terrainHeight, 0);
@@ -866,10 +862,10 @@ public class ProcGenBehavior : MonoBehaviour
         map = GenerateChiselWalker(map);
 
         //Render a tilemap using the array
-        RenderMap(map, wallTimeMap, wallTile);
+        RenderMap(map, groundTileMap, groundTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, groundTileMap, groundTile);
     }
 
     /// <summary>
@@ -1025,7 +1021,7 @@ public class ProcGenBehavior : MonoBehaviour
     }
 
     //***** RENDER FUNCTIONS *****
-    private void RenderMap(int[,] map, Tilemap wallTimeMap, TileBase groundTileBase)
+    private void RenderMap(int[,] map, Tilemap groundTileMap, TileBase groundTileBase)
     {
         //get and store terrainWidth and terrainHeight of map
         int terrainWidth = map.GetLength(0);
@@ -1036,51 +1032,40 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = 0; y < terrainHeight; y++)
             {
-                //Place wall tiles
                 //if value of map at [x,y] is 1,...
                 if (map[x, y] == 1)
                 {
-                    wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
                 }
                 //if value of map at [x,y] is 2,...
                 else if (map[x, y] == 2)
                 {
                     //spawn player
-                    currentPlayer = Instantiate(playerPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                    currentPlayer = Instantiate(playerPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
                 //if value of map at [x,y] is 3,...
                 else if (map[x, y] == 3)
                 {
                     //spawn guard
-                    Instantiate(guardPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                    Instantiate(guardPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
                 //if value of map at [x,y] is 4,...
                 else if (map[x, y] == 4)
                 {
                     //spawn lil bro
-                    Instantiate(lilBroPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                    Instantiate(lilBroPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
                 //if value of map at [x,y] is 5,...
                 else if (map[x, y] == 5)
                 {
                     //spawn gem
-                    Instantiate(gemPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
-                }
-
-                //Place ground tiles
-                if (map[x, y] == 1)
-                {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), closedGroundTile);
-                }
-                else
-                {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), openGroundTile);
+                    Instantiate(gemPrefab, groundTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
             }
         }
     }
 
-    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap wallTimeMap, TileBase groundTileBase)
+    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap groundTileMap, TileBase groundTileBase)
     {
         //get and store terrainWidth and terrainHeight of map
         int terrainWidth = map.GetLength(0);
@@ -1091,7 +1076,7 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1100,7 +1085,7 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = terrainWidth; y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1109,7 +1094,7 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1118,7 +1103,7 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < 0; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
     }
