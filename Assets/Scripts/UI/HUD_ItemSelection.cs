@@ -16,6 +16,7 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textEffect1;
     [SerializeField] private TextMeshProUGUI textEffect2;
     [SerializeField] private TextMeshProUGUI textEffect3;
+
     [Header("Gameplay")]
     [SerializeField] private Image slot1;
     [SerializeField] private Image slot2;
@@ -28,6 +29,8 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image lockEffect1;
     [SerializeField] private Image lockEffect2;
     [SerializeField] private Image lockEffect3;
+
+    [SerializeField] private Color seletedColor;
 
     [Header("Tool Setup Menu")]
     [SerializeField] private Image menuSlot1;
@@ -138,27 +141,48 @@ public class HUD_ItemSelection : MonoBehaviour
 
     public void Start()
     {
-        slotBorder1.color = Color.red;
+        SelectOne();
     }
 
     public void SelectOne()
     {
-        slotBorder1.color = Color.red;
+        // Reset
         slotBorder2.color = Color.black;
         slotBorder3.color = Color.black;
+
+        slotBorder2.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+        slotBorder3.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+
+        // Change color and scale up the selected border
+        slotBorder1.color = seletedColor;
+        slotBorder1.transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void SelectTwo()
     {
+        // Reset
         slotBorder1.color = Color.black;
-        slotBorder2.color = Color.red;
         slotBorder3.color = Color.black;
+
+        slotBorder1.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+        slotBorder3.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+
+        // Change color and scale up the selected
+        slotBorder2.color = seletedColor;
+        slotBorder2.transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void SelectThree()
     {
+        // Reset
         slotBorder1.color = Color.black;
         slotBorder2.color = Color.black;
-        slotBorder3.color = Color.red;
+
+        slotBorder1.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+        slotBorder2.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+
+        // Change color and scale up
+        slotBorder3.color = seletedColor;
+        slotBorder3.transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 }
