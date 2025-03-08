@@ -315,6 +315,7 @@ public class PlayerController : MonoBehaviour
             if (throwable != null)
             {
                 throwable.ThrowItem(500f, lookDirection);
+                item.transform.up = lookDirection;
             }
         }
     }
