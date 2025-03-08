@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
             {
                 HUD.DeselectItems(1);
             }
-        else if (item3Cooldown < 0){
+        else if (item1Cooldown < 0){
             if (selectedSlot == 1)
             {
                 HUD.SelectOne();
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
             {
                 HUD.DeselectItems(2);
             }
-        else if (item3Cooldown < 0){
+        else if (item2Cooldown < 0){
             if (selectedSlot == 2)
             {
                 HUD.SelectTwo();
