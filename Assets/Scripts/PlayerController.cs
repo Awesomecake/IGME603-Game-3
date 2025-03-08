@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour
     //Trigger throw effect, spawn thrown object
     public void InputActionUseItem(InputAction.CallbackContext context)
     {
-        if (!context.started)
+        if (!context.started || Time.timeScale == 0f)
             return;
 
         GameObject newItem = null;
