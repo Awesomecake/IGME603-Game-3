@@ -180,12 +180,15 @@ public class PlayerController : MonoBehaviour
         switch (selectedSlot)
         {
             case 1:
+                heldSpriteRenderer.sprite = item1.GetComponent<SpriteRenderer>().sprite;
                 HUD.SelectOne();
                 break;
             case 2:
+                heldSpriteRenderer.sprite = item2.GetComponent<SpriteRenderer>().sprite;
                 HUD.SelectTwo();
                 break;
             case 3:
+                heldSpriteRenderer.sprite = item3.GetComponent<SpriteRenderer>().sprite;
                 HUD.SelectThree();
                 break;
         }

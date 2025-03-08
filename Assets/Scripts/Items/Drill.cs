@@ -38,6 +38,20 @@ public class Drill : Throwable
                 tilemap.SetTile(cellPosition, null);
             }
 
+            Vector3Int cellSidePosition = tilemap.WorldToCell(transform.position + transform.forward * transform.right);
+
+            //Assume size of tilemap is 70x70, avoid destroying edges
+            if (cellSidePosition.x == -10 || cellSidePosition.y == -10 || cellSidePosition.x == 59 || cellSidePosition.y == 59)
+            {
+                return;
+            }
+
+            if (tilemap.GetTile(cellSidePosition))
+            {
+                tilemap.SetTile(cellSidePosition, null);
+            }
+
+
             tilemapCollider.CreateMesh(true, true);
         }
     }
