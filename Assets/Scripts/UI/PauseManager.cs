@@ -25,6 +25,7 @@ public class PauseManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         toolScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void Update()

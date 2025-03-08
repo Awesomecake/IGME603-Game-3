@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1486283119038864233}
   - component: {fileID: 7617086950982229748}
   m_Layer: 0
-  m_Name: GrappleHook
+  m_Name: Grapple Hook
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; 
+using TMPro;
 
 public class HUD_ItemSelection : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private float menuSlot1RandomizeDelay;
     [SerializeField] private float menuSlot2RandomizeDelay;
     [SerializeField] private float menuSlot3RandomizeDelay;
+    [SerializeField] private TextMeshProUGUI textEffect1;
+    [SerializeField] private TextMeshProUGUI textEffect2;
+    [SerializeField] private TextMeshProUGUI textEffect3;
     [Header("Gameplay")]
     [SerializeField] private Image slot1;
     [SerializeField] private Image slot2;
@@ -36,13 +40,13 @@ public class HUD_ItemSelection : MonoBehaviour
 
     public void StartToolSetup(GameObject item1, GameObject item2, GameObject item3)
     {
-        StartCoroutine(ToolSetup(menuSlot1, menuSlotBorder1, menuSlot1RandomizeDelay, item1));
-        StartCoroutine(ToolSetup(menuSlot2, menuSlotBorder2, menuSlot2RandomizeDelay, item2));
-        StartCoroutine(ToolSetup(menuSlot3, menuSlotBorder3, menuSlot3RandomizeDelay, item3));
+        StartCoroutine(ToolSetup(menuSlot1, menuSlotBorder1, textEffect1, menuSlot1RandomizeDelay, item1));
+        StartCoroutine(ToolSetup(menuSlot2, menuSlotBorder2, textEffect2, menuSlot2RandomizeDelay, item2));
+        StartCoroutine(ToolSetup(menuSlot3, menuSlotBorder3, textEffect3, menuSlot3RandomizeDelay, item3));
 
     }
 
-    private IEnumerator ToolSetup(Image menuSlot, Image menuSlotBorder, float delay, GameObject finalItem)
+    private IEnumerator ToolSetup(Image menuSlot, Image menuSlotBorder, TextMeshProUGUI textEffect, float delay, GameObject finalItem)
     {
         float elapsedTime = 0f;
 
@@ -65,7 +69,7 @@ public class HUD_ItemSelection : MonoBehaviour
             menuSlot.color = randomToolRenderer.color;
 
             // Wait for the next frame
-            yield return new WaitForSeconds(randomizeInterval);
+            yield return new WaitForSecondsRealtime(randomizeInterval);
 
             // Update elapsed time
             elapsedTime += randomizeInterval;
@@ -76,15 +80,30 @@ public class HUD_ItemSelection : MonoBehaviour
         menuSlot.sprite = finalItemRenderer.sprite;
         menuSlot.color = finalItemRenderer.color;
 
-        /*
-        menuSlotBorder.transform.DOScale(1.2f, 0.5f) // Scale up to 1.2x size over 0.5 seconds
+        // Slot Effect
+        menuSlotBorder.transform.DOScale(1.2f, 0.3f) // Scale up
         .SetEase(Ease.OutBack) // Add a bounce effect
+        .SetUpdate(true) 
         .OnComplete(() =>
         {
-            // Optional: Scale back down after the animation
-            menuSlotBorder.transform.DOScale(1f, 0.3f); // Scale back to normal size
+            menuSlotBorder.transform.DOScale(1f, 0.3f)
+            .SetUpdate(true);
         });
-        */
+
+        // Text Effect
+        // Set Text to finalItem name
+        textEffect.text = finalItem.name;
+        textEffect.gameObject.SetActive(true);
+
+        // Move Text Up
+        textEffect.transform.DOLocalMoveY(textEffect.transform.localPosition.y + 56f, 0.5f)
+        .SetEase(Ease.OutQuad)
+        .SetUpdate(true);
+
+        // Fade In
+        textEffect.DOFade(1f, 5f)
+        .SetEase(Ease.InQuad)
+        .SetUpdate(true);
     }
 
     //Update HUD based on Player Items

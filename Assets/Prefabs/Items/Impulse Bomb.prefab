@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3011738169616895343}
   - component: {fileID: 9198023417175416799}
   m_Layer: 0
-  m_Name: ImpulseBomb
+  m_Name: Impulse Bomb
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 3011738169616895343}
+  itemSpeedModifier: 1
   itemCooldown: 3
   ownerTag: Player
   knockbackForce: 300
