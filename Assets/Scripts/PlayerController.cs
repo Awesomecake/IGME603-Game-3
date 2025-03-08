@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         
         //Finds and updates HUD at runtime
         HUD = FindObjectOfType<HUD_ItemSelection>();
+        HUD.StartToolSetup(item1, item2, item3);
         HUD.UpdateHUD(item1, item2, item3);
 
         LevelManager.Instance?.RegisterPlayer(gameObject);
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
             item3Cooldown / item3ThrowableScript.itemCooldown
             );
 
-        Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
+        //Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
     }
 
     public void TakeDamage(float damage)

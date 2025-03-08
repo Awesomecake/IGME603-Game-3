@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening; 
 
 public class HUD_ItemSelection : MonoBehaviour
 {
+    [Header("Tool Random Effect")]
+    [SerializeField] private GameObject[] tools;
+    [SerializeField] private float randomizeInterval = 0.1f;
+    [SerializeField] private float menuSlot1RandomizeDelay;
+    [SerializeField] private float menuSlot2RandomizeDelay;
+    [SerializeField] private float menuSlot3RandomizeDelay;
     [Header("Gameplay")]
     [SerializeField] private Image slot1;
     [SerializeField] private Image slot2;
@@ -27,28 +34,62 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image menuSlotBorder2;
     [SerializeField] private Image menuSlotBorder3;
 
+    public void StartToolSetup(GameObject item1, GameObject item2, GameObject item3)
+    {
+        StartCoroutine(ToolSetup(menuSlot1, menuSlotBorder1, menuSlot1RandomizeDelay, item1));
+        StartCoroutine(ToolSetup(menuSlot2, menuSlotBorder2, menuSlot2RandomizeDelay, item2));
+        StartCoroutine(ToolSetup(menuSlot3, menuSlotBorder3, menuSlot3RandomizeDelay, item3));
+
+    }
+
+    private IEnumerator ToolSetup(Image menuSlot, Image menuSlotBorder, float delay, GameObject finalItem)
+    {
+        float elapsedTime = 0f;
+
+        GameObject previousTool = null;
+        // Randomize sprites until the delay is reached
+        while (elapsedTime < delay)
+        {
+            // Get a random tool from the tools array
+            GameObject randomTool = tools[Random.Range(0, tools.Length)];
+            do // Make sure it's a different tool
+            {
+                randomTool = tools[Random.Range(0, tools.Length)];
+            } while (randomTool == previousTool);
+            previousTool = randomTool;
+
+            SpriteRenderer randomToolRenderer = randomTool.GetComponent<SpriteRenderer>();
+
+            // Set Tool
+            menuSlot.sprite = randomToolRenderer.sprite;
+            menuSlot.color = randomToolRenderer.color;
+
+            // Wait for the next frame
+            yield return new WaitForSeconds(randomizeInterval);
+
+            // Update elapsed time
+            elapsedTime += randomizeInterval;
+        }
+
+        // After the delay, set the final sprite
+        SpriteRenderer finalItemRenderer = finalItem.GetComponent<SpriteRenderer>();
+        menuSlot.sprite = finalItemRenderer.sprite;
+        menuSlot.color = finalItemRenderer.color;
+
+        /*
+        menuSlotBorder.transform.DOScale(1.2f, 0.5f) // Scale up to 1.2x size over 0.5 seconds
+        .SetEase(Ease.OutBack) // Add a bounce effect
+        .OnComplete(() =>
+        {
+            // Optional: Scale back down after the animation
+            menuSlotBorder.transform.DOScale(1f, 0.3f); // Scale back to normal size
+        });
+        */
+    }
+
     //Update HUD based on Player Items
     public void UpdateHUD(GameObject item1, GameObject item2, GameObject item3)
     {
-        menuSlot1.GetComponent<Animator>().Play("Random", 0, 0f);
-        menuSlot2.GetComponent<Animator>().Play("Random", 0, 10f);
-        menuSlot3.GetComponent<Animator>().Play("Random", 0, 20f);
-
-        // Menu
-        SpriteRenderer menuItem1Renderer = item1.GetComponent<SpriteRenderer>();
-        menuSlot1.sprite = menuItem1Renderer.sprite;
-        //menuSlot1.color = menuItem1Renderer.color;
-
-        
-
-        SpriteRenderer menuItem2Renderer = item2.GetComponent<SpriteRenderer>();
-        menuSlot2.sprite = menuItem2Renderer.sprite;
-        menuSlot2.color = menuItem2Renderer.color;
-
-        SpriteRenderer menuItem3Renderer = item3.GetComponent<SpriteRenderer>();
-        menuSlot3.sprite = menuItem3Renderer.sprite;
-        menuSlot3.color = menuItem3Renderer.color;
-
         // Gamplay
         SpriteRenderer item1Renderer = item1.GetComponent<SpriteRenderer>();
         slot1.sprite = item1Renderer.sprite;
