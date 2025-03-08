@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8824fe5bb4a0db246ab2b41491d3e983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseInfluenceStrength: 2
-  maxMouseOffset: 3
+  mouseInfluenceStrength: 3
+  maxMouseOffset: 1
   virtualCamera: {fileID: 9222678082835088997}
   player: {fileID: 0}
 --- !u!1 &1722138832602870996
