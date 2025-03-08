@@ -164,6 +164,33 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void ScrollHUDUI(float input)
+    {
+        if (input < 0)
+        {
+            selectedSlot -= 1;
+            if (selectedSlot < 1) selectedSlot = 3;
+        }
+        else if (input > 0)
+        {
+            selectedSlot += 1;
+            if (selectedSlot > 3) selectedSlot = 1;
+        }
+
+        switch (selectedSlot)
+        {
+            case 1:
+                HUD.SelectOne();
+                break;
+            case 2:
+                HUD.SelectTwo();
+                break;
+            case 3:
+                HUD.SelectThree();
+                break;
+        }
+    }
+
     #region InputActions
     //Get movement input from InputActions, update movement logic
     public void InputActionMove(InputAction.CallbackContext context)
@@ -235,30 +262,7 @@ public class PlayerController : MonoBehaviour
     public void InputActionScrollSelect(InputAction.CallbackContext context)
     {
         float input = context.ReadValue<Vector2>().y;
-
-        if (input < 0)
-        {
-            selectedSlot -= 1;
-            if (selectedSlot < 1) selectedSlot = 3;
-        }
-        else if (input > 0)
-        {
-            selectedSlot += 1;
-            if (selectedSlot > 3) selectedSlot = 1;
-        }
-
-        switch (selectedSlot)
-        {
-            case 1:
-                HUD.SelectOne();
-                break;
-            case 2:
-                HUD.SelectTwo();
-                break;
-            case 3:
-                HUD.SelectThree();
-                break;
-        }
+        ScrollHUDUI(input);
     }
 
     //Trigger throw effect, spawn thrown object
@@ -276,6 +280,8 @@ public class PlayerController : MonoBehaviour
                     newItem = item1;
                     item1Cooldown = item1ThrowableScript.itemCooldown;
                 }
+                else
+                    ScrollHUDUI(1);
                 break;
             case 2:
                 if (item2Cooldown <= 0)
@@ -283,6 +289,8 @@ public class PlayerController : MonoBehaviour
                     newItem = item2;
                     item2Cooldown = item2ThrowableScript.itemCooldown;
                 }
+                else
+                    ScrollHUDUI(1);
                 break;
             case 3:
                 if (item3Cooldown <= 0)
@@ -290,6 +298,8 @@ public class PlayerController : MonoBehaviour
                     newItem = item3;
                     item3Cooldown = item3ThrowableScript.itemCooldown;
                 }
+                else
+                    ScrollHUDUI(1);
                 break;
         }
 

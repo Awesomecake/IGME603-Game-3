@@ -11,7 +11,7 @@ public class Grenade : Throwable
     public override void ThrownItemCollided(Collider2D collision)
     {
         //Cast for entities in range of explosion
-        Collider2D[] hit2D = Physics2D.OverlapCircleAll(gameObject.transform.position, 2f);
+        Collider2D[] hit2D = Physics2D.OverlapCircleAll(gameObject.transform.position, 3f);
 
         //for all entities in range, check if they have a rigidbody and apply force
         foreach (Collider2D col in hit2D)
@@ -44,9 +44,9 @@ public class Grenade : Throwable
         {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
 
-            for (int i = -1; i < 2; i++)
+            for (int i = -2; i < 3; i++)
             {
-                for (int j = -1; j < 2; j++)
+                for (int j = -2; j < 3; j++)
                 {
                     //Assume size of tilemap is 70x70, avoid destroying edges
                     if (cellPosition.x <= -9 || cellPosition.y <= -9 || cellPosition.x >= 50 || cellPosition.y >= 50)
@@ -67,6 +67,6 @@ public class Grenade : Throwable
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 2f);
+        Gizmos.DrawSphere(transform.position, 3f);
     }
 }
