@@ -67,6 +67,5 @@ public class GrappleHook : Throwable
 
         lineRenderer.SetPosition(0, playerController.transform.position);
         lineRenderer.SetPosition(1, projectileRigidBody.position);
-        circleCollider.offset = (projectileRigidBody.position - (Vector2)transform.position);
     }
 }
