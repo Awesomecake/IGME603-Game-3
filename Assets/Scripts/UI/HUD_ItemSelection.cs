@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; 
 using TMPro;
+using Unity.VisualScripting;
 
 public class HUD_ItemSelection : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image lockEffect3;
 
     [SerializeField] private Color seletedColor;
+    [SerializeField] private Color deSeletedColor;
 
     [Header("Tool Setup Menu")]
     [SerializeField] private Image menuSlot1;
@@ -117,19 +119,19 @@ public class HUD_ItemSelection : MonoBehaviour
         slot1.sprite = item1Renderer.sprite;
         slot1.color = item1Renderer.color;
 
-        Debug.Log(item1.name);
+        //Debug.Log(item1.name);
 
         SpriteRenderer item2Renderer = item2.GetComponent<SpriteRenderer>();
         slot2.sprite = item2Renderer.sprite;
         slot2.color = item2Renderer.color;
 
-        Debug.Log(item2.name);
+        //Debug.Log(item2.name);
 
         SpriteRenderer item3Renderer = item3.GetComponent<SpriteRenderer>();
         slot3.sprite = item3Renderer.sprite;
         slot3.color = item3Renderer.color;
 
-        Debug.Log(item3.name);
+        //Debug.Log(item3.name);
     }
 
     public void UpdateCooldownUI(float item1CooldownProgress, float item2CooldownProgress, float item3CooldownProgress)
@@ -144,12 +146,36 @@ public class HUD_ItemSelection : MonoBehaviour
         SelectOne();
     }
 
+    public void DeselectItems(int DeselectedItemIndex)
+    {
+        slotBorder1.color = Color.black;
+        slotBorder2.color = Color.black;
+        slotBorder3.color = Color.black;
+
+        slotBorder1.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+        slotBorder2.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+        slotBorder3.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+
+        switch(DeselectedItemIndex)
+        {
+            case 1:
+                slotBorder1.color = deSeletedColor;
+                break;
+            case 2:
+                slotBorder2.color = deSeletedColor;
+                break;
+            case 3:
+                slotBorder3.color = deSeletedColor;
+                break;
+        }
+    }
+
     public void SelectOne()
     {
         // Reset
         slotBorder2.color = Color.black;
         slotBorder3.color = Color.black;
-
+        
         slotBorder2.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
         slotBorder3.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
 

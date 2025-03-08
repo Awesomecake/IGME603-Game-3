@@ -102,12 +102,42 @@ public class PlayerController : MonoBehaviour
 
         if (item1Cooldown > 0)
             item1Cooldown -= Time.deltaTime;
+            if(selectedSlot == 1 && item1Cooldown > 0)
+            {
+                HUD.DeselectItems(1);
+            }
+        else if (item3Cooldown < 0){
+            if (selectedSlot == 1)
+            {
+                HUD.SelectOne();
+            }
+        }
 
         if (item2Cooldown > 0)
             item2Cooldown -= Time.deltaTime;
+            if(selectedSlot == 2 && item2Cooldown > 0)
+            {
+                HUD.DeselectItems(2);
+            }
+        else if (item3Cooldown < 0){
+            if (selectedSlot == 2)
+            {
+                HUD.SelectTwo();
+            }
+        }
 
         if (item3Cooldown > 0)
             item3Cooldown -= Time.deltaTime;
+            if(selectedSlot == 3 && item3Cooldown > 0)
+            {
+                HUD.DeselectItems(3);
+            }
+        else if (item3Cooldown < 0){
+            if (selectedSlot == 3)
+            {
+                HUD.SelectThree();
+            }
+        }
         
         // Update UI
         HUD.UpdateCooldownUI(

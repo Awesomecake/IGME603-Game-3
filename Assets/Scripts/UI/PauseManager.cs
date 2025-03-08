@@ -6,7 +6,7 @@ public class PauseManager : MonoBehaviour
 {
     public bool pauseOnKeypress = true;
     public TextMeshProUGUI hudTimer;
-
+    public TextMeshProUGUI hudTimerShadow;
     public GameObject toolScreen;
     public GameObject winScreen;
     public TextMeshProUGUI timeToBeatText;
@@ -20,6 +20,18 @@ public class PauseManager : MonoBehaviour
     
     [SerializeField] private bool freezeTime = true;
     [SerializeField] private string mainMenuScene = "MainMenu";
+
+    public static PauseManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            return;
+        }
+
+        Instance = this;
+    }
 
     private void Start()
     {

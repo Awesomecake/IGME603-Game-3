@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
         {
             timeToComplete = Time.time - startTime;
             pauseManager.hudTimer.text = FormatTime(timeToComplete);
+            pauseManager.hudTimerShadow.text = FormatTime(timeToComplete);
         }
     }
 
