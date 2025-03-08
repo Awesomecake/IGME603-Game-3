@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -22,7 +19,11 @@ public class PlayerController : MonoBehaviour
     Vector2 lookDirection;
 
     private Rigidbody2D rb;
-    public Rigidbody2D Rigidbody { get { return rb; } }
+
+    public Rigidbody2D Rigidbody
+    {
+        get { return rb; }
+    }
 
     public List<GameObject> itemPrefabs = new List<GameObject>();
 
@@ -47,11 +48,15 @@ public class PlayerController : MonoBehaviour
     //HUD Display to show item selection
     HUD_ItemSelection HUD;
 
+    private Animator _animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
+        
         List<GameObject> randomItems = new List<GameObject>(itemPrefabs);
-        item1 = randomItems[Random.Range(0,randomItems.Count)];
+        item1 = randomItems[Random.Range(0, randomItems.Count)];
         randomItems.Remove(item1);
 
         item2 = randomItems[Random.Range(0, randomItems.Count)];
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
         randomItems.Remove(item3);
 
         rb = GetComponent<Rigidbody2D>();
-        
+
         //Finds and updates HUD at runtime
         HUD = FindObjectOfType<HUD_ItemSelection>();
         HUD.StartToolSetup(item1, item2, item3);
@@ -75,7 +80,19 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        HandleMovement();
+
+        heldSpriteRenderer.transform.up = lookDirection;
+
+        CooldownItems();
+        UpdateHUD();
+
+        //Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
+    }
+
+    private void HandleMovement()
     {
         if (isMoving)
         {
@@ -88,7 +105,7 @@ public class PlayerController : MonoBehaviour
             lookDirection = (mousePosition - (Vector2)transform.position).normalized;
         }
         //If we don't already have a lookdirection yet, get look direction from movement
-        else if (controllerLookDirection == Vector2.zero) 
+        else if (controllerLookDirection == Vector2.zero)
         {
             lookDirection = lastMoveDirection.normalized;
         }
@@ -96,64 +113,70 @@ public class PlayerController : MonoBehaviour
         {
             lookDirection = controllerLookDirection;
         }
-        GetComponent<Animator>().SetBool("moving", isMoving);
 
-        heldSpriteRenderer.transform.up = lookDirection;
+        _animator.SetBool("moving", isMoving);
+    }
 
-        if (item1Cooldown > 0)
-            item1Cooldown -= Time.deltaTime;
-            if(selectedSlot == 1 && item1Cooldown > 0)
-            {
-                HUD.DeselectItems(1);
-            }
-        else if (item1Cooldown < 0){
-            if (selectedSlot == 1)
-            {
-                HUD.SelectOne();
-            }
-        }
+    private void CooldownItems()
+    {
+        if (item1Cooldown > 0) item1Cooldown -= Time.deltaTime;
+        if (item2Cooldown > 0) item2Cooldown -= Time.deltaTime;
+        if (item3Cooldown > 0) item3Cooldown -= Time.deltaTime;
+    }
 
-        if (item2Cooldown > 0)
-            item2Cooldown -= Time.deltaTime;
-            if(selectedSlot == 2 && item2Cooldown > 0)
-            {
-                HUD.DeselectItems(2);
-            }
-        else if (item2Cooldown < 0){
-            if (selectedSlot == 2)
-            {
-                HUD.SelectTwo();
-            }
-        }
-
-        if (item3Cooldown > 0)
-            item3Cooldown -= Time.deltaTime;
-            if(selectedSlot == 3 && item3Cooldown > 0)
-            {
-                HUD.DeselectItems(3);
-            }
-        else if (item3Cooldown < 0){
-            if (selectedSlot == 3)
-            {
-                HUD.SelectThree();
-            }
-        }
+    private void UpdateHUD()
+    {
+        UpdateHUDSlot(1);
+        UpdateHUDSlot(2);
+        UpdateHUDSlot(3);
         
-        // Update UI
         HUD.UpdateCooldownUI(
             item1Cooldown / item1ThrowableScript.itemCooldown,
             item2Cooldown / item2ThrowableScript.itemCooldown,
             item3Cooldown / item3ThrowableScript.itemCooldown
-            );
+        );
+    }
 
-        //Debug.Log(item1ThrowableScript.itemCooldown + " - " + item2ThrowableScript.itemCooldown + " - " + item3ThrowableScript.itemCooldown);
+    private void UpdateHUDSlot(int slotIndex)
+    {
+        var itemCooldown = slotIndex switch
+        {
+            1 => item1Cooldown,
+            2 => item2Cooldown,
+            3 => item3Cooldown,
+            _ => item1Cooldown
+        };
+        if (selectedSlot == slotIndex && itemCooldown > 0)
+        {
+            heldSpriteRenderer.sprite = null;
+            HUD.DeselectItems(slotIndex);
+        }
+        else if (itemCooldown < 0)
+        {
+            if (selectedSlot != slotIndex) return;
+            switch (slotIndex)
+            {
+                case 1:
+                    heldSpriteRenderer.sprite = item1.GetComponent<SpriteRenderer>().sprite;
+                    HUD.SelectOne();
+                    break;
+                case 2:
+                    heldSpriteRenderer.sprite = item2.GetComponent<SpriteRenderer>().sprite;
+                    HUD.SelectTwo();
+                    break;
+                case 3:
+                    heldSpriteRenderer.sprite = item3.GetComponent<SpriteRenderer>().sprite;
+                    HUD.SelectThree();
+                    break;
+            }
+        }
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
 
-        if(health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -161,7 +184,6 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-
     }
 
     private void ScrollHUDUI(float input)
@@ -195,6 +217,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #region InputActions
+
     //Get movement input from InputActions, update movement logic
     public void InputActionMove(InputAction.CallbackContext context)
     {
@@ -221,7 +244,7 @@ public class PlayerController : MonoBehaviour
     public void InputActionLookMouse(InputAction.CallbackContext context)
     {
         mousePosition = Camera.main?.ScreenToWorldPoint(context.ReadValue<Vector2>())
-            ?? Vector2.zero;
+                        ?? Vector2.zero;
     }
 
     //Tracks last look direction on controller, clears mouse position
@@ -233,7 +256,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputActionSelectOne(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             selectedSlot = 1;
             heldSpriteRenderer.sprite = item1.GetComponent<SpriteRenderer>().sprite;
@@ -278,13 +301,14 @@ public class PlayerController : MonoBehaviour
         switch (selectedSlot)
         {
             case 1:
-                if(item1Cooldown <= 0)
+                if (item1Cooldown <= 0)
                 {
                     newItem = item1;
                     item1Cooldown = item1ThrowableScript.itemCooldown;
                 }
                 else
                     ScrollHUDUI(1);
+
                 break;
             case 2:
                 if (item2Cooldown <= 0)
@@ -294,6 +318,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ScrollHUDUI(1);
+
                 break;
             case 3:
                 if (item3Cooldown <= 0)
@@ -303,6 +328,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ScrollHUDUI(1);
+
                 break;
         }
 
@@ -319,5 +345,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     #endregion
 }
