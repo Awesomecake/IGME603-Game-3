@@ -548,7 +548,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  stepLimit: 10
+  stepLimit: 5
 --- !u!114 &2870564387669009876
 MonoBehaviour:
   m_ObjectHideFlags: 0
