@@ -650,6 +650,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
+  mode: 0
   targetContainer: {fileID: 5937279804195191749}
   body: {fileID: 7651824281218780589}
   distanceThreshold: 3
@@ -980,6 +981,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
+  mode: 0
   targetContainer: {fileID: 8718485635551553200}
   body: {fileID: 7651824281218780589}
   distanceThreshold: 1
@@ -1018,7 +1020,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
-  durationSeconds: 1
+  durationSeconds: 0.75
 --- !u!114 &5230101009504580680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,6 +2325,7 @@ MonoBehaviour:
   onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
+  mode: 0
   targetContainer: {fileID: 4283125402478889989}
   body: {fileID: 7651824281218780589}
   distanceThreshold: 1.5
