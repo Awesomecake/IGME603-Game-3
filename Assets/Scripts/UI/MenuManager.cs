@@ -25,11 +25,11 @@ public class MenuManager : MonoBehaviour
         // Check if the current scene is the MainMenu
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            Cursor.SetCursor(cursorOne, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorOne, new Vector2(64, 64), CursorMode.Auto);
         }
         else
         {
-            Cursor.SetCursor(cursorTwo, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorTwo, new Vector2(64, 64), CursorMode.Auto);
         }
     }
 

@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
 
     public ItemPool itemPool;
 
-    private GameObject item1;
-    private GameObject item2;
-    private GameObject item3;
+    public GameObject item1;
+    public GameObject item2;
+    public GameObject item3;
 
     private Throwable item1ThrowableScript;
     private Throwable item2ThrowableScript;
@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         HUD = FindObjectOfType<HUD_ItemSelection>();
         HUD.StartToolSetup(item1, item2, item3);
         HUD.UpdateHUD(item1, item2, item3);
+        HUD.player = this;
 
         LevelManager.Instance?.RegisterPlayer(gameObject);
 
@@ -347,4 +348,22 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    /*
+    public void SwapItem(GameObject itemA, GameObject itemB)
+    {
+        GameObject tempItem = itemA;
+        float tempCooldown = itemA.GetComponent<Throwable>().itemCooldown;
+
+        itemA = itemB;
+        itemA.GetComponent<Throwable>().itemCooldown = itemB.GetComponent<Throwable>().itemCooldown;
+
+        itemB = tempItem;
+        itemB.GetComponent<Throwable>().itemCooldown = tempCooldown;
+
+
+        // Update the HUD to reflect the changes
+        HUD.UpdateHUD(item1, item2, item3);
+    }
+    */
 }
