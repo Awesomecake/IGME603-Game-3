@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerItemPool", menuName = "GameData/PlayerItemPool", order = 0)]
-public class PlayerItemPool : ScriptableObject
+public class ItemPool : ScriptableObject
 {
     public List<GameObject> itemPrefabs = new();
 

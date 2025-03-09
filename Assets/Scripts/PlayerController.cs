@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         get { return rb; }
     }
 
-    public PlayerItemPool itemPool;
+    public ItemPool itemPool;
 
     private GameObject item1;
     private GameObject item2;
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
 
             if (throwable != null)
             {
-                throwable.ThrowItem(500f, lookDirection);
+                throwable.ThrowItem(500f, lookDirection, gameObject);
                 item.transform.up = lookDirection;
             }
         }

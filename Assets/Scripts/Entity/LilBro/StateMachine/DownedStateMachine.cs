@@ -23,6 +23,7 @@ public class DownedStateMachine : HierarchicalStateMachine
 
     public override void ExitState()
     {
+        self.RandomizeHeldItem();
         self.UpdateState(LilBro.State.Normal);
         if (_broCollider) _broCollider.enabled = true;
         base.ExitState();
