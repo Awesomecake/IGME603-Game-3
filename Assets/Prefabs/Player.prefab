@@ -187,12 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasDiamond: 0
-  itemPrefabs:
-  - {fileID: 47576519631612836, guid: bcf496cc82252d14dafb1a3ebed1f6ab, type: 3}
-  - {fileID: 1456410070365849978, guid: 269f6f8eadbd4a54991f930bc2ac4249, type: 3}
-  - {fileID: 47576519631612836, guid: b783ad9d0a1344e4bb604d1aaf34acdf, type: 3}
-  - {fileID: 47576519631612836, guid: bfea1bdcb32a9bd4381049da4a0d7507, type: 3}
-  - {fileID: 47576519631612836, guid: e64fbb47db46ed6418e8017d1a742d6d, type: 3}
+  itemPool: {fileID: 11400000, guid: 07f8320235df24a2fbc23566d54ac64c, type: 2}
   selectedSlot: 1
   spriteRenderer: {fileID: 7401413692154628250}
   heldSpriteRenderer: {fileID: 5670769274921635595}

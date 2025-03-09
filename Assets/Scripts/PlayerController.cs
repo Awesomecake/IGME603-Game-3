@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         get { return rb; }
     }
 
-    public List<GameObject> itemPrefabs = new List<GameObject>();
+    public PlayerItemPool itemPool;
 
     private GameObject item1;
     private GameObject item2;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         
-        List<GameObject> randomItems = new List<GameObject>(itemPrefabs);
+        List<GameObject> randomItems = new List<GameObject>(itemPool.itemPrefabs);
         item1 = randomItems[Random.Range(0, randomItems.Count)];
         randomItems.Remove(item1);
 
