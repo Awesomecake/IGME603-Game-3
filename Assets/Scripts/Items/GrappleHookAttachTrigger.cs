@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrappleHookAttachTrigger : MonoBehaviour
@@ -15,6 +13,7 @@ public class GrappleHookAttachTrigger : MonoBehaviour
             collision.tag.Equals("Detector"))
             return;
 
-        GetComponentInParent<GrappleHook>().ThrownItemCollided(collision);
+        var hurtbox = collision.GetComponent<Hurtbox>();
+        GetComponentInParent<GrappleHook>().ThrownItemCollided(hurtbox ? hurtbox.owner : collision);
     }
 }

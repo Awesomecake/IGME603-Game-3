@@ -34,7 +34,8 @@ public class Throwable : MonoBehaviour
             collision.tag.Equals("Detector"))
             return;
 
-        ThrownItemCollided(collision);
+        var hurtbox = collision.GetComponent<Hurtbox>();
+        ThrownItemCollided(hurtbox ? hurtbox.owner : collision);
     }
 
     private void OnTriggerExit2D(Collider2D other)
