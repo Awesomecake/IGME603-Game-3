@@ -69,13 +69,7 @@ public class LilBro : MonoBehaviour
 
     private void SetHeldItemPrefab(GameObject prefab)
     {
-        if (!prefab)
-        {
-            heldItemRenderer.sprite = null;
-            _heldItemPrefab = null;
-            return;
-        }
-        var image = prefab.GetComponent<SpriteRenderer>().sprite;
+        var image = prefab ? prefab.GetComponent<SpriteRenderer>().sprite : null;
         heldItemRenderer.sprite = image;
         _heldItemPrefab = prefab;
     }

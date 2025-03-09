@@ -21,7 +21,7 @@ public class Throwable : MonoBehaviour
     {
         Owner = owner;
         ownerTag = owner.tag;
-        projectileRigidBody.AddForce(direction * (strength * itemSpeedModifier));
+        projectileRigidBody.AddForce(direction.normalized * (strength * itemSpeedModifier));
     }
 
     //Detecting when item overlaps a rigidbody

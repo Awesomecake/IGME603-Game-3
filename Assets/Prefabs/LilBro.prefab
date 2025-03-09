@@ -250,59 +250,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   trigger: {fileID: 3039373712184131367}
---- !u!1 &841695904645080715
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 400165571516512992}
-  - component: {fileID: 7794917664170331744}
-  m_Layer: 0
-  m_Name: AttackStateMachine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &400165571516512992
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841695904645080715}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3060626762131629490}
-  m_Father: {fileID: 5366014947797108734}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7794917664170331744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841695904645080715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153799739d4f4d68b8d2c6fa065cb80f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialState: {fileID: 5238447445439284553}
-  autoStart: 0
-  resumeBehavior: 1
-  lastTransition: 0
-  isLogging: 0
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &925839964475878445
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8516882901260467202}
-  itemPool: {fileID: 11400000, guid: 07f8320235df24a2fbc23566d54ac64c, type: 2}
+  itemPool: {fileID: 11400000, guid: 77cdd9078cdd94093a0b63aca34388f8, type: 2}
   heldItemRenderer: {fileID: 2353997805639887119}
 --- !u!58 &4573746207929192952
 CircleCollider2D:
@@ -427,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3060626762131629490}
-  - component: {fileID: 5238447445439284553}
+  - component: {fileID: 2894409314020588832}
   m_Layer: 0
   m_Name: UseItemState
   m_TagString: Untagged
@@ -443,14 +390,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318617126003724761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 400165571516512992}
+  m_Father: {fileID: 5366014947797108734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5238447445439284553
+--- !u!114 &2894409314020588832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,9 +406,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1318617126003724761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ced947ae31cd45bcaa12c45efca2da28, type: 3}
+  m_Script: {fileID: 11500000, guid: 632306d4d1434307b9bd2ed340994eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  self: {fileID: 8162104905218332075}
+  fleeTarget: {fileID: 4774335774196784028}
 --- !u!1 &2040027694873163922
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5366014947797108734}
   - component: {fileID: 5179128481845202600}
+  - component: {fileID: 8826077105575682724}
   m_Layer: 0
   m_Name: SpottedStateMachine
   m_TagString: Untagged
@@ -492,8 +442,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3147139085436209120}
-  - {fileID: 400165571516512992}
+  - {fileID: 3060626762131629490}
+  - {fileID: 3716978871906142389}
   m_Father: {fileID: 3476262063219724245}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5179128481845202600
@@ -508,12 +458,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a388c8814d54426487ebe66429cd6389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialState: {fileID: 6042257863377566732}
+  initialState: {fileID: 2894409314020588832}
   autoStart: 0
   resumeBehavior: 1
   lastTransition: 0
   isLogging: 0
   onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8826077105575682724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040027694873163922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0f444a04ea4345933b4065ef2ba824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 2894409314020588832}
+  toState: {fileID: 1504897523291459796}
+  onTransitionSideEffect:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2465058985897435726
@@ -799,12 +766,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4583818145458011397}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3147139085436209120}
+  m_Father: {fileID: 5366014947797108734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &682684435232628238
 MonoBehaviour:
@@ -845,6 +812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 995553853560908142}
   - component: {fileID: 3388738605686037055}
+  - component: {fileID: 9066155463813852625}
   m_Layer: 0
   m_Name: NormalStateMachine
   m_TagString: Untagged
@@ -888,6 +856,27 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9066155463813852625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5610595143073422636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fea662609a14e31bc74f6175bc471a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 7469180951286090155}
+  toState: {fileID: 7469180951286090155}
+  onTransitionSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  mode: 1
+  targetContainer: {fileID: 1044840472693253511}
+  body: {fileID: 226165496858139227}
+  distanceThreshold: 3
 --- !u!1 &6810278927511560031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,59 +1030,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!1 &8469309777515488047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3147139085436209120}
-  - component: {fileID: 6042257863377566732}
-  m_Layer: 0
-  m_Name: FleeStateMachine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3147139085436209120
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8469309777515488047}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3716978871906142389}
-  m_Father: {fileID: 5366014947797108734}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6042257863377566732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8469309777515488047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153799739d4f4d68b8d2c6fa065cb80f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialState: {fileID: 1504897523291459796}
-  autoStart: 0
-  resumeBehavior: 1
-  lastTransition: 0
-  isLogging: 0
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8675401053236622073
 GameObject:
   m_ObjectHideFlags: 0
