@@ -16,6 +16,11 @@ public class Hurtbox : MonoBehaviour
         var throwable = other.GetComponent<Throwable>();
         if (!throwable) return;
         if (owner.tag.Equals(throwable.ownerTag)) return;
+        Hurt();
+    }
+
+    public void Hurt()
+    {
         onHurt?.Invoke();
     }
 }

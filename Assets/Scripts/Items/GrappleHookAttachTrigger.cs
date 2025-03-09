@@ -14,6 +14,7 @@ public class GrappleHookAttachTrigger : MonoBehaviour
             return;
 
         var hurtbox = collision.GetComponent<Hurtbox>();
+        hurtbox?.Hurt();
         GetComponentInParent<GrappleHook>().ThrownItemCollided(hurtbox ? hurtbox.owner : collision);
     }
 }
