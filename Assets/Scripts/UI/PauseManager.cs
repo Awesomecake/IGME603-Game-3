@@ -22,6 +22,10 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private string mainMenuScene = "MainMenu";
 
     public static PauseManager Instance;
+    
+    [Header("Cursor Settings")]
+    [SerializeField] Texture2D cursorOne;
+    [SerializeField] Texture2D cursorTwo;
 
     private void Awake()
     {
@@ -38,6 +42,16 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         toolScreen.SetActive(true);
         Time.timeScale = 0;
+
+        // Check if the current scene is the MainMenu
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            Cursor.SetCursor(cursorOne, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(cursorTwo, Vector2.zero, CursorMode.Auto);
+        }
     }
 
     private void Update()

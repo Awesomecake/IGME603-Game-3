@@ -1242,7 +1242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.41, y: -123.5325}
+  m_AnchoredPosition: {x: 960.4099, y: -123.5325}
   m_SizeDelta: {x: 1587.73, y: 168.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &379532575
@@ -1928,7 +1928,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitonAnimator: {fileID: 455264616}
-  transitonCanvas: {fileID: 0}
 --- !u!1 &456311694
 GameObject:
   m_ObjectHideFlags: 0
@@ -6111,6 +6110,8 @@ MonoBehaviour:
   waitToLerp: 1
   menuAlphaThreshold: 0.4
   fadeSpeed: 1.4
+  cursorOne: {fileID: 2800000, guid: 24493c1a54bcbad4a8959ccfdf2f5412, type: 3}
+  cursorTwo: {fileID: 2800000, guid: 6f0c63189c4420b4ca720aff7201e5bd, type: 3}
 --- !u!1 &1893517747
 GameObject:
   m_ObjectHideFlags: 0
@@ -10026,7 +10027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 983.99994, y: -466.90607}
+  m_AnchoredPosition: {x: 983.9999, y: -466.90607}
   m_SizeDelta: {x: 733.39, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7826170855322443384

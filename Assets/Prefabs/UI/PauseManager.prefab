@@ -3704,6 +3704,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 212863565207432485}
   freezeTime: 1
   mainMenuScene: MainMenu
+  cursorOne: {fileID: 2800000, guid: 24493c1a54bcbad4a8959ccfdf2f5412, type: 3}
+  cursorTwo: {fileID: 2800000, guid: 6f0c63189c4420b4ca720aff7201e5bd, type: 3}
 --- !u!114 &8727335640673706653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3719,6 +3721,8 @@ MonoBehaviour:
   waitToLerp: 1
   menuAlphaThreshold: 0.2
   fadeSpeed: 2
+  cursorOne: {fileID: 0}
+  cursorTwo: {fileID: 0}
 --- !u!1 &1856684545535516010
 GameObject:
   m_ObjectHideFlags: 0
