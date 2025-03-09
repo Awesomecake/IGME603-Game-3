@@ -21,7 +21,7 @@ public class ProcGenBehavior : MonoBehaviour
     private uint terrainHeight = 0;
 
     [Header("General Generation Vars")]
-    [SerializeField] private int seed = 0;
+    [SerializeField] private uint seed = 0;
     private float noiseAmplitude = 0.5f;
     private float magnification = 1f;
     [SerializeField] private uint boarderWidth = 10;
@@ -117,20 +117,22 @@ public class ProcGenBehavior : MonoBehaviour
         if (seedManager.useSeed)
         {
             //use the stored seed to generate the level
-            seed = seedManager.storedSeed;   
+            seed = seedManager.storedSeed;
         }
         //else seedManager says to NOT use the current seed
         else
         {
             //use a new random seed to generate the level
-            seed = (int)UnityEngine.Random.Range(0, 4294967296);
+            seed = (uint)UnityEngine.Random.Range(0f, 4294967295f);
         }
 
         //reset useSeed
         seedManager.useSeed = false;
 
+        //Debug.Log("ProcGen | useSeed = " + seedManager.useSeed + ".\n And currently used seed = " + seed +"\n");
+
         //generate level based on seed
-        UnityEngine.Random.InitState(seed);
+        UnityEngine.Random.InitState((int)seed);
 
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
@@ -166,6 +168,10 @@ public class ProcGenBehavior : MonoBehaviour
                 }
                 else
                 {
+                    //reset useSeed
+                    seedManager.useSeed = false;
+
+                    //reload scene
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
@@ -177,7 +183,7 @@ public class ProcGenBehavior : MonoBehaviour
         magnification = newMag;
     }
 
-    public int GetSeed()
+    public uint GetSeed()
     {
         //return the current seed
         return seed;
@@ -303,28 +309,60 @@ public class ProcGenBehavior : MonoBehaviour
         int curWalkAttempts = 0;
 
         //randomly walk through chunkMap UNTIL maxWalkerDistance is reached 
-        //or there are no possible next steps,...
-        //&& possibleNextSteps.Count != 0
-        while (currentWalkerDistance < maxWalkerDistance && possibleNextSteps.Count != 0)
+        // && possibleNextSteps.Count != 0
+        while (currentWalkerDistance < maxWalkerDistance)
         {
             //safety break
             if (curWalkAttempts >= maxWalkAttempts)
                 break;
 
-            //step in a random (but possible) direction
-            currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
 
-            //increment currentWalkerDistance
-            currentWalkerDistance++;
+            //if there is at least 1 possible next step,...
+            if (possibleNextSteps.Count != 0)
+            {
+                //step in a random (but possible) direction
+                currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
 
-            //set current position on walkerkMap to WalkerValue.STEPPED
-            walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+                //increment currentWalkerDistance
+                currentWalkerDistance++;
 
-            //add step to walkerPath
-            walkerPath.Add(currentPosition);
+                //set current position on walkerkMap to WalkerValue.STEPPED
+                walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
 
-            //update possibleNextSteps
-            possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+                //add step to walkerPath
+                walkerPath.Add(currentPosition);
+
+                //update possibleNextSteps
+                possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+            }
+            //else there are NO possible next steps,...
+            else
+            {
+                //then prune by walking backwards until you reach a chunk that has at least 1 possible direction
+                while (possibleNextSteps.Count != 0 && walkerPath.Count > 2)
+                {
+                    //set current position on walkerkMap to WalkerValue.CLOSED so that the walker never returns here
+                    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.CLOSED;
+
+                    //step backwards
+                    currentPosition = walkerPath[walkerPath.Count - 2];
+
+                    //decrement currentWalkerDistance
+                    currentWalkerDistance--;
+
+                    //set current position on walkerkMap to WalkerValue.STEPPED
+                    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+
+                    //remove last step from walkerPath
+                    walkerPath.RemoveAt(walkerPath.Count - 1);
+
+                    //update possibleNextSteps
+                    possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+
+                    //increment curWalkAttempts
+                    curWalkAttempts++;
+                }
+            }
 
             //increment curWalkAttempts
             curWalkAttempts++;
@@ -934,7 +972,7 @@ public class ProcGenBehavior : MonoBehaviour
         return map;
     }
 
-    //***** PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
+    //***** LEGACY PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
 
     /// <summary>
     /// Generate 2D procedural terrain
