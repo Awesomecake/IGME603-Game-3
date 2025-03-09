@@ -305,6 +305,10 @@ public class ProcGenBehavior : MonoBehaviour
         //&& possibleNextSteps.Count != 0
         while (currentWalkerDistance < maxWalkerDistance && possibleNextSteps.Count != 0)
         {
+            //safety break
+            if (curWalkAttempts >= maxWalkAttempts)
+                break;
+
             //step in a random (but possible) direction
             currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
 
@@ -320,6 +324,7 @@ public class ProcGenBehavior : MonoBehaviour
             //update possibleNextSteps
             possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
 
+            //increment curWalkAttempts
             curWalkAttempts++;
         }
         //while (currentWalkerDistance < maxWalkerDistance && curWalkAttempts < maxWalkAttempts)
