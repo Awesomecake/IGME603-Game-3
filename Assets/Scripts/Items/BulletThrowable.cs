@@ -16,9 +16,15 @@ public class BulletThrowable : Throwable
     private void DestroyTile()
     {
         var currentPosition = transform.position;
-        var direction = projectileRigidBody.velocity.normalized.ToVector3();
         WorldManager.Instance?.SetTile(currentPosition, null);
-        WorldManager.Instance?.SetTile(currentPosition + direction, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.up * 0.1f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.down * 0.1f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.left * 0.1f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.right * 0.1f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.up * 0.05f + Vector3.right * 0.05f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.up * 0.05f + Vector3.left * 0.05f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.down * 0.05f + Vector3.right * 0.05f, null);
+        WorldManager.Instance?.SetTile(currentPosition + Vector3.down * 0.05f + Vector3.left * 0.05f, null);
     }
 
     private void HandlePlayerHit(Collider2D collision)

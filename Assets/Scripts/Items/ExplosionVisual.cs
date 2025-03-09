@@ -25,6 +25,7 @@ public class ExplosionVisual : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!isLethal) return;
         if (!other.CompareTag("Player")) return;
         if (LevelManager.Instance)
         {
