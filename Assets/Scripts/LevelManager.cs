@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance;
     [Header("Gameplay Stats")]
     public int wins = 0;
     public int winStreak = 0;
@@ -13,8 +15,9 @@ public class LevelManager : MonoBehaviour
     private float startTime = 0;
 
     [Header("Components")]
-    public static LevelManager Instance;
+    public GameObject lilBro;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private CameraManager cameraManager;
 
     private void Awake()
     {
@@ -92,11 +95,16 @@ public class LevelManager : MonoBehaviour
         }else pauseManager.winStreakText.text = $"Win Streak: {winStreak}";
         SaveGameplayStats();
 
-        pauseManager.winScreen.SetActive(true);
+        SceneTransitoner.Instance.StartTransitionMenu(pauseManager.winScreen);
     }
 
     public void LoseLevel(string method)
     {
+        if(method == "GEM STOLEN")
+        {
+            cameraManager.ChangeTarget(lilBro.transform);
+        }
+
         // Update Stats
         if(winStreak != 0)
         {
@@ -110,12 +118,26 @@ public class LevelManager : MonoBehaviour
         SaveGameplayStats();
 
         // Update Screen
-        Time.timeScale = 0;
         pauseManager.pauseOnKeypress = false;
         pauseManager.loseTitleText.text = method; // Set Custom Lose Message
         pauseManager.totalWinsText.text = $"Wins: {wins}";
         pauseManager.totalLossesText.text = $"Losses: {loses}";
+        
+        StartCoroutine(GameLoseEffect(method));
+    }
+
+    private IEnumerator GameLoseEffect(string method)
+    {
+        if(method == "GEM STOLEN"){
+            SceneTransitoner.Instance.transitonAnimator.Play("FadeInGemStolen");
+        }else{
+            SceneTransitoner.Instance.transitonAnimator.Play("FadeIn");
+        }
+        yield return null;
+        yield return new WaitForSecondsRealtime(SceneTransitoner.Instance.transitonAnimator.GetCurrentAnimatorStateInfo(0).length);
+        SceneTransitoner.Instance.transitonAnimator.Play("FadeOut");
         pauseManager.loseScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void SaveGameplayStats()

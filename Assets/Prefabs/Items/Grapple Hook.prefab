@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7952776688703356640}
   - component: {fileID: 7030660660142688079}
   - component: {fileID: 871729397142293215}
-  - component: {fileID: 3779174051208149489}
   - component: {fileID: 1486283119038864233}
   - component: {fileID: 7617086950982229748}
   m_Layer: 0
@@ -154,46 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 2262876634406332012}
-  itemSpeedModifier: 2
+  itemSpeedModifier: 3
   itemCooldown: 3
   ownerTag: Player
   lineRenderer: {fileID: 7030660660142688079}
-  circleCollider: {fileID: 3779174051208149489}
---- !u!58 &3779174051208149489
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456410070365849978}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.125
+  circleCollider: {fileID: 0}
 --- !u!50 &1486283119038864233
 Rigidbody2D:
   serializedVersion: 4
@@ -219,7 +183,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!212 &7617086950982229748
 SpriteRenderer:
@@ -284,6 +248,8 @@ GameObject:
   - component: {fileID: 6259361945836370246}
   - component: {fileID: 7490571925035802569}
   - component: {fileID: 2262876634406332012}
+  - component: {fileID: 2218881675111738682}
+  - component: {fileID: 6180724952328700390}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Projectile
@@ -385,3 +351,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &2218881675111738682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782910124498939296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3320776cf5304c04d9f9e1475c392aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerTag: Player
+--- !u!58 &6180724952328700390
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782910124498939296}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.125

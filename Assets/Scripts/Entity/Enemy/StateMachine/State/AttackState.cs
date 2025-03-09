@@ -19,6 +19,6 @@ public class AttackState : State
         var target = targetContainer.GetLocation();
         var direction = (target - self.transform.position).ToVector2().normalized;
         
-        bullet.ThrowItem(velocity, direction);
+        bullet.ThrowItem(velocity, direction, self.gameObject);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Throwable : MonoBehaviour
 {
@@ -7,17 +8,20 @@ public class Throwable : MonoBehaviour
     public float itemSpeedModifier = 1f;
 
     public float itemCooldown = 5f;
-    public string ownerTag = "Player";
-
+    protected GameObject Owner = null;
+    [HideInInspector] public string ownerTag;
+    
     private void Start()
     {
         StartCoroutine(DeathTimer());
     }
 
     //Apply force to thrown item
-    public void ThrowItem(float strength, Vector2 direction)
+    public void ThrowItem(float strength, Vector2 direction, GameObject owner)
     {
-        projectileRigidBody.AddForce(direction * (strength * itemSpeedModifier));
+        Owner = owner;
+        ownerTag = owner.tag;
+        projectileRigidBody.AddForce(direction.normalized * (strength * itemSpeedModifier));
     }
 
     //Detecting when item overlaps a rigidbody

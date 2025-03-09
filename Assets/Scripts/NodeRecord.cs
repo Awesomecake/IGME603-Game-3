@@ -6,13 +6,17 @@ public class NodeRecord
 {
     private static readonly List<Vector3Int> Offsets = new()
     {
-        new Vector3Int(-1, -1),
         new Vector3Int(-1, 0),
-        new Vector3Int(-1, 1),
         new Vector3Int(0, -1),
         new Vector3Int(0, 1),
-        new Vector3Int(1, -1),
         new Vector3Int(1, 0),
+    };
+
+    private static readonly List<Vector3Int> DiagonalOffsets = new()
+    {
+        new Vector3Int(-1, -1),
+        new Vector3Int(-1, 1),
+        new Vector3Int(1, -1),
         new Vector3Int(1, 1),
     };
 
@@ -26,9 +30,21 @@ public class NodeRecord
 
     public List<Vector3Int> GetConnections()
     {
-        return Offsets
+        var cardinal = Offsets
             .Select(it => it + Tile)
-            .Where(it => WorldManager.Instance.world.GetTile(it) == null)
-            .ToList();
+            .Where(TileIsTraversable);
+        
+        var diagonal = DiagonalOffsets
+            .Where(it => TileIsTraversable(it + Tile))
+            .Where(it => TileIsTraversable(new Vector3Int(it.x, 0) + Tile))
+            .Where(it => TileIsTraversable(new Vector3Int(0, it.y) + Tile))
+            .Select(it => it + Tile);
+
+        return cardinal.Concat(diagonal).ToList();
+    }
+
+    private static bool TileIsTraversable(Vector3Int it)
+    {
+        return WorldManager.Instance.world.GetTile(it) == null;
     }
 }

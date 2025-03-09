@@ -13,10 +13,16 @@ public class LilBro : MonoBehaviour
     private State _currentState = State.Normal;
     private Color _defaultColor;
 
+    [SerializeField] private ItemPool itemPool;
+    private GameObject _heldItemPrefab;
+    [SerializeField] private SpriteRenderer heldItemRenderer;
+
     private void Start()
     {
         if (!spriteRenderer) GetComponent<SpriteRenderer>();
         if (spriteRenderer) _defaultColor = spriteRenderer.color;
+        
+        RandomizeHeldItem();
     }
 
     public void UpdateState(State newState)
@@ -44,5 +50,27 @@ public class LilBro : MonoBehaviour
     public State GetCurrentState()
     {
         return _currentState;
+    }
+
+    public void RandomizeHeldItem()
+    {
+        SetHeldItemPrefab(itemPool.RandomItem());
+    }
+
+    public void ClearHeldItem()
+    {
+        SetHeldItemPrefab(null);
+    }
+
+    public GameObject GetHeldItemPrefab()
+    {
+        return _heldItemPrefab;
+    }
+
+    private void SetHeldItemPrefab(GameObject prefab)
+    {
+        var image = prefab ? prefab.GetComponent<SpriteRenderer>().sprite : null;
+        heldItemRenderer.sprite = image;
+        _heldItemPrefab = prefab;
     }
 }

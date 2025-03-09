@@ -42,6 +42,7 @@ public class ProcGenBehavior : MonoBehaviour
     private bool hasGemSpawned = false;
 
     private GameObject currentPlayer;
+    private GameObject currentLilBro;
 
     private enum Direction
     {
@@ -144,6 +145,7 @@ public class ProcGenBehavior : MonoBehaviour
         }
 
         CameraManager.Instance.TrackPlayer(currentPlayer.transform);
+        LevelManager.Instance.lilBro = currentLilBro;
     }
 
     //***** VALUE AND TERRAIN CHANGE AT RUNTIME FUNCTIONS *****
@@ -1144,7 +1146,7 @@ public class ProcGenBehavior : MonoBehaviour
                 else if (map[x, y] == 4)
                 {
                     //spawn lil bro
-                    Instantiate(lilBroPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
+                    currentLilBro = Instantiate(lilBroPrefab, wallTimeMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), Quaternion.identity);
                 }
                 //if value of map at [x,y] is 5,...
                 else if (map[x, y] == 5)
