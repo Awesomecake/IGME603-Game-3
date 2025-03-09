@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
 
     // Scene Managment
 
-    public void ChangeSceneFromIndex(int sceneIndex) => SceneManager.LoadScene(sceneIndex); 
-    public void ChangeSceneFromName(string sceneName) => SceneManager.LoadScene(sceneName); 
+    public void ChangeSceneFromIndex(int sceneIndex) => SceneTransitoner.Instance.StartTransitionScene(sceneIndex); 
+    public void ChangeSceneFromName(string sceneName) => SceneTransitoner.Instance.StartTransitionScene(sceneName); 
     public void Quit() => Application.Quit();
 }

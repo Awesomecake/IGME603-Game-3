@@ -57,4 +57,9 @@ public class CameraManager : MonoBehaviour
         player = newPlayer;
         virtualCamera.Follow = player;
     }
+
+    public void ChangeTarget(Transform target)
+    {
+        virtualCamera.Follow = target;
+    }
 }

@@ -79,7 +79,7 @@ public class PauseManager : MonoBehaviour
     public void ReloadScene()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneTransitoner.Instance.StartTransitionScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Quit()
