@@ -21,13 +21,15 @@ public class ProcGenBehavior : MonoBehaviour
     private uint terrainHeight = 0;
 
     [Header("General Generation Vars")]
-    [SerializeField] private float noiseAmplitude = 0.5f;
-    [SerializeField] private float magnification = 1f;
-    [SerializeField] private float seed = 0f;
+    [SerializeField] private uint seed = 0;
+    private float noiseAmplitude = 0.5f;
+    private float magnification = 1f;
     [SerializeField] private uint boarderWidth = 10;
+    [SerializeField] private SeedManager seedManager;
 
     [Header("Random Walker Vars")]
-    [SerializeField] private uint maxWalkerDistance = 2;
+    [SerializeField] private uint minWalkerDistance = 7;
+    [SerializeField] private uint maxWalkerDistance = 14;
     private List<Vector2Int> walkerPath;
 
     [Header("Player/Guard/LilBro/Gem Vars")]
@@ -53,10 +55,10 @@ public class ProcGenBehavior : MonoBehaviour
     };
 
     private enum ChunkValue
-    { 
-        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN, 
-        MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT, 
-        PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, 
+    {
+        FILLED, LEFT_RIGHT, LEFT_UP, LEFT_DOWN, UP_DOWN, RIGHT_UP, RIGHT_DOWN,
+        MIDDLE_LEFT, MIDDLE_UP, MIDDLE_DOWN, MIDDLE_RIGHT,
+        PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN,
         GEM_LEFT, GEM_RIGHT, GEM_UP, GEM_DOWN,
         LB_LEFT_RIGHT, LB_LEFT_UP, LB_LEFT_DOWN, LB_UP_DOWN, LB_RIGHT_UP, LB_RIGHT_DOWN
     };
@@ -70,7 +72,7 @@ public class ProcGenBehavior : MonoBehaviour
     [SerializeField] private Tilemap wallTimeMap;
     [SerializeField] private TileBase openGroundTile;
     [SerializeField] private TileBase closedGroundTile;
-    [SerializeField] private Tilemap groundTimeMap;
+    [SerializeField] private Tilemap groundTileMap;
 
     private WalkerValue[,] walkerMap;
     private ChunkValue[,] chunkMap;
@@ -111,6 +113,27 @@ public class ProcGenBehavior : MonoBehaviour
 
     void Start()
     {
+        //if seedManager is to use the storedSeed,...
+        if (seedManager.useSeed)
+        {
+            //use the stored seed to generate the level
+            seed = seedManager.storedSeed;
+        }
+        //else seedManager says to NOT use the current seed
+        else
+        {
+            //use a new random seed to generate the level
+            seed = (uint)UnityEngine.Random.Range(0f, 4294967295f);
+        }
+
+        //reset useSeed
+        seedManager.useSeed = false;
+
+        //Debug.Log("ProcGen | useSeed = " + seedManager.useSeed + ".\n And currently used seed = " + seed +"\n");
+
+        //generate level based on seed
+        UnityEngine.Random.InitState((int)seed);
+
         //calculate terrainWidth and terrainHeight
         terrainWidth = numHorizontalChunks * chunkWidth;
         terrainHeight = numVerticalChunks * chunkHeight;
@@ -145,6 +168,10 @@ public class ProcGenBehavior : MonoBehaviour
                 }
                 else
                 {
+                    //reset useSeed
+                    seedManager.useSeed = false;
+
+                    //reload scene
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
@@ -156,9 +183,19 @@ public class ProcGenBehavior : MonoBehaviour
         magnification = newMag;
     }
 
-    public void ChangeSeed(float newSeed)
+    public uint GetSeed()
     {
-        seed = newSeed;
+        //return the current seed
+        return seed;
+    }
+
+    public void SaveSeed()
+    {
+        //save the current seed into seedManager
+        seedManager.storedSeed = GetSeed();
+
+        //set useSeed to true
+        seedManager.useSeed = true;
     }
 
     //***** CHUNK AND RANDOM WALKER FUNCTIONS *****
@@ -203,7 +240,7 @@ public class ProcGenBehavior : MonoBehaviour
         RenderMap(map, wallTimeMap, wallTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile, groundTileMap, closedGroundTile);
     }
 
     private ChunkValue[,] GenerateChunkMap(uint numHorizontalChunks, uint numVerticalChunks, ChunkValue initValue)
@@ -268,28 +305,115 @@ public class ProcGenBehavior : MonoBehaviour
         //    Debug.Log("Possible Direction #" + j + " can go to: " + possibleNextSteps[j]);
         //}
 
-        //randomly walk through chunkMap until maxWalkerDistance is reached or there are no possible next steps,...
-        while (currentWalkerDistance < maxWalkerDistance && possibleNextSteps.Count != 0)
-        //for (int i = 0; i < maxWalkerDistance; i++)
+        int maxWalkAttempts = 25;
+        int curWalkAttempts = 0;
+
+        //randomly walk through chunkMap UNTIL maxWalkerDistance is reached 
+        // && possibleNextSteps.Count != 0
+        while (currentWalkerDistance < maxWalkerDistance)
         {
-            //step in a random (but possible) direction
-            currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
+            //safety break
+            if (curWalkAttempts >= maxWalkAttempts)
+                break;
 
-            //increment currentWalkerDistance
-            currentWalkerDistance++;
 
-            //set current position on walkerkMap to WalkerValue.STEPPED
-            walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+            //if there is at least 1 possible next step,...
+            if (possibleNextSteps.Count != 0)
+            {
+                //step in a random (but possible) direction
+                currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
 
-            //add step to walkerPath
-            walkerPath.Add(currentPosition);
+                //increment currentWalkerDistance
+                currentWalkerDistance++;
 
-            //update possibleNextSteps
-            possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+                //set current position on walkerkMap to WalkerValue.STEPPED
+                walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
 
-            //if walker visits a chunk it has previously visited,...
-            //then prune by walking backwards until you reach the chunk that was previoulsy visited
+                //add step to walkerPath
+                walkerPath.Add(currentPosition);
+
+                //update possibleNextSteps
+                possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+            }
+            //else there are NO possible next steps,...
+            else
+            {
+                //then prune by walking backwards until you reach a chunk that has at least 1 possible direction
+                while (possibleNextSteps.Count != 0 && walkerPath.Count > 2)
+                {
+                    //set current position on walkerkMap to WalkerValue.CLOSED so that the walker never returns here
+                    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.CLOSED;
+
+                    //step backwards
+                    currentPosition = walkerPath[walkerPath.Count - 2];
+
+                    //decrement currentWalkerDistance
+                    currentWalkerDistance--;
+
+                    //set current position on walkerkMap to WalkerValue.STEPPED
+                    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+
+                    //remove last step from walkerPath
+                    walkerPath.RemoveAt(walkerPath.Count - 1);
+
+                    //update possibleNextSteps
+                    possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+
+                    //increment curWalkAttempts
+                    curWalkAttempts++;
+                }
+            }
+
+            //increment curWalkAttempts
+            curWalkAttempts++;
         }
+        //while (currentWalkerDistance < maxWalkerDistance && curWalkAttempts < maxWalkAttempts)
+        //{
+        //    //if currentWalkerDistance < minWalkerDistance AND walker cannot make any possible next steps,...
+        //    if (currentWalkerDistance < minWalkerDistance && possibleNextSteps.Count == 0)
+        //    {
+        //        //then prune by walking backwards until you reach the chunk that has at least 1 possible direction
+        //        //while ( && walkerPath.Count >= 2)
+        //        //{
+        //        //    //step backwards
+        //        //    currentPosition = walkerPath[walkerPath.Count - 2];
+
+        //        //    //decrement currentWalkerDistance
+        //        //    currentWalkerDistance--;
+
+        //        //    //set current position on walkerkMap to WalkerValue.STEPPED
+        //        //    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+
+        //        //    //remove last step from walkerPath
+        //        //    walkerPath.RemoveAt(walkerPath.Count - 1);
+
+        //        //    //update possibleNextSteps
+        //        //    possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+        //        //}
+        //        //at every step 
+        //    }
+        //    //else 
+        //    else
+        //    {
+
+        //        //step in a random (but possible) direction
+        //        currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
+
+        //        //increment currentWalkerDistance
+        //        currentWalkerDistance++;
+
+        //        //set current position on walkerkMap to WalkerValue.STEPPED
+        //        walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
+
+        //        //add step to walkerPath
+        //        walkerPath.Add(currentPosition);
+
+        //        //update possibleNextSteps
+        //        possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
+
+        //        curWalkAttempts++;
+        //    }
+        //}
 
         //return walkerPath
         return walkerPath;
@@ -848,7 +972,7 @@ public class ProcGenBehavior : MonoBehaviour
         return map;
     }
 
-    //***** PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
+    //***** LEGACY PERLIN NOISE AND RANDOM CHISELLER FUNCTIONS *****
 
     /// <summary>
     /// Generate 2D procedural terrain
@@ -871,7 +995,7 @@ public class ProcGenBehavior : MonoBehaviour
         RenderMap(map, wallTimeMap, wallTile);
 
         //Generate and render a boarder of width = boarderWidth around the rendered map
-        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile);
+        GenerateAndRenderBoarder(boarderWidth, wallTimeMap, wallTile, groundTileMap, closedGroundTile);
     }
 
     /// <summary>
@@ -917,7 +1041,7 @@ public class ProcGenBehavior : MonoBehaviour
             for (int y = 0; y < terrainHeight; y++)
             {
                 //generate a raw perlin value for the (x, y) coordinate
-                float rawPerlin = Mathf.Clamp01(Mathf.PerlinNoise((x / magnification) + seed, (y / magnification) + seed));
+                float rawPerlin = Mathf.Clamp01(Mathf.PerlinNoise((x / magnification) + (float)seed, (y / magnification) + (float)seed));
 
                 int intPerlin = 0;
 
@@ -1072,17 +1196,17 @@ public class ProcGenBehavior : MonoBehaviour
                 //Place ground tiles
                 if (map[x, y] == 1)
                 {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), closedGroundTile);
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), closedGroundTile);
                 }
                 else
                 {
-                    groundTimeMap.SetTile(new Vector3Int(x, y, 0), openGroundTile);
+                    groundTileMap.SetTile(new Vector3Int(x, y, 0), openGroundTile);
                 }
             }
         }
     }
 
-    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap wallTimeMap, TileBase groundTileBase)
+    private void GenerateAndRenderBoarder(uint boarderWidth, Tilemap wallTileMap, TileBase wallTileBase, Tilemap groundTileMap, TileBase groundTileBase)
     {
         //get and store terrainWidth and terrainHeight of map
         int terrainWidth = map.GetLength(0);
@@ -1093,7 +1217,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1102,7 +1228,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = terrainWidth; y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1111,7 +1239,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < terrainHeight + boarderWidth; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
 
@@ -1120,7 +1250,9 @@ public class ProcGenBehavior : MonoBehaviour
         {
             for (int y = (int)(0 - boarderWidth); y < 0; y++)
             {
-                wallTimeMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
+                wallTileMap.SetTile(new Vector3Int(x, y, 0), wallTileBase);
+
+                groundTileMap.SetTile(new Vector3Int(x, y, 0), groundTileBase);
             }
         }
     }

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4480447231235447154}
   - component: {fileID: 2271137548080186112}
-  - component: {fileID: 343932738840012964}
+  - component: {fileID: 3390575076391169382}
   m_Layer: 0
-  m_Name: StunnedIndicator
+  m_Name: InvestigaingIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -166704790, guid: 2eefaab6f8624ca458b923d7c75093e5, type: 3}
+  m_Sprite: {fileID: 6158792436542224163, guid: b2190db2f978a2b4d89a912d7dabbeba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &343932738840012964
+--- !u!95 &3390575076391169382
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 4263168227368164486}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2d7cdd2debfeb47389a2ab00853a2f25, type: 2}
+  m_Controller: {fileID: 9100000, guid: df8ff193e82f0b64db3a14150e1f7869, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

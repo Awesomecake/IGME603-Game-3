@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,12 +113,12 @@ TextureImporter:
       name: reactions-Sheet_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 102
-        width: 24
-        height: 30
+        x: 0
+        y: 96
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: reactions-Sheet_1
       rect:
         serializedVersion: 2
-        x: 39
-        y: 104
-        width: 19
-        height: 25
+        x: 32
+        y: 96
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: reactions-Sheet_2
       rect:
         serializedVersion: 2
-        x: 74
-        y: 105
-        width: 14
-        height: 23
+        x: 64
+        y: 96
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,12 +176,12 @@ TextureImporter:
       name: reactions-Sheet_3
       rect:
         serializedVersion: 2
-        x: 107
-        y: 108
-        width: 11
-        height: 19
+        x: 96
+        y: 96
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -197,12 +197,12 @@ TextureImporter:
       name: reactions-Sheet_4
       rect:
         serializedVersion: 2
-        x: 12
-        y: 65
-        width: 9
-        height: 22
+        x: 0
+        y: 48
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,12 +218,12 @@ TextureImporter:
       name: reactions-Sheet_5
       rect:
         serializedVersion: 2
-        x: 44
-        y: 66
-        width: 9
-        height: 25
+        x: 32
+        y: 48
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -239,18 +239,18 @@ TextureImporter:
       name: reactions-Sheet_6
       rect:
         serializedVersion: 2
-        x: 76
-        y: 65
-        width: 9
-        height: 22
+        x: 64
+        y: 48
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5fd6e50ef620664fbe004ddabfe796f
+      spriteID: 01c233c6d58940a469b0de7969127094
       internalID: 1120205968
       vertices: []
       indices: 
@@ -260,18 +260,18 @@ TextureImporter:
       name: reactions-Sheet_7
       rect:
         serializedVersion: 2
-        x: 109
-        y: 57
-        width: 6
-        height: 20
+        x: 96
+        y: 48
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92c3be2256b3d4947b981fc25d0c9953
+      spriteID: 745533ddd28f3ed489e9fccae2aada48
       internalID: 653253262
       vertices: []
       indices: 
@@ -281,18 +281,18 @@ TextureImporter:
       name: reactions-Sheet_8
       rect:
         serializedVersion: 2
-        x: 12
-        y: 54
-        width: 9
-        height: 10
+        x: 0
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f073118950755e446ab33cfa4d561e66
+      spriteID: 8d802336f766bc74b835db5a15a20df3
       internalID: -368653860
       vertices: []
       indices: 
@@ -302,18 +302,18 @@ TextureImporter:
       name: reactions-Sheet_9
       rect:
         serializedVersion: 2
-        x: 44
-        y: 54
-        width: 9
-        height: 11
+        x: 32
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e83f341054eff9148a7aead47534f5fd
+      spriteID: 548625011cbac5147bf552a669d6f539
       internalID: -1803987932
       vertices: []
       indices: 
@@ -323,18 +323,18 @@ TextureImporter:
       name: reactions-Sheet_10
       rect:
         serializedVersion: 2
-        x: 76
-        y: 54
-        width: 9
-        height: 10
+        x: 64
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54ab3527e02af8444923548ddd48d1e4
+      spriteID: fba7bf635eae1394ba4dabe2f81a186d
       internalID: -261250634
       vertices: []
       indices: 
@@ -344,18 +344,18 @@ TextureImporter:
       name: reactions-Sheet_11
       rect:
         serializedVersion: 2
-        x: 4
-        y: 9
-        width: 23
-        height: 25
+        x: 96
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3497b929fea77b4ba7e94cde3882007
+      spriteID: c7617a34c681cf1438416ea3976c6322
       internalID: -166704790
       vertices: []
       indices: 
@@ -365,18 +365,18 @@ TextureImporter:
       name: reactions-Sheet_12
       rect:
         serializedVersion: 2
-        x: 36
-        y: 9
-        width: 24
-        height: 24
+        x: 128
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c81d7511fe1d69b4f91098379b082701
+      spriteID: f3f1185d46d3cf140903b6a47c0d0e78
       internalID: -925615855
       vertices: []
       indices: 
@@ -386,18 +386,18 @@ TextureImporter:
       name: reactions-Sheet_13
       rect:
         serializedVersion: 2
-        x: 67
-        y: 9
-        width: 25
-        height: 23
+        x: 160
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3041c2d6bf285af4295a0ee8c5368a59
+      spriteID: 91c9e5dee517951418ebaf23206f5adf
       internalID: 626455162
       vertices: []
       indices: 
@@ -407,18 +407,18 @@ TextureImporter:
       name: reactions-Sheet_14
       rect:
         serializedVersion: 2
-        x: 100
-        y: 9
-        width: 24
-        height: 24
+        x: 192
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f49de5b7a3397664d8fecfb2f6d72f9c
+      spriteID: fe1f30d5ba9eb7f4faa8366aa738e1a2
       internalID: 378105639
       vertices: []
       indices: 
@@ -428,82 +428,19 @@ TextureImporter:
       name: reactions-Sheet_15
       rect:
         serializedVersion: 2
-        x: 132
-        y: 9
-        width: 23
-        height: 25
+        x: 224
+        y: 0
+        width: 32
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5878b57020ec2254888c810191ea7d89
+      spriteID: f1856c58f51b9c24b9da305363d54f33
       internalID: -1020157894
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: reactions-Sheet_16
-      rect:
-        serializedVersion: 2
-        x: 163
-        y: 9
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a05939fdc1aa5948822b644de891c3f
-      internalID: 726000467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: reactions-Sheet_17
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 9
-        width: 25
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cd69933f4bd50440a5b26068cffda43
-      internalID: -1631242176
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: reactions-Sheet_18
-      rect:
-        serializedVersion: 2
-        x: 227
-        y: 10
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7489aee7751e7d499193233fe831b4d
-      internalID: 1330236050
       vertices: []
       indices: 
       edges: []
@@ -527,9 +464,6 @@ TextureImporter:
       reactions-Sheet_13: 626455162
       reactions-Sheet_14: 378105639
       reactions-Sheet_15: -1020157894
-      reactions-Sheet_16: 726000467
-      reactions-Sheet_17: -1631242176
-      reactions-Sheet_18: 1330236050
       reactions-Sheet_2: -1823660975
       reactions-Sheet_3: 2015556246
       reactions-Sheet_4: -581944126
