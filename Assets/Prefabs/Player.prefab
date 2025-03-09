@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.5
 --- !u!114 &3311522957849253864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +273,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasDiamond: 0
   itemPool: {fileID: 11400000, guid: 07f8320235df24a2fbc23566d54ac64c, type: 2}
+  item1: {fileID: 0}
+  item2: {fileID: 0}
+  item3: {fileID: 0}
   selectedSlot: 1
   spriteRenderer: {fileID: 7401413692154628250}
   heldSpriteRenderer: {fileID: 5670769274921635595}
