@@ -37,7 +37,7 @@ public class VisionCone : MonoBehaviour
                 origin: self.transform.position,
                 direction: direction,
                 distance: radius,
-                layerMask: LayerMask.GetMask("Wall", "VisionObject")
+                layerMask: LayerMask.GetMask("Wall", "VisionObject", "Player")
             );
             var rayPosition = GetHitPosition(hit, direction);
 

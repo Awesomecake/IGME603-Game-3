@@ -12,14 +12,14 @@ public class StunnedState : State
 
     private void Start()
     {
-        _stunnedIndicator = Instantiate(stunnedIndicatorPrefab, character.transform);
-        EnableIndicator(false);
+        //_stunnedIndicator = Instantiate(stunnedIndicatorPrefab, character.transform);
+        //EnableIndicator(false);
     }
 
     public override void EnterState()
     {
         character.SetState(Enemy.State.Stunned);
-        EnableIndicator(true);
+        //EnableIndicator(true);
         if (!visionArea) visionArea.enabled = false;
     }
 
@@ -27,7 +27,7 @@ public class StunnedState : State
     {
         if (visionArea) visionArea.enabled = true;
         character.SetState(Enemy.State.Normal);
-        EnableIndicator(false);
+       // EnableIndicator(false);
     }
 
     public override void StateFixedUpdate()

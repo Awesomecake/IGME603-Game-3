@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 4170269340378333888}
   - component: {fileID: 8968230206763085271}
   - component: {fileID: 7096916845866261030}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Hurtbox
   m_TagString: LilBro
   m_Icon: {fileID: 0}

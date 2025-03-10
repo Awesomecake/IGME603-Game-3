@@ -38,5 +38,20 @@ public class Enemy : MonoBehaviour
     public void SetState(State state)
     {
         _currentState = state;
+
+        switch (state)
+        {
+            case State.Normal:
+                break;
+            case State.Chasing:
+                break;
+            case State.Investigating:
+
+                break;
+            case State.Confused:
+                break;
+            case State.Stunned:
+                break;
+        }
     }
 }

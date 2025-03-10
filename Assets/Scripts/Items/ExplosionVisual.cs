@@ -29,6 +29,7 @@ public class ExplosionVisual : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         if (LevelManager.Instance)
         {
+            other.GetComponent<PlayerController>().Die();
             LevelManager.Instance.NotifyPlayerDie();
         }
         else

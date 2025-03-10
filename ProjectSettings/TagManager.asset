@@ -18,6 +18,8 @@ TagManager:
   - Water
   - UI
   - PostProcessing
+  - Player
+  - Item
   - Wall
   - VisionObject
   - 
