@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class CombatStateMachine : HierarchicalStateMachine
 {
-    [SerializeField] private SpriteRenderer visionCone;
+    private static readonly int ColorId = Shader.PropertyToID("_Color");
+
+    // [SerializeField] private SpriteRenderer visionCone;
+    [SerializeField] private MeshRenderer visionCone;
     private Color _originalVisionColor;
     [SerializeField] private Color spottedVisionColor = Color.red.Copy(a: 0.2f);
     [SerializeField] private Enemy self;
     
     protected override void Start()
     {
-        _originalVisionColor = visionCone.color;
+        _originalVisionColor = visionCone.material.color;
         base.Start();
     }
 
@@ -29,6 +32,6 @@ public class CombatStateMachine : HierarchicalStateMachine
     
     private void SetVisionColor(Color color)
     {
-        visionCone.color = color;
+        visionCone.material.SetColor(ColorId, color);
     }
 }

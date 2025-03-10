@@ -21,4 +21,10 @@ public class PlayerDetector : MonoBehaviour
         if (targetContainer.HasTarget()) return;
         onEnemyLost.TriggerEvent();
     }
+
+    public void LostAll()
+    {
+        targetContainer.Clear();
+        onEnemyLost.TriggerEvent();
+    }
 }

@@ -84,4 +84,22 @@ public static class Util
             newEndPosition
         };
     }
+    
+    public static Vector3 Rotate(this Vector3 self, float angle)
+    {
+        var angleRads = Mathf.Deg2Rad * angle;
+        return new Vector2(
+            self.x * Mathf.Cos(angleRads) - self.y * Mathf.Sin(angleRads),
+            self.x * Mathf.Sin(angleRads) + self.y * Mathf.Cos(angleRads)
+        );
+    }
+    
+    public static Vector2 Rotate(this Vector2 self, float angle)
+    {
+        var angleRads = Mathf.Deg2Rad * angle;
+        return new Vector2(
+            self.x * Mathf.Cos(angleRads) - self.y * Mathf.Sin(angleRads),
+            self.x * Mathf.Sin(angleRads) + self.y * Mathf.Cos(angleRads)
+        );
+    }
 }

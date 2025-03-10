@@ -3,6 +3,7 @@ using UnityEngine;
 public class DownedStateMachine : HierarchicalStateMachine
 {
     [SerializeField] private LilBro self;
+    [SerializeField] private Hurtbox hurtbox;
 
     private Collider2D _broCollider;
 
@@ -17,6 +18,7 @@ public class DownedStateMachine : HierarchicalStateMachine
         base.EnterState();
         self.UpdateState(LilBro.State.Downed);
 
+        hurtbox.gameObject.SetActive(false);
         if (!_broCollider) return;
         _broCollider.enabled = false;
     }
@@ -26,6 +28,7 @@ public class DownedStateMachine : HierarchicalStateMachine
         self.RandomizeHeldItem();
         self.UpdateState(LilBro.State.Normal);
         if (_broCollider) _broCollider.enabled = true;
+        hurtbox.gameObject.SetActive(true);
         base.ExitState();
     }
 }
