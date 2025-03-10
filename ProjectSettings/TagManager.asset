@@ -20,6 +20,8 @@ TagManager:
   - PostProcessing
   - Player
   - Item
+  - Wall
+  - VisionObject
   - 
   - 
   - 

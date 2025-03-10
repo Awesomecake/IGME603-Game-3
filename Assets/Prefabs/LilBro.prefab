@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 4170269340378333888}
   - component: {fileID: 8968230206763085271}
   - component: {fileID: 7096916845866261030}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hurtbox
   m_TagString: LilBro
   m_Icon: {fileID: 0}
@@ -1050,6 +1050,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   self: {fileID: 8162104905218332075}
+  hurtbox: {fileID: 7096916845866261030}
 --- !u!1 &6841985284569898969
 GameObject:
   m_ObjectHideFlags: 0
