@@ -32,6 +32,7 @@ public class BulletThrowable : Throwable
         if (!collision.CompareTag("Player")) return;
         if (LevelManager.Instance)
         {
+            collision.GetComponent<PlayerController>().Die();
             LevelManager.Instance.NotifyPlayerDie();
         }
         else

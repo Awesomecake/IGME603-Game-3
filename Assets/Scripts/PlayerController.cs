@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        _animator.SetTrigger("Die");
     }
 
     private void ScrollHUDUI(float input)
