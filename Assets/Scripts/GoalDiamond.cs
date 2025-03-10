@@ -13,7 +13,8 @@ public class GoalDiamond : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            TriggerPlayerCollected(collision);
+            var hurtbox = collision.GetComponent<Hurtbox>();
+            TriggerPlayerCollected(hurtbox ? hurtbox.owner : collision);
         }
 
         if (collision.tag.Equals("LilBro"))
