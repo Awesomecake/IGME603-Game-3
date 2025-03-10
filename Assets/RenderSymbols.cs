@@ -6,6 +6,7 @@ using UnityEngine.TextCore.Text;
 public class RenderSymbols : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
+    private Enemy.State _currentState = Enemy.State.Normal;
     [SerializeField] private GameObject stunnedIndicatorPrefab;
     [SerializeField] private GameObject alertedIndicatorPrefab;
     [SerializeField] private GameObject investigatingIndicatorPrefab;
@@ -27,24 +28,30 @@ public class RenderSymbols : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(enemy.GetComponent<Enemy>().GetState())
+        if (enemy.GetComponent<Enemy>().GetState() != _currentState)
         {
-            case Enemy.State.Normal:
-                EnableIndicator(null);
-                break;
-            case Enemy.State.Chasing:
-                EnableIndicator(_alertedIndicator);
-                break;
-            case Enemy.State.Investigating:
-                EnableIndicator(_investigatingIndicator);
-                break;
-            case Enemy.State.Confused:
-                EnableIndicator(_investigatingIndicator);
-                break;
-            case Enemy.State.Stunned:
-                EnableIndicator(_stunnedIndicator);
-                break;
+            switch (enemy.GetComponent<Enemy>().GetState())
+            {
+                case Enemy.State.Normal:
+                    EnableIndicator(null);
+                    break;
+                case Enemy.State.Chasing:
+                    EnableIndicator(_alertedIndicator);
+                    break;
+                case Enemy.State.Investigating:
+                    EnableIndicator(_investigatingIndicator);
+                    break;
+                case Enemy.State.Confused:
+                    EnableIndicator(_investigatingIndicator);
+                    break;
+                case Enemy.State.Stunned:
+                    EnableIndicator(_stunnedIndicator);
+                    break;
+            }
         }
+        _currentState = enemy.GetComponent<Enemy>().GetState();
+
+        
     }
 
     private void EnableIndicator(GameObject indicator)
@@ -55,9 +62,9 @@ public class RenderSymbols : MonoBehaviour
 
         if (indicator != null)
         {
+            indicator.transform.rotation = Quaternion.identity;
             indicator.transform.position = enemy.transform.position + offset;
             indicator.SetActive(true);
-            indicator.GetComponent<Animator>().enabled = true;
         }
     }
 
