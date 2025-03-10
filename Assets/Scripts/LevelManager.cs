@@ -158,6 +158,11 @@ public class LevelManager : MonoBehaviour
         loses = PlayerPrefs.GetInt("Loses", 0);
     }
 
+    public void ResetWinStreak()
+    {
+        PlayerPrefs.SetInt("WinStreak", 0);
+    }
+
     private string FormatTime(float timeInSeconds)
     {
         // Format time as MM:SS:ms
