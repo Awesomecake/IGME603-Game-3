@@ -221,6 +221,7 @@ public class ProcGenBehavior : MonoBehaviour
         //randomly walk through the walkerMap to generate a walkerPath
         walkerPath = RandomWalk(walkerMap, walkerPath);
 
+        Debug.Log("ProcGen | Final path was of length = " + walkerPath.Count);
         //for (int i = 0; i < walkerPath.Count; i++)
         //{
         //    Debug.Log(walkerPath[i]);
@@ -305,7 +306,7 @@ public class ProcGenBehavior : MonoBehaviour
         //    Debug.Log("Possible Direction #" + j + " can go to: " + possibleNextSteps[j]);
         //}
 
-        int maxWalkAttempts = 25;
+        int maxWalkAttempts = 100;
         int curWalkAttempts = 0;
 
         //randomly walk through chunkMap UNTIL maxWalkerDistance is reached 
@@ -315,7 +316,6 @@ public class ProcGenBehavior : MonoBehaviour
             //safety break
             if (curWalkAttempts >= maxWalkAttempts)
                 break;
-
 
             //if there is at least 1 possible next step,...
             if (possibleNextSteps.Count != 0)
@@ -338,9 +338,11 @@ public class ProcGenBehavior : MonoBehaviour
             //else there are NO possible next steps,...
             else
             {
+                //Debug.Log("ProcGen | Starting to Prune! Current path length = " + walkerPath.Count);
                 //then prune by walking backwards until you reach a chunk that has at least 1 possible direction
-                while (possibleNextSteps.Count != 0 && walkerPath.Count > 2)
+                while (possibleNextSteps.Count == 0 && walkerPath.Count > 2)
                 {
+                    //Debug.Log("ProcGen | Stepped Backwards");
                     //set current position on walkerkMap to WalkerValue.CLOSED so that the walker never returns here
                     walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.CLOSED;
 
@@ -362,58 +364,12 @@ public class ProcGenBehavior : MonoBehaviour
                     //increment curWalkAttempts
                     curWalkAttempts++;
                 }
+                //Debug.Log("ProcGen | Done Pruning! Current path length = " + walkerPath.Count);
             }
 
             //increment curWalkAttempts
             curWalkAttempts++;
         }
-        //while (currentWalkerDistance < maxWalkerDistance && curWalkAttempts < maxWalkAttempts)
-        //{
-        //    //if currentWalkerDistance < minWalkerDistance AND walker cannot make any possible next steps,...
-        //    if (currentWalkerDistance < minWalkerDistance && possibleNextSteps.Count == 0)
-        //    {
-        //        //then prune by walking backwards until you reach the chunk that has at least 1 possible direction
-        //        //while ( && walkerPath.Count >= 2)
-        //        //{
-        //        //    //step backwards
-        //        //    currentPosition = walkerPath[walkerPath.Count - 2];
-
-        //        //    //decrement currentWalkerDistance
-        //        //    currentWalkerDistance--;
-
-        //        //    //set current position on walkerkMap to WalkerValue.STEPPED
-        //        //    walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
-
-        //        //    //remove last step from walkerPath
-        //        //    walkerPath.RemoveAt(walkerPath.Count - 1);
-
-        //        //    //update possibleNextSteps
-        //        //    possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
-        //        //}
-        //        //at every step 
-        //    }
-        //    //else 
-        //    else
-        //    {
-
-        //        //step in a random (but possible) direction
-        //        currentPosition = possibleNextSteps[UnityEngine.Random.Range(0, possibleNextSteps.Count - 1)];
-
-        //        //increment currentWalkerDistance
-        //        currentWalkerDistance++;
-
-        //        //set current position on walkerkMap to WalkerValue.STEPPED
-        //        walkerkMap[currentPosition.x, currentPosition.y] = WalkerValue.STEPPED;
-
-        //        //add step to walkerPath
-        //        walkerPath.Add(currentPosition);
-
-        //        //update possibleNextSteps
-        //        possibleNextSteps = FindPossibleSteps(walkerkMap, currentPosition);
-
-        //        curWalkAttempts++;
-        //    }
-        //}
 
         //return walkerPath
         return walkerPath;
