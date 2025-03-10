@@ -14,8 +14,21 @@ public class Hurtbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var throwable = other.GetComponent<Throwable>();
-        if (!throwable) return;
-        if (owner.tag.Equals(throwable.ownerTag)) return;
+        if (throwable)
+        {
+            if (owner.tag.Equals(throwable.ownerTag)) return;
+            Hurt();
+            return;
+        }
+
+        if (other.CompareTag("Projectile"))
+        {
+            Hurt();
+        }
+    }
+
+    public void Hurt()
+    {
         onHurt?.Invoke();
     }
 }

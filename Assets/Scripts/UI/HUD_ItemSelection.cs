@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; 
 using TMPro;
+using UnityEngine.EventSystems;
 using Unity.VisualScripting;
-
 public class HUD_ItemSelection : MonoBehaviour
 {
     [Header("Tool Random Effect")]
@@ -17,6 +17,7 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textEffect1;
     [SerializeField] private TextMeshProUGUI textEffect2;
     [SerializeField] private TextMeshProUGUI textEffect3;
+    [SerializeField] private bool randomizerFinished = false;
 
     [Header("Gameplay")]
     [SerializeField] private Image slot1;
@@ -42,17 +43,18 @@ public class HUD_ItemSelection : MonoBehaviour
     [SerializeField] private Image menuSlotBorder1;
     [SerializeField] private Image menuSlotBorder2;
     [SerializeField] private Image menuSlotBorder3;
+    public PlayerController player;
 
     public void StartToolSetup(GameObject item1, GameObject item2, GameObject item3)
     {
         StartCoroutine(ToolSetup(menuSlot1, menuSlotBorder1, textEffect1, menuSlot1RandomizeDelay, item1));
         StartCoroutine(ToolSetup(menuSlot2, menuSlotBorder2, textEffect2, menuSlot2RandomizeDelay, item2));
         StartCoroutine(ToolSetup(menuSlot3, menuSlotBorder3, textEffect3, menuSlot3RandomizeDelay, item3));
-
     }
 
     private IEnumerator ToolSetup(Image menuSlot, Image menuSlotBorder, TextMeshProUGUI textEffect, float delay, GameObject finalItem)
     {
+        randomizerFinished = false;
         float elapsedTime = 0f;
 
         GameObject previousTool = null;
@@ -84,6 +86,7 @@ public class HUD_ItemSelection : MonoBehaviour
         SpriteRenderer finalItemRenderer = finalItem.GetComponent<SpriteRenderer>();
         menuSlot.sprite = finalItemRenderer.sprite;
         menuSlot.color = finalItemRenderer.color;
+        randomizerFinished = true;
 
         // Slot Effect
         menuSlotBorder.transform.DOScale(1.2f, 0.3f) // Scale up
@@ -211,4 +214,57 @@ public class HUD_ItemSelection : MonoBehaviour
         slotBorder3.color = seletedColor;
         slotBorder3.transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
+
+    /*
+    public void SwapItem(int buttonIndex)
+    {
+        if(!randomizerFinished)
+        {
+            return;
+        }
+        
+        switch (buttonIndex)
+        {
+            case 1:
+                SwapSlots(menuSlot1, menuSlot3);
+                player.SwapItem(player.item1, player.item3);
+                break;
+            case 2:
+                SwapSlots(menuSlot1, menuSlot2);
+                player.SwapItem(player.item1, player.item2);
+                break;
+            case 3:
+                SwapSlots(menuSlot2, menuSlot1);
+                player.SwapItem(player.item2, player.item1);
+                break;
+            case 4:
+                SwapSlots(menuSlot2, menuSlot3);
+                player.SwapItem(player.item2, player.item3);
+                break;
+            case 5:
+                SwapSlots(menuSlot3, menuSlot2);
+                player.SwapItem(player.item3, player.item2);
+                break;
+            case 6:
+                SwapSlots(menuSlot3, menuSlot1);
+                player.SwapItem(player.item3, player.item1);
+                break;
+            default:
+                Debug.LogWarning("Invalid swap item index.");
+                break;
+        }
+    }
+
+    private void SwapSlots(Image slotA, Image slotB)
+    {
+        Sprite tempSprite = slotA.sprite;
+        Color tempColor = slotA.color;
+
+        slotA.sprite = slotB.sprite;
+        slotA.color = slotB.color;
+
+        slotB.sprite = tempSprite;
+        slotB.color = tempColor;
+    }
+    */
 }

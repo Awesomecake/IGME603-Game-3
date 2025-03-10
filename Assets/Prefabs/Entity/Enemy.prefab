@@ -246,7 +246,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 17.5, y: 17.5, z: 17.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7891413278097793274}
@@ -1652,7 +1652,19 @@ MonoBehaviour:
   toState: {fileID: 7211790727727396489}
   onTransitionSideEffect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7049226907881385851}
+        m_TargetAssemblyTypeName: PlayerLineOfSightDetector, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   durationSeconds: 2
 --- !u!114 &7332864332375445659
 MonoBehaviour:
@@ -1771,6 +1783,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 8762207145965704484}
+  alertIndicatorPrefab: {fileID: 0}
+  offset: {x: 0, y: 1, z: 0}
   targetContainer: {fileID: 5937279804195191749}
   bulletPrefab: {fileID: 7138066839719799760, guid: a0de9ecc4734b4648920c20a21cce4fd, type: 3}
   velocity: 500
@@ -2555,5 +2569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 8762207145965704484}
+  confusedIndicatorPrefab: {fileID: 4263168227368164486, guid: 066508d26427d494ca35da6041642941, type: 3}
+  offset: {x: 0, y: 1, z: 0}
   rotationRange: 15
   rotationPeriod: 2.5

@@ -11,12 +11,26 @@ public class MenuManager : MonoBehaviour
     [SerializeField] float menuAlphaThreshold = 0.2f;
     [SerializeField] float fadeSpeed = 1.0f;
 
+    [Header("Cursor Settings")]
+    [SerializeField] Texture2D cursorOne;
+    [SerializeField] Texture2D cursorTwo;
+
 
     private bool canLerp = false;
     
     private CanvasGroup from, to;
 
-    private void Start() {
+    private void Start() 
+    {
+        // Check if the current scene is the MainMenu
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            Cursor.SetCursor(cursorOne, new Vector2(64, 64), CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(cursorTwo, new Vector2(64, 64), CursorMode.Auto);
+        }
     }
 
     private void Update()
