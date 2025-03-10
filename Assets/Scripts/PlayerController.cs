@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    [SerializeField] private SettingsData settingsData;
+
     public Rigidbody2D Rigidbody
     {
         get { return rb; }
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        
+
         List<GameObject> randomItems = new List<GameObject>(itemPool.itemPrefabs);
         item1 = randomItems[Random.Range(0, randomItems.Count)];
         randomItems.Remove(item1);
@@ -130,7 +132,7 @@ public class PlayerController : MonoBehaviour
         UpdateHUDSlot(1);
         UpdateHUDSlot(2);
         UpdateHUDSlot(3);
-        
+
         HUD.UpdateCooldownUI(
             item1Cooldown / item1ThrowableScript.itemCooldown,
             item2Cooldown / item2ThrowableScript.itemCooldown,
@@ -308,8 +310,10 @@ public class PlayerController : MonoBehaviour
                     newItem = item1;
                     item1Cooldown = item1ThrowableScript.itemCooldown;
                 }
-                else
+                else if (settingsData.isAutoSwapEnabled)
+                {
                     ScrollHUDUI(1);
+                }
 
                 break;
             case 2:
@@ -318,8 +322,10 @@ public class PlayerController : MonoBehaviour
                     newItem = item2;
                     item2Cooldown = item2ThrowableScript.itemCooldown;
                 }
-                else
+                else if (settingsData.isAutoSwapEnabled)
+                {
                     ScrollHUDUI(1);
+                }
 
                 break;
             case 3:
@@ -328,8 +334,10 @@ public class PlayerController : MonoBehaviour
                     newItem = item3;
                     item3Cooldown = item3ThrowableScript.itemCooldown;
                 }
-                else
+                else if (settingsData.isAutoSwapEnabled)
+                {
                     ScrollHUDUI(1);
+                }
 
                 break;
         }
@@ -337,7 +345,8 @@ public class PlayerController : MonoBehaviour
         if (newItem != null)
         {
             GameObject item = Instantiate(newItem, transform);
-            item.transform.position = new Vector3(heldSpriteRenderer.transform.position.x, heldSpriteRenderer.transform.position.y, heldSpriteRenderer.transform.position.z);
+            item.transform.position = new Vector3(heldSpriteRenderer.transform.position.x,
+                heldSpriteRenderer.transform.position.y, heldSpriteRenderer.transform.position.z);
 
             Throwable throwable = item.GetComponent<Throwable>();
 

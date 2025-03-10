@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasDiamond: 0
+  settingsData: {fileID: 11400000, guid: 403103a5dc0154af7978ec83591ad0c6, type: 2}
   itemPool: {fileID: 11400000, guid: 07f8320235df24a2fbc23566d54ac64c, type: 2}
   item1: {fileID: 0}
   item2: {fileID: 0}
