@@ -6,7 +6,6 @@ public class StunnedState : State
 
     [SerializeField] private GameObject stunnedIndicatorPrefab;
     [SerializeField] private Vector3 offset = Vector3.up;
-    [SerializeField] private Collider2D visionArea;
     [SerializeField] [Range(0f, 1f)] private float friction = 0.05f;
     private GameObject _stunnedIndicator;
 
@@ -20,12 +19,10 @@ public class StunnedState : State
     {
         character.SetState(Enemy.State.Stunned);
         //EnableIndicator(true);
-        if (!visionArea) visionArea.enabled = false;
     }
 
     public override void ExitState()
     {
-        if (visionArea) visionArea.enabled = true;
         character.SetState(Enemy.State.Normal);
        // EnableIndicator(false);
     }

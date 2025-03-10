@@ -24,7 +24,7 @@ public class PlayerDetector : MonoBehaviour
 
     public void LostAll()
     {
+        if (targetContainer.HasTarget()) onEnemyLost.TriggerEvent();
         targetContainer.Clear();
-        onEnemyLost.TriggerEvent();
     }
 }

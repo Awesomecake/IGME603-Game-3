@@ -41,7 +41,7 @@ public class VisionCone : MonoBehaviour
             );
             var rayPosition = GetHitPosition(hit, direction);
 
-            if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("VisionObject"))
+            if (hit.collider && hit.collider.gameObject.layer != LayerMask.NameToLayer("Wall"))
             {
                 var newHit = Physics2D.Raycast(
                     origin: self.transform.position,
