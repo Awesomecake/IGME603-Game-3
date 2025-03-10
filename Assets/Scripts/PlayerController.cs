@@ -336,6 +336,7 @@ public class PlayerController : MonoBehaviour
         if (newItem != null)
         {
             GameObject item = Instantiate(newItem, transform);
+            item.transform.position = new Vector3(heldSpriteRenderer.transform.position.x, heldSpriteRenderer.transform.position.y, heldSpriteRenderer.transform.position.z);
 
             Throwable throwable = item.GetComponent<Throwable>();
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9172940041592415877}
   - component: {fileID: 5500781606152995241}
   - component: {fileID: 3311522957849253864}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hurtbox
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7389311144261794555}
   - component: {fileID: 5670769274921635595}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeldItemIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 8478528251426253361}
   - component: {fileID: 4261353418445871876}
   - component: {fileID: 5091189137086215}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
