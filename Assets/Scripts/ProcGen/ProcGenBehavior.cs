@@ -221,7 +221,7 @@ public class ProcGenBehavior : MonoBehaviour
         //randomly walk through the walkerMap to generate a walkerPath
         walkerPath = RandomWalk(walkerMap, walkerPath);
 
-        Debug.Log("ProcGen | Final path was of length = " + walkerPath.Count);
+        //Debug.Log("ProcGen | Final path was of length = " + walkerPath.Count);
         //for (int i = 0; i < walkerPath.Count; i++)
         //{
         //    Debug.Log(walkerPath[i]);
