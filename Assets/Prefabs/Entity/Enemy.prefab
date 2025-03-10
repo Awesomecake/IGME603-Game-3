@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 293088714792967029}
-  rayCount: 10
+  rayCount: 25
   angle: 60
   radius: 7
   filter: {fileID: 3290602245572849255}
