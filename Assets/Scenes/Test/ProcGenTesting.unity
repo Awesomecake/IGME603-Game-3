@@ -1554,6 +1554,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
+      propertyPath: m_TrackedObjectOffset.x
+      value: -2.697035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637415370868580908, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: -1.313774
+      objectReference: {fileID: 0}
     - target: {fileID: 8395136113838968418, guid: e601d10d3c4852e4a9f4ffdcdd8d85d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6256186
@@ -3162,3 +3170,4 @@ SceneRoots:
   - {fileID: 918272828}
   - {fileID: 1668957267}
   - {fileID: 1600536632}
+  - {fileID: 104112320}
