@@ -614,7 +614,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   visionCone: {fileID: 8338523030548153850}
-  spottedVisionColor: {r: 1, g: 0, b: 0, a: 0.2}
+  spottedVisionColor: {r: 1, g: 0.5019608, b: 0, a: 0.19607843}
   self: {fileID: 8762207145965704484}
 --- !u!114 &3650552183879356895
 MonoBehaviour:
