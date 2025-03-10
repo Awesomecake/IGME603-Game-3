@@ -27,6 +27,11 @@ public class PlayerLineOfSightDetector : MonoBehaviour
         _spottedStatus.Remove(other);
     }
 
+    public void Clear()
+    {
+        _spottedStatus.Clear();
+    }
+
     private void CheckPlayer(Collider2D other)
     {
         const string targetTag = "Player";
