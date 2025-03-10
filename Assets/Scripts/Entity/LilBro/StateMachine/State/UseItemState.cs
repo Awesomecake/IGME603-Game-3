@@ -13,6 +13,7 @@ public class UseItemState : State
 
         var currentLocation = self.transform.position;
         var item = Instantiate(itemPrefab, currentLocation, self.transform.rotation);
+        item.layer = LayerMask.NameToLayer("Default");
         self.ClearHeldItem();
         
         var throwable = item.GetComponent<Throwable>();
